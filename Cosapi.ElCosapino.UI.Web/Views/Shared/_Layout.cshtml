@@ -1,0 +1,165 @@
+﻿@using Cosapi.ElCosapino.UI.Web.Models.ViewModels;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Cosapino - Cosapi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="@Url.Content("~/Content/animate.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/datepicker3.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/font-awesome.min.css")">
+    @Styles.Render("~/Content/bootstrap-datetimepicker")
+    @Styles.Render("~/Content/alertify")
+    <link rel="stylesheet" href="@Url.Content("~/Content/owl.carousel.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/hover-min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/meanmenu.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/spacing.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/responsive.css")">
+    <script src="@Url.Content("~/Scripts/jquery-2.2.4.min.js")"></script>
+    @Scripts.Render("~/bundles/alertify")
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD14tV_ng9CDuJJkxQUK9ehsGBuQvOwmmQ&amp;libraries=places&sensor=false&amp;callback" defer></script>
+    <script>
+        var ano = (new Date).getFullYear();
+
+        $(document).ready(function () {
+            $("#fecha").text(ano);
+        });
+
+        function ShowLoading() {
+            $('body').addClass('loading');
+        }
+
+        function HideLoading() {
+            $('body').removeClass('loading');
+        }
+    </script>
+</head>
+<body class="" style="overflow-x: hidden;">
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+    <div id="preloader" style="display: none;">
+        <div id="status" style="background-image: url(&#39;https://www.mother-of-mangrove.com/xicia/cc/acon/public/img/preloader.gif&#39;)"></div>
+    </div>
+    <div class="menu-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-12" style="float:left">
+                    <div class="logo">
+                        <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Images/logo.png")" alt="Logo"></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12" style="display: block;">
+
+                </div>
+                <div class="col-md-3 col-sm-12" style="text-align:right">
+                    <div class="logo">
+                        <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Images/logocosapi.png")" alt="Logo"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="strickymenu" class="menu-area">
+        <div class="container-menu">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 main-menu" style="display: block;">
+                    <div class="main-menu-item">
+                        <ul class="nav-menu">
+                            <li><a href="@Url.Action("Index","Home")">INICIO</a></li>
+                            <li class="menu-item-has-children">
+                                <a href="javascript:void();">NOSOTROS</a>
+                                <ul class="sub-menu">
+                                    <li><a href="@Url.Action("Index","CosapiEnBreve")">COSAPI EN BREVE</a></li>
+                                    <li><a href="@Url.Action("Index","ProyectosEmblematicos")">PROYECTOS EMBLEMÁTICOS</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="@Url.Action("Index","CentroCapacitacion")">CENTRO DE CAPACITACIÓN</a></li>
+                            <li><a href="@Url.Action("Index","TrabajaConNosotros")">TRABAJA CON NOSOTROS</a></li>
+                            <li><a href="@Url.Action("Index","RequisitosDeIngreso")">REQUISITOS DE INGRESO</a></li>
+                            <li><a href="@Url.Action("Index","Noticias")">NOTICIAS</a></li>
+                            <li><a href="@Url.Action("Index","Contacto")">CONTACTO</a></li>
+                            @if (VMDatosUsuarioExterno.GetUUserId() != "-1")
+                            {
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                                        <i class="fa fa-user fa-fw" style="color:#FFFFFF"></i> @VMDatosUsuarioExterno.GetUserAlias() <i class="fa fa-caret-down" style="color:#FFFFFF"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li>
+                                            <a href="@Url.Action("Actualizar", "Perfil")"><i class="fa fa-pencil fa-fw"></i> Perfil</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("MisPostulaciones", "Perfil")"><i class="fa fa-tasks fa-fw"></i> Mis Postulaciones</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("LogOutExterno", "LogOut")"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <div class="footer-contact-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4"></div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="footer-contact-item">
+                        <p class="redes">
+                            <span>SÍGUENOS EN:</span>
+
+                            @foreach (var item in Model.Footer_SeccionIconos)
+    {
+                        <a href="@item.Titulo" target="_blank"><img src="@ViewBag.UrlAdmin/Upload/Pie/Iconos/@item.Imagen" align="middle"></a>
+}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-copyrignt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright-text">
+                        <p>© El Cosapino <strong id="fecha"></strong>. Todos los derechos reservados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-top" style="display: none;color: #FFFFFF;">
+        <i class="fa fa-angle-up"></i>
+    </div>
+    
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/lightbox.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.meanmenu.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.filterizr.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/waypoints.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.counterup.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/custom.js")"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

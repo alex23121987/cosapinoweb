@@ -1,0 +1,96 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.InterfaceWebAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<style>
+    #container_GridSeccionDireccion .rgHeader-jQuery-Filter {
+        display: none
+    }
+</style>
+
+@{
+    var grid = new CanvasGrid<InterfaceWeb>("GridSeccionDireccion", Model) { callBackMethod = "GridSeccionReload_SeccionDireccion", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Ciudad", _filterKey: "S_Titulo", _format: item => item.Titulo);
+    grid.columnCollection.addColumn(_headerText: "Dirección", _filterKey: "S_SubTitulo", _format: item => item.SubTitulo);
+    grid.columnCollection.addColumn(_headerText: "Latitud", _filterKey: "S_Latitud", _format: item => item.Latitud);
+    grid.columnCollection.addColumn(_headerText: "Longitud", _filterKey: "S_Longitud", _format: item => item.Longitud);
+    grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format: item => item.Estado);
+    grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+    @<text>       
+        <div class="acciones_grilla">
+            <a id="lnkEdit" onclick="ModalEditar_SeccionDireccion(this)" style="cursor:pointer" title="Editar" data-value="@item.IDInterfaceWeb">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a id="lnkDelete" onclick="ConfirmaEliminarDireccion(this)" style="cursor:pointer" title="Eliminar" data-value="@item.IDInterfaceWeb">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </div>        
+    </text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminarDireccion(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            EliminarDireccion(that);
+        });
+    }
+
+    function EliminarDireccion(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteDireccion", "Contacto")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage_SeccionDireccion();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ModalEditar_SeccionDireccion(that) {
+        var id = $(that).attr("data-value");
+        var ciudad = that.parentElement.parentElement.parentElement.cells[0].innerText;
+        var direccion = that.parentElement.parentElement.parentElement.cells[1].innerText;
+        var latitud = that.parentElement.parentElement.parentElement.cells[2].innerText;
+        var longitud = that.parentElement.parentElement.parentElement.cells[3].innerText;        
+        var estado = that.parentElement.parentElement.parentElement.cells[4].innerText;
+        var b_estado = false;
+        if (estado == "Activo") {b_estado = true;}
+        $('#txtIDInterfaceWeb_SeccionDireccion').val(id);
+        $('#txtTituloEditar_SeccionDireccion').val(ciudad);
+        $('#txtSubTituloEditar_SeccionDireccion').val(direccion);
+        $('#txtLongitudEditar_SeccionDireccion').val(longitud);
+        $('#txtLatitudEditar_SeccionDireccion').val(latitud);
+        $('#chkEstadoEditar_SeccionDireccion').prop('checked', b_estado);
+        $('#modalEditarSeccionDireccion').show();
+    };
+
+</script>
+
+
+

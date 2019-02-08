@@ -1,0 +1,40 @@
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.CrossCutting.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.CrossCutting.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.Dominio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\EPPlus.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Excel.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\System.Web.Mvc.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.Dominio.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\System.Web.Mvc.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Microsoft.Web.Infrastructure.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csprojResolveAssemblyReference.cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csproj.CoreCompileInputs.cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\EPPlus.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Excel.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\System.Web.Mvc.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\System.Web.Mvc.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csprojAssemblyReference.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csproj.CoreCompileInputs.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csproj.CopyComplete
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\EPPlus.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Excel.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\System.Web.Mvc.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\bin\Debug\System.Web.Mvc.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csprojAssemblyReference.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csproj.CoreCompileInputs.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.csproj.CopyComplete
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.CrossCutting\obj\Debug\Cosapi.ElCosapino.CrossCutting.pdb

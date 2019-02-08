@@ -1,0 +1,100 @@
+﻿@using Newtonsoft.Json
+@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalNuevoCategoria').click(function () {
+            reiniciarControles();
+            $('#modalNuevoCategoria').modal('show');
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+    function SelectRowsPerPage() {
+        var rowsPerPage = document.getElementById("SelRowsPerPage").value;
+        GridCategoriaReload(Number(rowsPerPage));
+    }
+
+    function GridCategoriaReload(rowsPerPage) {
+        var data = $("#GridCategoria").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridCategoria").load("@(Url.Action("IndexPaginate", "Categoria"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Laboral<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Categoria</small></h1>
+
+        <table id="tblCreateCategoria">
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <button id="btnModalNuevoCategoria" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;top:-10px;">
+                            Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <label style="width:55px;text-align: left !important;padding-left: 0px !important;" class="col-xs-1">Mostrar </label>
+                        <select class=" dropdown form-control col-xs-2" id="SelRowsPerPage" name="SelRowsPerPage" onchange="SelectRowsPerPage()"
+                                style="position:relative;top:-8px;width:60px;padding-left: 7px !important;padding-right: 7px !important;">
+                            <option value=" 5">5</option>
+                            <option selected="selected" value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <label class="col-xs-2" style="padding-left: 10px !important;">Filas </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom:20px;">
+
+                    <div id="container_GridCategoria" class="GrillaSistema">
+                        @Html.Action("IndexPaginate", "Categoria", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                                OrderBy = "S_Descripcion",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+
+<!--INICIO DE VENTANAS DE MODALES-->
+<div id="seccion-modal-nuevo-Categoria">
+    @Html.Partial("_ModalNuevoCategoria")
+</div>
+
+<div id="seccion-modal-editar-Categoria">
+    @Html.Partial("_ModalEditarCategoria")
+</div>

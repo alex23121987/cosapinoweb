@@ -1,0 +1,187 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+
+<style>
+    .form-horizontal .control-label {text-align: left;}
+
+    #modalLogin {opacity: 1;background-color: rgba(0,0,0,0.8);position: fixed;top: 0;left: 0;right: 0;bottom: 0;margin: 0;z-index: 99;transition: all 1s;}
+
+    .popup-contenedor-Login {position: relative;margin: 6% auto;background-color: #FFFFFF;color: #333;border-radius: 3px;width: 800px;}
+
+    a.popup-cerrar {position: absolute;top: 3px;right: 3px;padding: 7px 10px;font-size: 13px;text-decoration: none;font-size: 21px;font-weight: bold;line-height: 1;color: #ddd;}
+</style>
+
+<div class="modal-wrapper" id="modalLogin" style="display:none">
+    <div class="popup-contenedor-Login">
+        <div class="modal-header" style="background-color:#1B9CDD; padding:5px !important">
+            <h4 class="modal-title" id="myModalLabel" style="text-align:center"><img src="https://www.cosapi.com.pe/Site/images/logo.jpg" alt="Logo" style="width:100px;"></h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <div class="row form-horizontal" style="margin-top: 20px;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-12 control-label" style="color:#00a4e4; font-size:20px;text-align:center">INGRESA A TU CUENTA</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtCorreo" style="font-weight:normal">Email</label>
+                                    <div class="col-sm-9">
+                                        <input id="txtCorreo" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtClave" style="font-weight:normal">Contraseña</label>
+                                    <div class="col-sm-9">
+                                        <input id="txtClave" type="password" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <a href="@Url.Action("Nuevo", "Perfil")" style="cursor:pointer; width:100%;color: #009ED3;font-weight: bold;">Regístrate aquí</a>
+                                    </div>
+                                    <div class="col-sm-6" style="text-align:right">
+                                        <a href="@Url.Action("ResetearClave", "Perfil")" style="cursor:pointer; width:100%;color: #009ED3;font-weight: bold;">Olvidó su contraseña</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12" style="text-align:center">
+                                        <a onclick="IniciarSesion()" style="cursor:pointer; width:100%" class="btn btn-primary">Iniciar Sesión</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row form-horizontal" style="margin-top: 50px;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-12 control-label" style="color:#B5B5B5; font-size:13px;text-align:center">O CONÉCTATE CON</label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12" style="text-align:center">
+                                        @using (Html.BeginForm("Login_Facebook", "LoginFacebook", FormMethod.Post))
+                                        {
+                                            <button class="loginBtn loginBtn--facebook">
+                                                Login with Facebook
+                                            </button>                                    
+                                        }                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12" style="text-align:center">
+                                        @using (Html.BeginForm("Login_Google", "TrabajaConNosotros", FormMethod.Post))
+    {
+                                    <button class="loginBtn loginBtn--google">
+                                        Login with Google
+                                    </button>
+}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <a class="popup-cerrar" onclick="MostrarOcultarDiv('modalLogin')">x</a>
+    </div>
+</div>
+
+<script>
+    function IniciarSesion() {
+        var esValido = validarViewModel_Login();
+
+        if (esValido === true) {
+            if (window.FormData !== undefined) {
+                var fileData = new FormData();
+
+                var Usuario = $('#txtCorreo').val();
+                var Clave = $('#txtClave').val();
+
+                fileData.append('Usuario', Usuario);
+                fileData.append('Clave', Clave);
+
+                $.ajax({
+                    url: '@Url.Action("Login_Usuario_Externo", "TrabajaConNosotros")',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (response) {
+                        switch (response.Resultado) {
+                            case 1:
+                                $('#modalLogin').hide();
+                                alertify.success('¡Bien!. Login correcto.');
+
+                                window.location.href =  '@Url.Action("Index", "TrabajaConNosotros")';
+                                break;
+                            case 2:    
+                                reiniciarControles_Login();
+                                alertify.error('¡Opss!. El Email está registrado con Facebook.');                           
+                                break;
+                            case 3:
+                                reiniciarControles_Login();
+                                alertify.error('¡Opss!. El Email está registrado con Google+.');
+                                break;
+                            case 0:
+                                alertify.error('¡Opss!. Credenciales no válidas');
+                                break;
+                            default:
+                                alertify.error('¡Opss!. Algo salió mal.');
+                                break;
+                        }
+                    },
+                    error: function (err) {
+                        alertify.error(err.statusText);
+                    }
+                });
+            } else {
+
+            }
+        }
+    }
+
+    function validarViewModel_Login() {
+        var txtCorreo = $("#txtCorreo").val();
+        var txtClave = $("#txtClave").val();
+        var esvalido = true;
+
+        if (isNullOrEmpty(txtCorreo)) {
+            $("#txtCorreo").addClass("bordedanger"); alertify.error('Email requerido'); esvalido = false;
+        }
+        else {
+            if (!validateEmail('#txtCorreo')) {
+                $("#txtCorreo").addClass("bordedanger"); alertify.error('Email no válido'); esvalido = false;
+            } else {
+                $("#txtCorreo").removeClass("bordedanger");
+            }
+        }
+
+        if (isNullOrEmpty(txtClave)) {
+            $("#txtClave").addClass("bordedanger"); alertify.error('Clave requerida'); esvalido = false;
+        } else {
+            $("#txtClave").removeClass("bordedanger");
+        }
+
+        return esvalido;
+    }
+
+    function reiniciarControles_Login() {
+        $("#txtCorreo").val('');
+        $("#txtClave").val('');
+    }
+
+    function MostrarOcultarDiv(id) {
+        if ($('#' + id).css('display') == 'none') {
+            $('#' + id).show();
+        } else {
+            $('#' + id).hide();
+        }
+    }
+
+
+</script>
+

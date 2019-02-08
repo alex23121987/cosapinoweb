@@ -1,0 +1,64 @@
+﻿@using Cosapi.ElCosapino.UI.Web.Models.ViewModels;
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="choose-area pt-60" style="background-color:#FFBF0B">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>MIS POSTULACIONES</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="choose-area pt-30">
+    <div class="container-cosapino">                       
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="faq-gallery">
+                    <div class="panel-group" id="accordion">
+                        @{ int aux = 0;}
+                        @foreach (var item in Model.Perfil_Postulacion)
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#vac_@item.PostulacionId" aria-expanded="false" class="collapsed" style="color: gray;">@item.Categoria @item.Especialidad</a>
+                                    </h4>
+                                </div>
+                                <div id="vac_@item.PostulacionId" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                    <div class="panel-body">
+                                        <p style="color:#009ED3; font-weight:bold">FECHA POSTULACIÓN</p>
+                                        <p>@item.Fecha</p>
+                                        <p style="color:#009ED3; font-weight:bold">NIVEL ACADÉMICO</p>
+                                        <p>@item.NivelAcademico</p>
+                                        <p style="color:#009ED3; font-weight:bold">REQUISITOS</p>
+                                        <p>@Html.Raw(item.Requisitos.Replace(Environment.NewLine, "<br />").Replace("\r", "<br />").Replace("\n", "<br />"))</p>
+                                        <p style="color:#009ED3; font-weight:bold">POSTULA EN</p>
+                                        <p>@item.PostulaEn</p>
+                                    </div>
+                                </div>
+                            </div>
+                            aux = aux + 1;
+                        }
+                        @{ if (aux == 0)
+                            {
+                                <div class="row" style="padding: 20px;background-color: #DDDDDD;border: solid 1px gray;margin-top: 20px;margin-bottom: 20px;">
+                                    <div class="col-md-12 col-sm-12">
+                                        Aún no has postulado a alguna oferta laboral.
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

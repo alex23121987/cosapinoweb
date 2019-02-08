@@ -1,0 +1,27 @@
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Cosapi.ElCosapino.Dominio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Cosapi.ElCosapino.Dominio.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\System.Web.Mvc.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\System.Web.Mvc.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Microsoft.Web.Infrastructure.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.csproj.CoreCompileInputs.cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.csprojResolveAssemblyReference.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\System.Web.Mvc.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\System.Web.Mvc.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.csproj.CoreCompileInputs.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.csproj.CopyComplete
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\System.Web.Mvc.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\bin\Debug\System.Web.Mvc.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.csprojAssemblyReference.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.csproj.CoreCompileInputs.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.csproj.CopyComplete
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Dominio\obj\Debug\Cosapi.ElCosapino.Dominio.pdb

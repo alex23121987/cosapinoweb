@@ -1,0 +1,325 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@model VMRol
+@using Cosapi.ElCosapino.UI.Admin.Models.ViewModels
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title ="";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script src="@Url.Content("~/Scripts/jquery.jstree.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/index.1.0.0.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {        
+        $('#btnNuevoRol').click(function () {   
+            $("#txtDescripcionNuevo").val("");
+            $('#DivRolLista').hide();
+            $('#DivRolNuevo').show();
+            $('#lblAccionRol').html("Nuevo");
+            Buscar("");
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+
+    function ConfirmaCancelar() {
+        $('#DivRolNuevo').hide();
+        $('#DivRolLista').show();    
+        $("#hddIdStatusInicio").val(0);
+        $("#hddIdStatusTree").val(0);
+    }
+
+    function SelectRowsPerPage() {
+        var rowsPerPage = document.getElementById("SelRowsPerPage").value;
+        GridRolReload(Number(rowsPerPage));
+    }
+
+    function GridRolReload(rowsPerPage) {
+        var data = $("#GridRol").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridRol").load("@(Url.Action("IndexPaginate", "Rol"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div id="DivRolLista" class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Administración<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Rol</small></h1>
+
+        <table id="tblCreateRol">
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <button id="btnNuevoRol" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;top:-10px;">
+                            Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <label style="width:55px;text-align: left !important;padding-left: 0px !important;" class="col-xs-1">Mostrar </label>
+                        <select class=" dropdown form-control col-xs-2" id="SelRowsPerPage" name="SelRowsPerPage" onchange="SelectRowsPerPage()"
+                                style="position:relative;top:-8px;width:60px;padding-left: 7px !important;padding-right: 7px !important;">
+                            <option value=" 5">5</option>
+                            <option selected="selected" value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <label class="col-xs-2" style="padding-left: 10px !important;">Filas </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom:20px;">
+                    <div id="container_GridRol" class="GrillaSistema">
+                        @Html.Action("IndexPaginate", "Rol", new
+                           {
+                               arg = JsonConvert.SerializeObject(new
+                               {
+                                   CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                   RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                                   OrderBy = "S_Descripcion",
+                                   DirectionOrder = "Ascending"
+                               })
+                           })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div id="DivRolNuevo" class='col-xs-12 col-md-12' style="display:none;">
+        <h1 class="main-title">Mantenimiento<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Rol - <label id="lblAccionRol"></label> </small></h1>
+
+        <script>
+            var alSeleccionarNodoTree = function (node, selected, e) {
+                var IdInicio = $("#hddIdStatusInicio").val();
+                var IdStatusTree = $("#hddIdStatusTree").val();
+
+                if (IdInicio == 0) {
+                    $("#hddIdStatusInicio").val(1);
+                }
+                else {
+                    $("#hddIdStatusTree").val(1);
+                }
+            };
+
+            function Buscar(s_IDRol) {                
+                if (isNullOrEmpty(s_IDRol)) {
+                    s_IDRol = "0";
+                }
+
+                var data = {                    
+                    S_IDRol: s_IDRol,
+                    "_": $.now()
+                };
+                var jsonData = JSON.stringify(data);
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: '@Url.Action("BuscarTreeView", "Rol")',
+                    data: jsonData,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (_VMRol) {
+                        CrearTreeView(_VMRol, alSeleccionarNodoTree);
+                    }
+                });
+
+                return false;
+            }
+
+            function checkAllNodes() {
+                $('#demoTree').jstree("check_all");
+            }
+
+            function unCheckAllNodes() {
+                $('#demoTree').jstree("uncheck_all");
+            }
+
+            function GrabarNuevo() {
+                var esValido = validarViewModel();
+
+                if (esValido === true) {
+                    var Accion = $('#lblAccionRol')[0].innerHTML;
+                    var IDRol = $('#txtCodigoEditar').val();                    
+                    var Descripcion = $('#txtDescripcionNuevo').val();
+
+                    bloquearBotonesProceso(true);
+                    var viewModel = { Rol: { S_Descripcion: Descripcion, S_Accion: Accion, S_IDRol: IDRol } };
+
+                    var jsonData = JSON.stringify(viewModel);
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Insert", "Rol")',
+                        data: jsonData,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {                           
+                            if (response.Codigo > 0) {
+                                SaveAllNodes(response.Codigo);
+                            } else if (response.Codigo == -1) {
+                                alertify.error('¡Opss!. Ya existe el Rol');
+                            } else {
+                                alertify.error('¡Opss!. Algo salió mal.');
+                            }  
+                        },
+                        error: function () {
+                            alertify.error('¡Opss!. Algo salió mal.');
+                        }
+                    });
+                }
+            }
+
+            function validarViewModel() {                
+                var Descripcion = $('#txtDescripcionNuevo').val();
+                var SeleccionRol = $("#hddIdStatusTree").val();              
+
+                if (isNullOrEmpty(Descripcion)) {
+                    alertify.error('Descripción requerida.');
+                    return false;
+                }
+
+                if (SeleccionRol == 0) {
+                    alertify.error('Opción del Sistema requerida.');
+                    return false;
+                }
+
+                return true;
+            }
+
+            function reiniciarControles() {
+                $('#txtCodigoEditar').val('');                
+                $("#txtDescripcionNuevo").val('');
+            }
+
+            function SaveAllNodes(IDRolGenerado) {     
+                ShowLoadingShared();
+                var checked_ids = [];
+                $("#demoTree").jstree("get_checked", null, true).each
+                    (function () {
+                        checked_ids.push(this.id);
+                    });
+
+                var unchecked_ids = [];
+                $("#demoTree").jstree("get_unchecked", null, true).each
+                    (function () {
+                        unchecked_ids.push(this.id);
+                    });
+
+                var data = {
+                    arrChecked: checked_ids,
+                    arrUnChecked: unchecked_ids,
+                    tsIdRol: $("#codRol").val(),
+                    S_IDRol: IDRolGenerado
+                };
+                var jsonData = JSON.stringify(data);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveTree", "Rol")',
+                    data: jsonData,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.EsExito) {
+                            $("#dvMsjer").hide();
+                            $("#dvMsjok").show();
+                            $("#lblmsjok").text(response.Mensaje);
+
+                            InicializarHdd();
+                            reiniciarControles();
+                            SelectRowsPerPage();
+                            ConfirmaCancelar()
+                            alertify.success('¡Bien!. Registro insertado.');
+                        }
+                        else {
+                            $("#dvMsjok").hide();
+                            $("#dvMsjer").show();
+                            $("#lblmsjer").text(response.Mensaje);
+                        }
+                        HideLoadingShared();
+                    },
+                });               
+            }
+
+            function InicializarHdd() {
+                $("#hddIdStatusInicio").val(0);
+                $("#hddIdStatusTree").val(0);
+            }
+        </script>
+
+        @Html.Hidden("hddIdStatusInicio", 0)
+        @Html.Hidden("hddIdStatusTree", 0)
+
+        <table id="tblCreateRol">
+            <tr>
+                <td>
+                    <div class="panel panel-info">                      
+                        <div class="panel-body">
+                            <div class="col-sm-5" style="padding-left: 0px !important;">
+                                <div class="form-group">
+                                    <div class="panel panel-default">    
+                                        <div class="panel-heading">
+                                            Rol
+                                        </div>
+                                        <div class="panel-body">                                                                                     
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="txtDescripcionNuevo">Descripción</label>
+                                                    <input id="txtDescripcionNuevo" type="text" class="form-control">
+                                                    <input id="txtCodigoEditar" type="text" style="display:none">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col-sm-7" style="padding-left: 0px !important;">
+                                <div class="form-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Opción Sistema
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <input type="button" title="Marcar" value="Marcar todos" id="btnMarcar" class="btn btn-primary" onclick="checkAllNodes()">                                               
+                                                    <input type="button" title="Desmarcar" value="Desmarcar todos" id="btnDesmarcar" class="btn btn-primary" onclick="unCheckAllNodes()">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="Contenedor_TreeView2" style="height: 210px; overflow: auto; padding: 5px;">
+                                                    <div id="demoTree">
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <a onclick="GrabarNuevo()" style="cursor:pointer" class="btn btn-azul" title="Grabar"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                            <a onclick="ConfirmaCancelar()" style="cursor:pointer" class="btn btn-danger" title="Cancelar">
+                                <span class="fa fa-sign-out fa-fw"></span> Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿<script>
+    $(function () {
+        $().timelinr({
+            orientation: 'horizontal', containerDiv: '#AlbumGaleria', datesDiv: '#dates', datesSelectedClass: 'selected', datesSpeed: 'normal', issuesDiv: '#issues',
+            issuesSelectedClass: 'selected', issuesSpeed: 'fast', issuesTransparency: 0.2, issuesTransparencySpeed: 500, prevButton: '#prev', nextButton: '#next', arrowKeys: 'false', startAt: 1, autoPlay: 'false', autoPlayDirection: 'forward', autoPlayPause: 2000
+        })
+    });
+</script>
+<div id="AlbumGaleria">
+    <ul id="dates">    
+        @foreach (var item in Model.CentroCapacitacion_SeccionFotos)
+        {
+            <li><a href="#div-@item.IDInterfaceWeb">div-@item.IDInterfaceWeb</a></li>
+        }
+    </ul>
+    <ul id="issues">
+        @foreach (var item in Model.CentroCapacitacion_SeccionFotos)
+        {
+            <li id="div-@item.IDInterfaceWeb">
+                <img src="@ViewBag.UrlAdmin/Upload/CentroCapacitacion/Foto/@item.Imagen" width="350" height="350">
+                <h1>@item.Titulo</h1>
+                <div style="padding-left: 370px;">@item.SubTitulo</div>
+            </li>
+        }
+    </ul>
+    <div id="grad_left"></div>
+    <div id="grad_right"></div>
+    <a href="#" id="next">+</a>
+    <a href="#" id="prev">-</a>
+</div>

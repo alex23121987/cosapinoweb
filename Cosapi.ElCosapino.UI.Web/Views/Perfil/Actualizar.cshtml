@@ -1,0 +1,359 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bxslider/jquery.bxslider.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/bxslider/jquery.bxslider.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });       
+    });
+
+</script>
+<input id="txtIDUsuario" type="text" value="@Model.Usuario.UsuarioId" style="display:none;">
+<div class="choose-area pt-60" style="background-color:#FFBF0B">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>ACTUALIZA TUS DATOS</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="row form-horizontal">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="txtDNI_Editar">DNI/CE</label>
+                            <div class="col-sm-4">
+                                <input id="txtDNI_Editar" type="text" class="form-control" maxlength="12" onkeypress="return SoloNumeros(event);" value="@Model.Usuario.DNI" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="txtNombres_Editar">Nombres</label>
+                            <div class="col-sm-4">
+                                <input id="txtNombres_Editar" type="text" class="form-control"  value="@Model.Usuario.Nombres"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="txtApellidoPaterno_Editar">Apellido Paterno</label>
+                            <div class="col-sm-4">
+                                <input id="txtApellidoPaterno_Editar" type="text" class="form-control"  value="@Model.Usuario.ApellidoPaterno"/>
+                            </div>
+                            <label class="col-sm-2 control-label" for="txtApellidoMaterno_Editar">Apellido Materno</label>
+                            <div class="col-sm-4">
+                                <input id="txtApellidoMaterno_Editar" type="text" class="form-control"  value="@Model.Usuario.ApellidoMaterno"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="txtFechaNacimiento_EditarDatePicker">Fecha Nac.</label>
+                            <div class="col-sm-4">
+                                <div class="input-group date date-picker" id="txtFechaNacimiento_EditarDatePicker">
+                                    <input id="txtFechaNacimiento_Editar" type="text" class="form-control" placeholder="DD/MM/YYYY" />
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="col-sm-2 control-label" for="cmbDepartamento_Editar">Departamento</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="cmbDepartamento_Editar" name="cmbDepartamento_Editar">
+                                    <option value="0">.: SELECCIONE :.</option>                                   
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="cmbProvincia_Editar">Provincia</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="cmbProvincia_Editar" name="cmbProvincia_Editar">
+                                    <option value="0">.: SELECCIONE :.</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label" for="cmbDistrito_Editar">Distrito</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="cmbDistrito_Editar" name="cmbDistrito_Editar">
+                                    <option value="0">.: SELECCIONE :.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="cmbCategoria_Editar">Categoría</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="cmbCategoria_Editar" name="cmbCategoria_Editar">
+                                    <option value="0">.: SELECCIONE :.</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label" for="cmbEspecialidad_Editar">Especialidad</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="cmbEspecialidad_Editar" name="cmbEspecialidad_Editar">
+                                    <option value="0">.: SELECCIONE :.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="txtNumeroContacto1_Editar">N° Contacto 1</label>
+                            <div class="col-sm-4">
+                                <input id="txtNumeroContacto1_Editar" type="text" class="form-control" value="@Model.Usuario.NumeroContacto1"/>
+                            </div>
+                            <label class="col-sm-2 control-label" for="txtNumeroContacto2_Editar">N° Contacto 2</label>
+                            <div class="col-sm-4">
+                                <input id="txtNumeroContacto2_Editar" type="text" class="form-control" value="@Model.Usuario.NumeroContacto2"/>
+                            </div>
+                        </div>
+                        <div class="form-group">                        
+                            <label class="col-sm-2 control-label" for="chkEstudiosTecnicos_Editar">Cuento con estudios técnicos</label>
+                            <div class="col-sm-4">
+                                <label class="containerradio control-label" style="text-align: left;padding-top: 1px;padding-left: 19px;">
+                                    <input type="checkbox" name="chkEstudiosTecnicos_Editar" id="chkEstudiosTecnicos_Editar"><span id="chk_ET" class="fa checkmarkbox"></span>
+                                </label>
+                            </div>
+                            <label class="col-sm-2 control-label" for="chkTrabajadoCosapi_Editar">He trabajado en cosapi</label>
+                            <div class="col-sm-4">
+                                <label class="containerradio control-label" style="text-align: left;padding-top: 1px;padding-left: 19px;">
+                                    <input type="checkbox" name="chkTrabajadoCosapi_Editar" id="chkTrabajadoCosapi_Editar"><span id="chk_TC" class="fa checkmarkbox"></span>
+                                </label>
+                            </div>
+                        </div>                    
+                        <div class="form-group">                            
+                            <div class="col-sm-12" style="text-align:right">
+                                <a onclick="EditarGrabar()" style="cursor:pointer" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ShowLoading();
+        var IDDepartamento = @Model.Usuario.DepartamentoId;
+        var IDProvincia =  @Model.Usuario.ProvinciaId;
+        var IDDistrito =  @Model.Usuario.DistritoId;
+        var IDCategoria =  @Model.Usuario.CategoriaId;
+        var IDEspecialidad =  @Model.Usuario.EspecialidadId;
+        var FechaNacimiento = '@Model.Usuario.strFechaNacimiento.ToString()';
+        List_Departamento_Editar(IDDepartamento);
+        List_Provincia_Editar(IDDepartamento, IDProvincia);
+        List_Distrito_Editar(IDProvincia, IDDistrito);
+
+        Lista_Categoria_Editar(IDCategoria);
+        Lista_Especialidad_Editar(IDCategoria, IDEspecialidad);
+        $('#txtFechaNacimiento_EditarDatePicker').find("input").val(FechaNacimiento);
+
+        var trabajado_cosapi = '@Model.Usuario.EsTrabajador';
+        var tiene_estudios = '@Model.Usuario.TieneEstudios';
+        var b_estado_tc = false;
+        var b_estado_te = false;
+        if (trabajado_cosapi == 'True') { b_estado_tc = true; }
+        if (tiene_estudios == 'True') { b_estado_te = true; }
+        $('#chkTrabajadoCosapi_Editar').prop('checked', b_estado_tc);
+        $('#chkEstudiosTecnicos_Editar').prop('checked', b_estado_te);
+
+        $('#cmbCategoria_Editar').change(function () {
+            Lista_Especialidad_Editar($(this).val());
+        });
+
+        $('#cmbDepartamento_Editar').change(function () {
+            if ($(this).val() != "0") {
+                List_Provincia_Editar($(this).val(), 0);
+            }
+            else {
+                $('#cmbProvincia_Editar option').remove();
+                $('#cmbProvincia_Editar').val("0");
+            }
+
+            $('#cmbDistrito_Editar option').remove();
+            $('#cmbDistrito_Editar').val("0");
+        });
+
+        $('#cmbProvincia_Editar').change(function () {
+            if ($(this).val() != "0") {
+                List_Distrito_Editar($(this).val(), 0);
+            } else {
+                $('#cmbDistrito_Editar option').remove();
+                $('#cmbDistrito_Editar').val("0");
+            }
+        });
+    });
+
+    function Lista_Categoria_Editar(IDCategoria) {
+        $('#cmbCategoria_Editar option').remove();
+        $.getJSON("@Url.Action("List_Categoria", "Perfil")", function (data) {
+            $('<option>', { value: 0, text: ".: SELECCIONE :." }).html(".: SELECCIONE :.").appendTo("#cmbCategoria_Editar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.CategoriaId, text: data.Nombre }).html(data.Nombre).appendTo("#cmbCategoria_Editar");
+            });
+
+            if (IDCategoria == 0) {
+                $('#cmbCategoria_Editar').val("0");
+            } else {
+                $('#cmbCategoria_Editar').val(IDCategoria);
+            }
+        })
+    }
+
+    function Lista_Especialidad_Editar(IDCategoria,IDEspecialidad) {
+        $('#cmbEspecialidad_Editar option').remove();
+        $.getJSON("@Url.Action("List_Especialidad_Por_Categoria", "Perfil")?IDCategoria=" + IDCategoria, function (data) {
+            $('<option>', { value: 0, text: ".: SELECCIONE :." }).html(".: SELECCIONE :.").appendTo("#cmbEspecialidad_Editar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.IDEspecialidad, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbEspecialidad_Editar");
+            });
+
+            if (IDEspecialidad == 0) {
+                $('#cmbEspecialidad_Editar').val("0");
+            } else {
+                $('#cmbEspecialidad_Editar').val(IDEspecialidad);
+            }
+        })
+    }
+
+    function List_Departamento_Editar(IDDepartamentoSeleccionado) {
+        $('#cmbDepartamento_Editar option').remove();
+        $.getJSON('@Url.Action("List_Departamento", "Perfil")', function (data) {
+            $('<option>', { value: "0", text: ".: SELECCIONE :." }).html(".: SELECCIONE :.").appendTo("#cmbDepartamento_Editar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.DepartamentoId, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbDepartamento_Editar");
+            });
+
+            if (IDDepartamentoSeleccionado == 0) {
+                $('#cmbDepartamento_Editar').val("0");
+            } else {
+                $('#cmbDepartamento_Editar').val(IDDepartamentoSeleccionado);
+            }
+        })
+    }
+
+    function List_Provincia_Editar(IDDepartamento,IDProvinciaSeleccionado) {
+        $('#cmbProvincia_Editar option').remove();
+        $.getJSON('@Url.Action("List_Provincia", "Perfil")?IDDepartamento=' + IDDepartamento, function (data) {
+            $('<option>', { value: "0", text: ".: SELECCIONE :." }).html(".: SELECCIONE :.").appendTo("#cmbProvincia_Editar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.ProvinciaId, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbProvincia_Editar");
+            });
+
+            if (IDProvinciaSeleccionado == 0) {
+                $('#cmbProvincia_Editar').val("0");
+            } else {
+                $('#cmbProvincia_Editar').val(IDProvinciaSeleccionado);
+            }
+        })
+    }
+
+    function List_Distrito_Editar(IDProvincia,IDDistritoSeleccionado) {
+        $('#cmbDistrito_Editar option').remove();
+        $.getJSON('@Url.Action("List_Distrito", "Perfil")?IDProvincia=' + IDProvincia, function (data) {
+            $('<option>', { value: "0", text: ".: SELECCIONE :." }).html(".: SELECCIONE :.").appendTo("#cmbDistrito_Editar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.DistritoId, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbDistrito_Editar");
+            });
+
+            if (IDDistritoSeleccionado == 0) {
+                $('#cmbDistrito_Editar').val("0");
+            } else {
+                $('#cmbDistrito_Editar').val(IDDistritoSeleccionado);
+            }
+            HideLoading();
+        })
+    }
+
+    function EditarGrabar() {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var UsuarioId = $('#txtIDUsuario').val();
+            var ApellidoPaterno = $('#txtApellidoPaterno_Editar').val();
+            var ApellidoMaterno = $('#txtApellidoMaterno_Editar').val();
+            var DistritoId = $('#cmbDistrito_Editar').val();
+            var DNI = $('#txtDNI_Editar').val();
+            var EspecialidadId = $('#cmbEspecialidad_Editar').val();
+            var EsTrabajador = $('#chkTrabajadoCosapi_Editar').is(':checked');
+            var strFechaNacimiento = $('#txtFechaNacimiento_EditarDatePicker').find("input").val();
+            var Nombres = $('#txtNombres_Editar').val();
+            var NumeroContacto1 = $('#txtNumeroContacto1_Editar').val();
+            var NumeroContacto2 = $('#txtNumeroContacto2_Editar').val();
+            var TieneEstudios = $('#chkEstudiosTecnicos_Editar').is(':checked');            
+
+            var viewModel = {
+                Usuario: {
+                    UsuarioId: UsuarioId,
+                    ApellidoPaterno: ApellidoPaterno,
+                    ApellidoMaterno: ApellidoMaterno,
+                    DistritoId: DistritoId,
+                    DNI: DNI,
+                    EspecialidadId: EspecialidadId,
+                    EsTrabajador: EsTrabajador,
+                    strFechaNacimiento: strFechaNacimiento,
+                    Nombres: Nombres,
+                    NumeroContacto1: NumeroContacto1,
+                    NumeroContacto2: NumeroContacto2,
+                    TieneEstudios: TieneEstudios,
+                    DeviceToken:"WEB"
+                }
+            };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update", "Perfil")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:                           
+                            alertify.success('¡Bien!. Datos actualizados.');
+                            break;
+                        case 0:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }        
+    }
+
+    function validarViewModel() {
+        var ApellidoPaterno = $('#txtApellidoPaterno_Editar').val();
+        var ApellidoMaterno = $('#txtApellidoMaterno_Editar').val();
+        var DistritoId = $('#cmbDistrito_Editar').val();
+        var DNI = $('#txtDNI_Editar').val();
+        var EspecialidadId = $('#cmbEspecialidad_Editar').val();       
+        var strFechaNacimiento = $('#txtFechaNacimiento_EditarDatePicker').find("input").val();
+        var Nombres = $('#txtNombres_Editar').val();
+        var NumeroContacto1 = $('#txtNumeroContacto1_Editar').val();                     
+
+        if (isNullOrEmpty(ApellidoPaterno)) {alertify.error('Apellido Paterno requerido.');return false;}
+
+        if (isNullOrEmpty(ApellidoMaterno)) {alertify.error('Apellido Materno requerido.');return false;}
+
+        if (isNullOrEmpty(DistritoId) || DistritoId==0) {alertify.error('Distrito requerido.');return false;}
+
+        if (isNullOrEmpty(DNI)) {alertify.error('DNI requerida.');return false;}
+
+        if (isNullOrEmpty(EspecialidadId) || EspecialidadId==0) {alertify.error('Especialidad requerida.');return false;}
+
+        if (isNullOrEmpty(strFechaNacimiento)) {alertify.error('Fecha Nacimiento requerido.');return false;}
+
+        if (isNullOrEmpty(Nombres)) { alertify.error('Nombres requerida.'); return false; }
+
+        if (isNullOrEmpty(NumeroContacto1)) { alertify.error('Número Contacto requerida.'); return false; }        
+
+        return true;
+    }
+</script>

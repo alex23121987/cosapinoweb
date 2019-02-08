@@ -1,0 +1,36 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@{
+    Layout = Cosapi.ElCosapino.Servicio.Helpers.ConstantHelpers.Layout.MODAL_EMAIL_PATH;
+    dynamic model = ((dynamic)Model);
+    var urlValidacion = System.Web.Configuration.WebConfigurationManager.AppSettings["COSAPI.APP.AbsoluteUrl"] + Url.Action("ValidarEmail", "Home", new { Token = model.Token });
+}
+
+<table border='0' cellpadding='0' cellspacing='0' width='100%'>
+    <tr>
+        <td align='center' valign='top'>
+            <h2>Verificación de Correo Electrónico</h2>
+        </td>
+    </tr>
+    <tr>
+        <td align='center' valign='top'>
+            <h4 style='color: #20a8d8 !important'>Verificación pendiente para el registro de usuario</h4>
+        </td>
+    </tr>
+
+    <tr>
+        <td align='center' valign='top'>
+            <p style='margin: 1em 0; text-align: justify;'>
+                Estimado(a) @model.Usuario.Nombres,<br />
+                <br />
+                Hemos recibido su solicitud de acceso. Para continuar con el proceso, por favor valide su correo electrónico haciendo click <a href="@urlValidacion">aquí</a><br />
+                <br />
+                Si tiene problemas para acceder al enlace puede copiar y pegar la siguiente dirección en su navegador: <a href="@urlValidacion">@urlValidacion</a><br />
+                <br />
+            </p>
+            <p style="text-align:right">
+                Saludos,<br />
+                COSAPI.
+            </p>
+        </td>
+    </tr>
+</table>

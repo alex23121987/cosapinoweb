@@ -1,0 +1,326 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@using Cosapi.ElCosapino.UI.Admin.Util
+
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        mode: "specific_textareas",
+        editor_selector: "editorHtml",
+        menubar: false,
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image'
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalNuevoProyectoEmblematico').click(function () {
+            $('#modalNuevoProyectoEmblematico').modal('show');
+        });
+
+        $('#btnModalNuevoSeccionImagenes').click(function () {
+            $('#modalNuevoSeccionImagenes').show();
+        });
+
+        $('#btnModalNuevoLineaTiempo').click(function () {
+            $('#modalNuevoSeccionLineaTiempo').show();
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+     function SelectRowsPerPage_SeccionImagenes() {
+        var rowsPerPage = 2;
+        GridSeccionReload_SeccionImagenes(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionImagenes(rowsPerPage) {
+        var data = $("#GridSeccionImagenes").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionImagenes").load("@(Url.Action("IndexPaginateSeccionImagenes", "ProyectosEmblematicos"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+
+    function SelectRowsPerPage_SeccionProyectosEmblematicos() {
+        var rowsPerPage = 10;
+        GridSeccionReload_SeccionProyectosEmblematicos(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionProyectosEmblematicos(rowsPerPage) {
+        var data = $("#GridSeccionProyectosEmblematicos").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionProyectosEmblematicos").load("@(Url.Action("IndexPaginateSeccionProyectosEmblematicos", "ProyectosEmblematicos"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+
+    function SelectRowsPerPage_SeccionLineaTiempo() {
+        var rowsPerPage = 3;
+        GridSeccionReload_SeccionLineaTiempo(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionLineaTiempo(rowsPerPage) {
+        var data = $("#GridSeccionLineaTiempo").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+            data.SortColumn = "S_Titulo";
+            data.SortDirection = "Ascending";
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionLineaTiempo").load("@(Url.Action("IndexPaginateSeccionLineaTiempo", "ProyectosEmblematicos"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+
+    function SelectRowsPerPage_SeccionLineaTiempoProyecto(id) {
+        var rowsPerPage = 10;
+        GridSeccionReload_SeccionLineaTiempoProyecto(Number(rowsPerPage), id);
+    }
+
+    function GridSeccionReload_SeccionLineaTiempoProyecto(rowsPerPage, id) {
+        var data = $("#GridSeccionLineaTiempoProyecto").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = 10;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();        
+        $("#container_GridSeccionLineaTiempoProyecto").load("@(Url.Action("IndexPaginateSeccionLineaTiempoProyecto", "ProyectosEmblematicos"))?arg=" + encodeURI(JSON.stringify(data)) + "&IDInterface=" + id);
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div id="DivRolNuevo" class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Registro<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Proyectos Emblemáticos</small></h1>
+
+        <table id="tblCreateRol">
+            <tr>
+                <td>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN IMÁGENES SUPERIORES</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 1349px de ancho y 450px de alto. Peso máximo 1MB.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionImagenes" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionImagenes", "ProyectosEmblematicos", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = 3,
+                                OrderBy = "",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoSeccionImagenes" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN PROYECTOS EMBLEMÁTICOS</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionProyectosEmblematicos" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionProyectosEmblematicos", "ProyectosEmblematicos", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                                OrderBy = "",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoProyectoEmblematico" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN TEXTO MEDIO</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <textarea id="txtPESM_Descripcion" type="text" class="form-control editorHtml" rows="8">@Html.Raw(Model.ProyectosEmblematicos_SeccionMedio)</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <a onclick="GrabarDescripcion(1,201,'txtPESM_Descripcion')" style="cursor:pointer" class="btn btn-azul" title="Grabar"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN LÍNEA DE TIEMPO</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 280px de ancho y 280px de alto. Peso máximo 1MB.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionLineaTiempo" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionLineaTiempo", "ProyectosEmblematicos", new
+            {
+                arg = JsonConvert.SerializeObject(new
+                {
+                    CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                    RowsPerPage = 3,
+                    OrderBy = "S_Titulo",
+                    DirectionOrder = "Ascending"
+                })
+            })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoLineaTiempo" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<!--INICIO DE VENTANAS DE MODALES-->
+<div id="seccion-modal-nuevo-Mas">
+    @Html.Partial("_ModalNuevoProyectoEmblematico")
+</div>
+
+<div id="seccion-modal-nuevo-SeccionImagenes">
+    @Html.Partial("_ModalNuevoSeccionImagenes")
+</div>
+
+<div id="seccion-modal-nuevo-LineaTiempo">
+    @Html.Partial("_ModalNuevoLineaTiempo")
+</div>
+
+<div id="seccion-modal-nuevo-LineaTiempoProyecto">
+    @Html.Partial("_ModalNuevoLineaTiempoProyecto")
+</div>
+
+<div id="seccion-modal-nuevo-EditarSeccionProyectoEmblematico">
+    @Html.Partial("_ModalEditarSeccionProyectoEmblematico")
+</div>
+
+<div id="seccion-modal-nuevo-EditarSeccionLineaTiempo">
+    @Html.Partial("_ModalEditarSeccionLineaTiempo")
+</div>
+
+<script>
+    function GrabarDescripcion(IDModulo,IDSeccion,Control) {
+        var esValido = true; // validarViewModel();
+
+        if (esValido === true) {
+            var IDModulo = IDModulo;
+            var IDSeccion = IDSeccion;
+            var Descripcion = tinyMCE.get(Control).getContent();
+            var viewModel = { InterfaceWeb: { IDModulo: IDModulo, IDSeccion: IDSeccion, Titulo: Descripcion } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertUnique", "CosapiEnbreve")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Codigo > 0) {
+                        alertify.success('¡Bien!. Registro enviado.');
+                    } else {
+                        alertify.error('¡Opss!. Algo salió mal.');
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel() {
+        var Descripcion = $('#txtDescripcionNuevo').val();
+        var SeleccionRol = $("#hddIdStatusTree").val();
+
+        if (isNullOrEmpty(Descripcion)) {
+            alertify.error('Descripción requerida.');
+            return false;
+        }
+
+        if (SeleccionRol == 0) {
+            alertify.error('Opción del Sistema requerida.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles() {
+        $('#txtCodigoEditar').val('');
+        $("#txtDescripcionNuevo").val('');
+    }
+</script>

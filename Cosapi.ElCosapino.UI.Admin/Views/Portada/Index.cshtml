@@ -1,0 +1,117 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@using Cosapi.ElCosapino.UI.Admin.Util
+
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        mode: "specific_textareas",
+        editor_selector: "editorHtml",
+        menubar: false,
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image'
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalNuevoProyectoEmblematico').click(function () {
+            $('#modalNuevoProyectoEmblematico').modal('show');
+        });
+
+        $('#btnModalNuevoSeccionImagenes').click(function () {
+            $('#modalNuevoSeccionImagenes').show();
+        });
+
+        $('#btnModalNuevoLineaTiempo').click(function () {
+            $('#modalNuevoSeccionLineaTiempo').show();
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+     function SelectRowsPerPage_SeccionImagenes() {
+        var rowsPerPage = 2;
+        GridSeccionReload_SeccionImagenes(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionImagenes(rowsPerPage) {
+        var data = $("#GridSeccionImagenes").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionImagenes").load("@(Url.Action("IndexPaginateSeccionImagenes", "Portada"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div id="DivRolNuevo" class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Registro<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Portada</small></h1>
+
+        <table id="tblCreateRol">
+            <tr>
+                <td>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN IMÁGENES SUPERIORES</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 1349px de ancho y 450px de alto.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionImagenes" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionImagenes", "Portada", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = 3,
+                                OrderBy = "",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoSeccionImagenes" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>                                                            
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--INICIO DE VENTANAS DE MODALES-->
+<div id="seccion-modal-nuevo-SeccionImagenes">
+    @Html.Partial("_ModalNuevoSeccionImagenes")
+</div>

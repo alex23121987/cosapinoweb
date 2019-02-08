@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bxslider/jquery.bxslider.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/bxslider/jquery.bxslider.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+        $('.bxslider').bxSlider({
+            controls: false,
+            auto: true,
+            pause: 10000,
+            speed: 500
+        });
+    });
+
+</script>
+
+<div class="choose-area pt-60" style="background-color:#FFBF0B">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>RECUPERAR CONTRASEÑA</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="bxslider">
+            <li>
+                <img src="https://www.cosapi.com.pe/Upload/galeria/imagen/cosapi_galeria_constancia1_gr.jpg" style="height:270px;">
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="row form-horizontal">
+                    <div class="col-md-12">                        
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-offset-3 control-label" for="txtEmailRecuperar">Correo electrónico</label>
+                            <div class="col-sm-4">
+                                <input id="txtEmailRecuperar" type="text" class="form-control" />
+                            </div>                           
+                        </div>                                                
+                        <div class="form-group">
+                            <div class="col-sm-12" style="text-align:center">
+                                <a onclick="RecuperarClave()" style="cursor:pointer" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Recuperar contraseña</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>    
+    function RecuperarClave() {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {           
+            var CorreoElectronico = $('#txtEmailRecuperar').val();           
+
+            var viewModel = {
+                Usuario: {                   
+                    CorreoElectronico: CorreoElectronico                    
+                }
+            };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RecuperarClave", "Perfil")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Codigo > 0) {
+                        alertify.success('¡Bien!. Proceso de recuperación exitoso. Por favor revisa tu email.');                        
+                    } else if (response.Codigo == -1) {
+                        alertify.error('¡Opss!. Usuario no existe.');
+                    }
+                    else {
+                        alertify.error('¡Opss!. Algo salió mal.');
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel() {       
+        var CorreoElectronico = $('#txtEmailRecuperar').val();       
+       
+        if (isNullOrEmpty(CorreoElectronico)) {
+            alertify.error('Email requerido.'); return false;
+        }
+        else if (!validateEmail('#txtEmailRecuperar')) {
+            alertify.error('Email no válido.'); return false;
+        }
+       
+        return true;
+    }
+</script>

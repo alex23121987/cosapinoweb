@@ -1,0 +1,131 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<style>
+    #modalNuevoContacto {display: none;opacity: 1;background-color: rgba(0,0,0,0.8);position: fixed;top: 0;left: 0;right: 0;bottom: 0;margin: 0;z-index: 99;transition: all 1s;}
+
+    .popup-contenedor-Contacto {position: relative;margin: 6% auto;background-color: #FFFFFF;color: #333;border-radius: 3px;width: 800px;}
+
+    a.popup-cerrar {position: absolute;top: 3px;right: 3px;padding: 7px 10px;font-size: 13px;text-decoration: none;font-size: 21px;font-weight: bold;line-height: 1;color: #ddd;}
+</style>
+
+<div class="modal-wrapper" id="modalNuevoContacto">
+    <div class="popup-contenedor-Contacto">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">                                       
+                        <div class="row form-horizontal">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="imgContactoNue_SeccionContacto">Imagen</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="imgContactoNue_SeccionContacto" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtTituloNuevo_Contacto">Descripción</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtTituloNuevo_Contacto" name="ParamTitulo" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a onclick="CargarGaleriaContacto()" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+            <a class="btn btn-danger" style="cursor:pointer" onclick="MostrarOcultarDiv('modalNuevoContacto')"><span class="fa fa-sign-out fa-fw"></span> Salir</a>
+        </div>
+        <a class="popup-cerrar" onclick="MostrarOcultarDiv('modalNuevoContacto')">x</a>
+    </div>
+</div>
+
+<script>
+    function CargarGaleriaContacto() {
+        var esValido = validarViewModel_SeccionContacto();
+
+        if (esValido === true) {
+            if (window.FormData !== undefined) {
+                var fileUpload = $("#imgContactoNue_SeccionContacto").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                var TituloNuevo_Contacto = $('#txtTituloNuevo_Contacto').val();
+                var SubTituloNuevo_Contacto = "";
+
+                fileData.append('Titulo', TituloNuevo_Contacto);
+                fileData.append('SubTitulo', SubTituloNuevo_Contacto);
+
+                $.ajax({
+                    url: '@Url.Action("Insert_Contacto", "Contacto")',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (response) {
+                        switch (response.Codigo) {
+                            case 1:
+                                $('#modalNuevoContacto').hide();
+                                SelectRowsPerPage_SeccionContacto();
+                                reiniciarControles_NuevoSeccionContacto();
+                                alertify.success('¡Bien!. Registro insertado.');
+                                break;
+                            case 0:
+                                alertify.error('¡Opss!. Algo salió mal.');
+                                break;
+                            case -1:
+                                alertify.error('¡Opss!. Tipo de archivo no permitido.');
+                                break;
+                            case -2:
+                                alertify.error('Imagen requerida.');
+                                break;
+                            case -3:
+                                alertify.error('¡Opss!. Peso máximo 1 MB.');
+                                break;
+                            default:
+                                alertify.error('¡Opss!. Algo salió mal.');
+                                break;
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        }
+    }
+
+    function validarViewModel_SeccionContacto() {
+        var TituloNuevo_SeccionInferior = $("#txtTituloNuevo_Contacto").val();        
+
+        if (isNullOrEmpty(TituloNuevo_SeccionInferior)) {
+            alertify.error('Descripción requerida.');
+            return false;
+        }    
+
+        return true;
+    }
+
+    function reiniciarControles_NuevoSeccionContacto() {
+        $("#txtTituloNuevo_Contacto").val('');        
+        $("#imgContactoNue_SeccionContacto").val("");
+    }
+</script>

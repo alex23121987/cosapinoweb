@@ -1,0 +1,406 @@
+﻿@using Cosapi.ElCosapino.UI.Admin.Models.ViewModels
+@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@using System.Configuration
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+
+    if (VMDatosUsuario.GetUserAlias() == null || string.IsNullOrEmpty(VMDatosUsuario.GetUserAlias()))
+    {
+        var UrlAdmin = ConfigurationManager.AppSettings["UrlAdmin"];
+        Response.Redirect(UrlAdmin);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Sistema de Administración - El Cosapino</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+
+    <link href="@Url.Content("~/Content/css/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.css")" rel="stylesheet" type="text/css" />    
+
+    <link href="~/Content/jquery/jquery-ui.css" rel="stylesheet" />
+    @Styles.Render("~/Content/bootstrap-datetimepicker")
+    @Styles.Render("~/Content/alertify")
+    
+    <link href="~/Content/chosen.css" rel="stylesheet" />
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jsCanvasWebGrid")
+    @Styles.Render("~/Content/CanvasGrid")
+    @Scripts.Render("~/bundles/alertify")
+    @Scripts.Render("~/bundles/ventana-unica")
+    
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-colorpicker.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-colorpicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.8.20.js"></script>
+    <script src="~/Scripts/jquery.form.min.js"></script>    
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap-colorpicker.js"></script>
+    <script>
+        alertify.defaults.transition = "slide";
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        alertify.defaults.theme.input = "form-control";
+
+        function ShowLoadingShared() {
+            $('body').addClass('loading');
+        }
+
+        function HideLoadingShared() {
+            $('body').removeClass('loading');
+        }
+
+        $(document).ready(function () {
+            var pageHeight = $(window).height();
+            var mar = $("<div class='mar_menu'/>");
+            $('.viewbg').css({ height: pageHeight });
+            $('.panel-box-right').css({ height: pageHeight });
+            $('.viewbg').append(mar);            
+        });       
+    </script>
+    <style>
+        .scrollable-menu {height: auto;max-height: 100%;overflow-x: hidden;}    
+
+        .global-danger:hover {background-color: #d43f3a !important;}
+
+        .global-warning:hover {background-color: #eea236 !important;}
+
+        .global-success:hover {background-color: #398439 !important;}
+
+        .msgflotante {height: 20px;background-color: red;color: #FFFFFF;position: absolute;margin-top: -10px;border-radius: 5px;line-height: 18px;font-weight: bold;padding-left: 2px;padding-right: 2px;margin-left: -3px;}
+
+        .msgflotante-interno {height: 20px;background-color: #FFFFFF;position: absolute;margin-top: -22px;border-radius: 5px;line-height: 18px;font-weight: bold;padding-left: 2px;padding-right: 2px;margin-left: 115px;}
+    </style>
+</head>
+
+<body class="aside-open aside-open-complete skin-gym">
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+    <!--PAGE WRAP-->
+    <div class="page-wrap">
+        <!--ASIDE-->
+        <aside class="lay-aside" data-asideslide="slide">
+            <header class="top-header header">
+                <div class="pull-left">
+                    <a id="iconoMenu" class="btn-slide btn_slide button-nav" href="#" data-asideslide="button"><i class="fa fa-bars"></i></a>
+                    <a class="logox" href="~/Home">
+                        <img src="~/Images/logocosapi.png" alt="Logo">
+                    </a>
+                </div>
+
+                <h1 class="titulosystem">Sistema de Administración - El Cosapino</h1>
+                <div class="pull-right">
+                    <ul class="nav navbar-top-links navbar-right">
+                        <!-- /.dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="~/Home">
+                                <i class="fa fa-home" style="color:#FFFFFF"></i> <span class="usr" style="color:#FFFFFF">@VMDatosUsuario.GetUserName()</span>
+                            </a>
+                        </li>                       
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                                <i class="fa fa-user fa-fw" style="color:#FFFFFF"></i> <i class="fa fa-caret-down" style="color:#FFFFFF"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="@Url.Action("LogOutClient", "LogOut" )"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <nav id="NavMenu" class="main-nav scrollable-menu">
+                <div class="bl-slide"></div>
+                <ul class="main-nav-ul-master">
+                    @{
+                        var Menu_Grupo_Registro = Permisos.Find(c => c.S_IDGrupo.Contains("1000"));
+                        if (Menu_Grupo_Registro != null)
+                        {
+                            <li class="menu-dropdown" data-menu="dropdown">
+                                <a href="#">
+                                    <span class="wrap-icon">
+                                        <i class="fa fa-briefcase" style="top: 18px"></i>
+                                    </span>
+                                    <span class="wrap-text">
+                                        <span class="text">@Menu_Grupo_Registro.S_GrupoDescripcion</span>
+                                        <i class='fa fa-bars'></i>
+                                    </span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="title">@Menu_Grupo_Registro.S_GrupoDescripcion</li>
+                                    @{
+        var Menu_Portada = Permisos.Find(c => c.S_IDPagina.Contains("6000"));
+        if (Menu_Portada != null)
+        {
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Portada" title="@Menu_Portada.S_PaginaDescripcion" tooltip="@Menu_Portada.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Portada.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_CosapiEnBreve = Permisos.Find(c => c.S_IDPagina.Contains("1010"));
+if (Menu_CosapiEnBreve != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/CosapiEnBreve" title="@Menu_CosapiEnBreve.S_PaginaDescripcion" tooltip="@Menu_CosapiEnBreve.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_CosapiEnBreve.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_ProyEmb = Permisos.Find(c => c.S_IDPagina.Contains("1020"));
+if (Menu_ProyEmb != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/ProyectosEmblematicos" title="@Menu_ProyEmb.S_PaginaDescripcion" tooltip="@Menu_ProyEmb.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_ProyEmb.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_CentroCapac = Permisos.Find(c => c.S_IDPagina.Contains("1030"));
+if (Menu_CentroCapac != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/CentroCapacitacion" title="@Menu_CentroCapac.S_PaginaDescripcion" tooltip="@Menu_CentroCapac.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_CentroCapac.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_ReqIngreso = Permisos.Find(c => c.S_IDPagina.Contains("5000"));
+if (Menu_ReqIngreso != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/RequisitosIngreso" title="@Menu_ReqIngreso.S_PaginaDescripcion" tooltip="@Menu_ReqIngreso.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_ReqIngreso.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_Noticias = Permisos.Find(c => c.S_IDPagina.Contains("5002"));
+if (Menu_Noticias != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Noticias" title="@Menu_Noticias.S_PaginaDescripcion" tooltip="@Menu_Noticias.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Noticias.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_Contacto = Permisos.Find(c => c.S_IDPagina.Contains("5004"));
+if (Menu_Contacto != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Contacto" title="@Menu_Contacto.S_PaginaDescripcion" tooltip="@Menu_Contacto.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Contacto.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_Pie= Permisos.Find(c => c.S_IDPagina.Contains("7000"));
+if (Menu_Pie != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Pie" title="@Menu_Pie.S_PaginaDescripcion" tooltip="@Menu_Pie.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Pie.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+
+
+                    @{
+                        var Menu_Grupo_Laboral = Permisos.Find(c => c.S_IDGrupo.Contains("2000"));
+                        if (Menu_Grupo_Laboral != null)
+                        {
+                            <li class="menu-dropdown" data-menu="dropdown">
+                                <a href="#">
+                                    <span class="wrap-icon">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </span>
+                                    <span class="wrap-text">
+                                        <span class="text">@Menu_Grupo_Laboral.S_GrupoDescripcion</span>
+                                        <i class='fa fa-bars'></i>
+                                    </span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="title">@Menu_Grupo_Laboral.S_GrupoDescripcion</li>
+                                    @{var Menu_Categoria = Permisos.Find(c => c.S_IDPagina.Contains("4090"));
+        if (Menu_Categoria != null)
+        {
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Categoria" title="" tooltip=""><span class="wrap-text-inner"><span class="text">Categoría</span></span></a>
+                                </li>
+}
+                                    }
+
+                                    @{var Menu_Especialidad = Permisos.Find(c => c.S_IDPagina.Contains("4050"));
+        if (Menu_Especialidad != null)
+        {
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Especialidad" title="" tooltip=""><span class="wrap-text-inner"><span class="text">Especialidad</span></span></a>
+                                </li>
+}
+                                    }
+
+                                    @{
+        var Menu_Vacantes = Permisos.Find(c => c.S_IDPagina.Contains("2010"));
+        if (Menu_Vacantes != null)
+        {
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Vacante" title="@Menu_Vacantes.S_PaginaDescripcion" tooltip="@Menu_Vacantes.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Vacantes.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+                                    }
+
+                                    @{var Menu_Postulacion = Permisos.Find(c => c.S_IDPagina.Contains("4060"));
+        if (Menu_Postulacion != null)
+        {
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Postulacion" title="" tooltip=""><span class="wrap-text-inner"><span class="text">Postulación</span></span></a>
+                                </li>
+}
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+
+                    @{
+                        var Menu_Grupo_Administracion = Permisos.Find(c => c.S_IDGrupo.Contains("4000"));
+                        if (Menu_Grupo_Administracion != null)
+                        {
+                            <li class="menu-dropdown" data-menu="dropdown">
+                                <a href="#">
+                                    <span class="wrap-icon">
+                                        <i class="glyphicon glyphicon-cog"></i>
+                                    </span>
+                                    <span class="wrap-text">
+                                        <span class="text">@Menu_Grupo_Administracion.S_GrupoDescripcion</span>
+                                        <i class='fa fa-bars'></i>
+                                    </span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="title">@Menu_Grupo_Administracion.S_GrupoDescripcion</li>
+                                    @{
+        var Menu_Notificacion = Permisos.Find(c => c.S_IDPagina.Contains("8000"));
+        if (Menu_Notificacion != null)
+        {
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Notificacion" title="@Menu_Notificacion.S_PaginaDescripcion" tooltip="@Menu_Notificacion.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Notificacion.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_HistorialNotificacion = Permisos.Find(c => c.S_IDPagina.Contains("9000"));
+if (Menu_HistorialNotificacion != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/HistorialNotificacion" title="@Menu_HistorialNotificacion.S_PaginaDescripcion" tooltip="@Menu_HistorialNotificacion.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_HistorialNotificacion.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_Acceso = Permisos.Find(c => c.S_IDPagina.Contains("4010"));
+if (Menu_Acceso != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Acceso" title="@Menu_Acceso.S_PaginaDescripcion" tooltip="@Menu_Acceso.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Acceso.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+
+var Menu_Perfil = Permisos.Find(c => c.S_IDPagina.Contains("4070"));
+if (Menu_Perfil != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Rol" title="@Menu_Perfil.S_PaginaDescripcion" tooltip="@Menu_Perfil.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Perfil.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+
+var Menu_Usuario = Permisos.Find(c => c.S_IDPagina.Contains("4080"));
+if (Menu_Usuario != null)
+{
+                                <li>
+                                    <a data-ajax="true" data-navajax="true" href="~/Usuario" title="@Menu_Usuario.S_PaginaDescripcion" tooltip="@Menu_Usuario.S_PaginaDescripcion"><span class="wrap-text-inner"><span class="text">@Menu_Usuario.S_PaginaDescripcion</span></span></a>
+                                </li>
+}
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>
+        </aside>
+        <!--CONTENT MAIN-->
+        <div class="pull-content content_slide">
+            <div class="row row-c">
+                <section class="lay-section-main col-md-12">
+                    <div class="view-wrap">
+                        @RenderSection("featured", required: false)
+                        <section class="content-wrapper main-content-inner clear-fix">
+                            <div id="divLayoutBody" class="main-padd">
+                                @RenderBody()
+
+                                @RenderSection("scripts", required: false)
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(function ($) {
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '<Ant',
+                nextText: 'Sig>',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+
+        });
+
+    </script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/bootstrap-dialog.js"></script>
+    <script src="~/Scripts/app/customAlert.js"></script>
+    <script src="~/Scripts/Master.js"></script>
+
+    @*<script src="~/Scripts/bootstrap-colorpicker.min.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <style type="text/css">
+        #loading {
+            display: none;
+            background-color: gray;
+            z-index: 999999;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            padding-top: 260px;
+            filter: alpha(opacity=5);
+            -khtml-opacity: 0.5;
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+        }
+    </style>
+    <div id="loading"><img src="~/Images/loadingcosapi.gif" style="width:150px" /></div>
+</body>
+</html >

@@ -1,0 +1,174 @@
+﻿
+<div class="modal fade" id="modalEditarVacante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbCategoriaEditar">Categoría</label>
+                        <div class="col-sm-9">
+                            <input id="txtIDVacanteEditar" type="text" style="display:none">
+                            <select class="form-control" id="cmbCategoriaEditar" name="cmbCategoriaEditar">
+                                <option value="0">.: SELECCIONE :.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbEspecialidadEditar">Especialidad</label>
+                        <div class="col-sm-9">
+                            <select data-placeholder=".: SELECCIONE :." class="form-control chosen-select-single" id="cmbEspecialidadEditar" name="cmbEspecialidadEditar">
+                                <option value="0">.: SELECCIONE :.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtRequisitosEditar">Requisitos</label>
+                        <div class="col-sm-9">
+                            <textarea id="txtRequisitosEditar" type="text" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtNivelAcademicoEditar">Nivel Académico</label>
+                        <div class="col-sm-9">
+                            <textarea id="txtNivelAcademicoEditar" type="text" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtPostulaEnEditar">Postula En</label>
+                        <div class="col-sm-9">
+                            <textarea id="txtPostulaEnEditar" type="text" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="chkEstadoEditar">Estado</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="material-switch" style="padding-top: 8px;">
+                                <input id="chkEstadoEditar" type="checkbox" />
+                                <label for="chkEstadoEditar" class="label-info"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="EditarGrabar(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {        
+        $('#cmbCategoriaEditar').change(function () {
+            Lista_Especialidad_Editar($(this).val(),0);
+        });
+    });
+
+    function Lista_Categoria_Editar(IDCategoria) {
+        $('#cmbCategoriaEditar option').remove();
+        $.getJSON("./Vacante/List_Categoria", function (data) {
+            $('<option>', { value: 0, text: ".: Seleccione :." }).html(".: Seleccione :.").appendTo("#cmbCategoriaEditar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.IDCategoria, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbCategoriaEditar");
+            });
+
+            if (IDCategoria != 0) {
+                $('#cmbCategoriaEditar').val(IDCategoria);
+            }
+        })
+    }
+
+    function Lista_Especialidad_Editar(IDCategoria, idEspecialidad) {
+        $('#cmbEspecialidadEditar option').remove();
+        $.getJSON("./Vacante/List_Especialidad_Por_Categoria?IDCategoria=" + IDCategoria, function (data) {
+            $('<option>', { value: 0, text: ".: Seleccione :." }).html(".: Seleccione :.").appendTo("#cmbEspecialidadEditar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.IDEspecialidad, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbEspecialidadEditar");
+            });
+            if (idEspecialidad != 0) {
+                $('#cmbEspecialidadEditar').val(idEspecialidad);
+            }
+        })
+    }
+
+    function EditarGrabar(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var IDVacante = $('#txtIDVacanteEditar').val();
+            var Requisitos = $('#txtRequisitosEditar').val();
+            var NivelAcademico = $('#txtNivelAcademicoEditar').val();
+            var PostulaEn = $('#txtPostulaEnEditar').val();
+            var IDCategoria = $('#cmbCategoriaEditar').val();
+            var IDEspecialidad = $('#cmbEspecialidadEditar').val();       
+            var Estado = $('#chkEstadoEditar').is(':checked');
+            bloquearBotonesProceso(true);
+            var viewModel = { Vacante: { IDVacante: IDVacante, Requisitos: Requisitos, NivelAcademico: NivelAcademico, PostulaEn: PostulaEn, Estado: Estado, IDCategoria: IDCategoria, IDEspecialidad: IDEspecialidad } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update", "Vacante")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalEditarVacante').modal('hide');
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro actualizado.');
+                            break;
+                        case 0:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+
+        function validarViewModel() {
+            var IDVacante = $('#txtIDVacanteEditar').val();
+            var Descripcion = $('#txtRequisitosEditar').val();
+            var IDCategoria = $('#cmbCategoriaEditar').val();
+            var IDEspecialidad = $('#cmbEspecialidadEditar').val();
+
+            if (isNullOrEmpty(IDVacante)) {
+                alertify.error('Seleccione un registro.');
+                return false;
+            }
+
+            if (IDCategoria == 0) {
+                alertify.error('Categoría requerido.');
+                return false;
+            }
+
+            if (IDEspecialidad == 0) {
+                alertify.error('Especialidad requerido.');
+                return false;
+            }
+
+            if (isNullOrEmpty(Descripcion)) {
+                alertify.error('Requisitos requerida.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function reiniciarControles() {
+            $("#txtDescripcionEditar").val('');
+        }
+    }
+</script>

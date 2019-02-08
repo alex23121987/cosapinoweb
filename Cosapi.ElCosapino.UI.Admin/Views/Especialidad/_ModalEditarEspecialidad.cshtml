@@ -1,0 +1,120 @@
+﻿
+<div class="modal fade" id="modalEditarEspecialidad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbCategoriaEditar">Categoría</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="cmbCategoriaEditar" name="cmbCategoriaEditar">
+                                <option value="0">.: Seleccione :.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtDescripcionEditar">Descripción</label>
+                        <div class="col-sm-9">
+                            <input id="txtDescripcionEditar" type="text" class="form-control">
+                            <input id="txtIDEspecialidadEditar" type="text" style="display:none">
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="chkEstadoEditar">Estado</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="material-switch" style="padding-top: 8px;">
+                                <input id="chkEstadoEditar" type="checkbox" />
+                                <label for="chkEstadoEditar" class="label-info"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="EditarGrabar(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        Lista_Categoria_Editar();
+    });
+
+    function Lista_Categoria_Editar() {
+        $('#cmbCategoriaEditar option').remove();
+        $.getJSON("./Especialidad/List_Categoria", function (data) {
+            $('<option>', { value: 0, text: ".: Seleccione :." }).html(".: Seleccione :.").appendTo("#cmbCategoriaEditar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.IDCategoria, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbCategoriaEditar");
+            });
+        })
+    }
+
+    function EditarGrabar(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var IDEspecialidad = $('#txtIDEspecialidadEditar').val();
+            var Descripcion = $('#txtDescripcionEditar').val();
+            var IDCategoria = $('#cmbCategoriaEditar').val();      
+            var Estado = $('#chkEstadoEditar').is(':checked');
+            bloquearBotonesProceso(true);
+            var viewModel = { Especialidad: { IDEspecialidad: IDEspecialidad, Descripcion: Descripcion, Estado: Estado, IDCategoria: IDCategoria } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update", "Especialidad")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalEditarEspecialidad').modal('hide');
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro actualizado.');
+                            break;
+                        case 0:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+
+        function validarViewModel() {
+            var IDEspecialidad = $('#txtIDEspecialidadEditar').val();
+            var Descripcion = $('#txtDescripcionEditar').val();
+
+            if (isNullOrEmpty(IDEspecialidad)) {
+                alertify.error('Seleccione un registro.');
+                return false;
+            }
+
+            if (isNullOrEmpty(Descripcion)) {
+                alertify.error('Descripción requerida.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function reiniciarControles() {
+            $("#txtDescripcionEditar").val('');
+        }
+    }
+</script>

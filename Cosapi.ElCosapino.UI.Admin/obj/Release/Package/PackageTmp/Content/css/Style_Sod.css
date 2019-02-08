@@ -1,0 +1,41 @@
+﻿.showDiv {
+        display:block;
+}
+
+     .panel:hover {
+    box-shadow:none !important;
+    }
+
+       #ContentIndexCriticalActivity div table thead tr:nth-child(2) th {
+        background: url("../Content/img/bg_cab.png") bottom repeat-x #F3F3F3 !important;
+        filter: none !important;
+        height: 30px;
+        border-top: 1px solid #BFBFBF !important;
+        border-right: 1px solid #BFBFBF !important;
+        text-align: center;
+    }
+
+    #ContentIndexCriticalActivity div table thead tr:nth-child(1) > th {
+        background: #F5F5F5 !important;
+        border-right: 1px solid #F5F5F5 !important;
+        padding: 0px 0px 2px 0px;
+    }
+.cboListPeriodAudited {
+        width:200px;
+}
+
+
+ #ContentIndexCombinatedActivity div table thead tr:nth-child(2) th {
+        background: url("../Content/img/bg_cab.png") bottom repeat-x #F3F3F3 !important;
+        filter: none !important;
+        height: 30px;
+        border-top: 1px solid #BFBFBF !important;
+        border-right: 1px solid #BFBFBF !important;
+        text-align: center;
+    }
+
+    #ContentIndexCombinatedActivity div table thead tr:nth-child(1) > th {
+        background: #F5F5F5 !important;
+        border-right: 1px solid #F5F5F5 !important;
+        padding: 0px 0px 2px 0px;
+    }

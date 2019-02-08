@@ -1,0 +1,126 @@
+﻿<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<div class="modal fade" id="modalNuevoNotificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo notificación</h4>
+            </div>
+            <div class="modal-body">               
+                <div id="DivDetalle" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtTituloNuevo">Título</label>
+                        <div class="col-sm-9">
+                            <input id="txtTituloNuevo" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtSubtituloNuevo">SubTítulo</label>
+                        <div class="col-sm-9">
+                            <textarea id="txtSubtituloNuevo" type="text" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="chkCelularNuevo">Enviar al Celular</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="material-switch" style="padding-top: 8px;">
+                                <input id="chkCelularNuevo" type="checkbox" />
+                                <label for="chkCelularNuevo" class="label-info"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="chkEmailNuevo">Enviar al Email</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="material-switch" style="padding-top: 8px;">
+                                <input id="chkEmailNuevo" type="checkbox" />
+                                <label for="chkEmailNuevo" class="label-info"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>   
+    function GrabarNuevo(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var TituloNuevo = $('#txtTituloNuevo').val();
+            var SubtituloNuevo = $('#txtSubtituloNuevo').val();            
+            var CelularNuevo = $('#chkCelularNuevo').is(':checked');
+            var EmailNuevo = $('#chkEmailNuevo').is(':checked');
+
+            var Categoria = $('#cmbCategoria').val();
+            var Especialidad = $('#cmbEspecialidad').val();
+            var Filtro = $('#txtFiltro').val();
+
+            var viewModel = {
+                Usuario: { CategoriaId: Categoria, EspecialidadId: Especialidad, Filtro: Filtro },
+                Notificacion: { Titulo: TituloNuevo, SubTitulo: SubtituloNuevo, EnviarCelular: CelularNuevo, EnviarEmail: EmailNuevo}
+            };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Insert", "Notificacion")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalNuevoNotificacion').modal('hide');
+                            reiniciarControles();
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }        
+    }
+
+    function validarViewModel() {
+        var TituloNuevo = $('#txtTituloNuevo').val();
+        var SubtituloNuevo = $('#txtSubtituloNuevo').val();     
+
+        if (isNullOrEmpty(TituloNuevo)) {
+            alertify.error('Título requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(SubtituloNuevo)) {
+            alertify.error('Mensaje requerido.');
+            return false;
+        }        
+
+        return true;
+    }
+
+    function reiniciarControles() {
+        $('#txtTituloNuevo').val('');
+        $("#txtSubtituloNuevo").val('');      
+    }   
+</script>

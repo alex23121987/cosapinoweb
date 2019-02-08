@@ -1,0 +1,71 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@model VMUsuario
+@using Cosapi.ElCosapino.UI.Admin.Models.ViewModels
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript">  
+    function SelectRowsPerPage() {
+        var rowsPerPage = document.getElementById("SelRowsPerPage").value;
+        GridUsuarioReload(Number(rowsPerPage));
+    }
+
+    function GridUsuarioReload(rowsPerPage) {      
+        var data = $("#GridUsuario").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridUsuario").load("@(Url.Action("IndexPaginate", "HistorialNotificacion"))?arg=" + encodeURI(JSON.stringify(data)), function(){
+            HideLoadingShared();
+        });        
+    }
+</script>
+
+<div class="content">
+    <div class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Administración<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Historial Notificación</small></h1>
+
+        <table id="tblCreateUsuario">                      
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <label style="width:55px;text-align: left !important;padding-left: 0px !important;" class="col-xs-1">Mostrar </label>
+                        <select class=" dropdown form-control col-xs-2" id="SelRowsPerPage" name="SelRowsPerPage" onchange="SelectRowsPerPage()"
+                                style="position:relative;top:-8px;width:60px;padding-left: 7px !important;padding-right: 7px !important;">
+                            <option value=" 5">5</option>
+                            <option selected="selected" value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <label class="col-xs-2" style="padding-left: 10px !important;">Filas </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom:20px;">
+                    <div id="container_GridUsuario" class="GrillaSistema">
+                        @Html.Action("IndexPaginate", "HistorialNotificacion", new
+                {
+                    arg = JsonConvert.SerializeObject(new
+                    {
+                        CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                        RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                        OrderBy = "",
+                        DirectionOrder = "Descending"
+                    })
+                })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>

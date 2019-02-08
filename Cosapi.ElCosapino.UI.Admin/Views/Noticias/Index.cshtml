@@ -1,0 +1,112 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@using Cosapi.ElCosapino.UI.Admin.Util
+
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    /**/
+
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        mode: "specific_textareas",
+        editor_selector: "editorHtml",
+        menubar: false,
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image'
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalAgregarNoticia').click(function () {
+            $('#modalNuevoSeccionNoticias').show();
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+     function SelectRowsPerPage_SeccionNoticias() {
+        var rowsPerPage = 3;
+        GridSeccionReload_SeccionNoticias(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionNoticias(rowsPerPage) {
+        var data = $("#GridSeccionNoticias").CanvasDeserialice();
+        if (rowsPerPage) {data.RowsPerPage = rowsPerPage;data.CurrentPageIndex = 1;}
+        ShowLoadingShared();
+        $("#container_GridSeccionNoticias").load("@(Url.Action("IndexPaginateSeccionNoticias", "Noticias"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div id="DivRolNuevo" class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Registro<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Noticias</small></h1>
+
+        <table id="tblCreateRol">
+            <tr>
+                <td>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN DE NOTICIAS</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 705px de ancho y 350px de alto. Peso máximo 1MB.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionNoticias" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionNoticias", "Noticias", new
+                                        {
+                                            arg = JsonConvert.SerializeObject(new
+                                            {
+                                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                                RowsPerPage = 3,
+                                                OrderBy = "",
+                                                DirectionOrder = "Ascending"
+                                            })
+                                        })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalAgregarNoticia" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--INICIO DE VENTANAS DE MODALES-->
+<div id="seccion-modal-nuevo-SeccionNoticias">
+    @Html.Partial("_ModalNuevoSeccionNoticias")
+</div>
+
+<div id="seccion-modal-editar-SeccionNoticias">
+    @Html.Partial("_ModalEditarSeccionNoticias")
+</div>

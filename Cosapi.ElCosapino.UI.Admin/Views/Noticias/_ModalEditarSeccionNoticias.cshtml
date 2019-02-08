@@ -1,0 +1,155 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+
+<style>
+    .form-horizontal .control-label {text-align: left;}
+    #modalEditarSeccionNoticias {opacity: 1;background-color: rgba(0,0,0,0.8);position: fixed;top: 0;left: 0;right: 0;bottom: 0;margin: 0;z-index: 99;transition: all 1s;}
+    .popup-contenedor-EditarSeccionNoticias {
+        position: relative;
+        margin: 6% auto;
+        background-color: #FFFFFF;
+        color: #333;
+        border-radius: 3px;
+        width: 800px;
+    }
+    a.popup-cerrar {position: absolute;top: 3px;right: 3px;padding: 7px 10px;font-size: 13px;text-decoration: none;font-size: 21px;font-weight: bold;line-height: 1;color: #ddd;}
+</style>
+
+<div class="modal-wrapper" id="modalEditarSeccionNoticias" style="display:none">
+    <div class="popup-contenedor-EditarSeccionNoticias">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Editar Registro</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">                                       
+                        <div class="row form-horizontal">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtTituloEditar_SeccionNoticias">Título</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtTituloEditar_SeccionNoticias" type="text" class="form-control" rows="3"></textarea>
+                                        <input id="txtIDInterfaceWeb_SeccionNoticias" type="text" style="display:none" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtSubTituloEditar_SeccionNoticias">SubTítulo</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtSubTituloEditar_SeccionNoticias" type="text" class="form-control editorHtml" rows="8"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtFechaPublicacionEditar_SeccionNoticias">Fecha Publicación</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group date date-picker" id="txtFechaPublicacionEditar_SeccionNoticiasDatePicker">
+                                            <input id="txtFechaPublicacionEditar_SeccionNoticias" type="text" class="form-control" placeholder="DD/MM/YYYY" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label" for="imgImagenEditar_SeccionNoticias">Imagen</label>
+                                    <div class="col-sm-4">
+                                        <input type="file" id="imgImagenEditar_SeccionNoticias" />
+                                    </div>
+                                </div>                            
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtFechaPublicacionEditar_SeccionNoticias">Destacado</label>
+                                    <div class="col-sm-4">
+                                        <label class="containerradio control-label" style="text-align: left;padding-top: 1px;padding-left: 19px;">
+                                            <input type="checkbox" name="chkDestacadoEditar_SeccionNoticia" id="chkDestacadoEditar_SeccionNoticia"><span id="chkPol" class="fa checkmarkbox"></span>
+                                        </label>
+                                    </div>                                   
+                                    <label class="col-sm-2 control-label" for="chkEstadoEditar_SeccionNoticias">Estado</label>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="material-switch" style="padding-top: 8px;">
+                                            <input id="chkEstadoEditar_SeccionNoticias" type="checkbox" />
+                                            <label for="chkEstadoEditar_SeccionNoticias" class="label-info"></label>
+                                        </div>
+                                    </div>
+                                </div>                             
+                            </div>                           
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a onclick="Editar_SeccionNoticias()" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+            <a class="btn btn-danger" style="cursor:pointer" onclick="MostrarOcultarDiv('modalEditarSeccionNoticias')"><span class="fa fa-sign-out fa-fw"></span> Salir</a>
+        </div>
+        <a class="popup-cerrar" onclick="MostrarOcultarDiv('modalEditarSeccionNoticias')">x</a>
+    </div>
+</div>
+
+<script>
+    function Editar_SeccionNoticias() {
+        if (window.FormData !== undefined) {
+            var fileUpload = $("#imgImagenEditar_SeccionNoticias").get(0);
+            var files = fileUpload.files;
+            var fileData = new FormData();
+
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            var IDInterface = $('#txtIDInterfaceWeb_SeccionNoticias').val();
+            var TituloEditar = $('#txtTituloEditar_SeccionNoticias').val();
+            var SubTituloEditar = tinyMCE.get('txtSubTituloEditar_SeccionNoticias').getContent();
+            var Estado = $('#chkEstadoEditar_SeccionNoticias').is(':checked');
+            var FechaPublicacion = $('#txtFechaPublicacionEditar_SeccionNoticiasDatePicker').find("input").val();
+            var Destacado = $('#chkDestacadoEditar_SeccionNoticia:checked').val();
+            var ValorDestacado = 0;
+            if (Destacado == "on") { ValorDestacado = 1; }
+
+            fileData.append('IDInterface', IDInterface);
+            fileData.append('Titulo', TituloEditar);
+            fileData.append('SubTitulo', SubTituloEditar);
+            fileData.append('Estado', Estado);
+            fileData.append('FechaPublicacion', FechaPublicacion);
+            fileData.append('Destacado', ValorDestacado);
+
+            $.ajax({
+                url: '@Url.Action("Upd_SeccionNoticias", "Noticias")',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalEditarSeccionNoticias').hide();
+                            SelectRowsPerPage_SeccionNoticias();
+                            reiniciarControles_EditarSeccionNoticias();
+                            alertify.success('¡Bien!. Registro actualizado.');
+                            break;
+                        case 0:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Tipo de archivo no permitido.');
+                            break;
+                        case -3:
+                            alertify.error('¡Opss!. Peso máximo 1 MB.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function (err) {
+                    alertify.error(err.statusText);
+                }
+            });
+        } else {
+            alertify.error("El navegador no está soportando subir imágenes.");
+        }
+    }
+
+    function reiniciarControles_EditarSeccionNoticias() {
+        $("#txtTituloEditar_SeccionNoticias").val('');
+        $("#txtSubTituloEditar_SeccionNoticias").val('');
+        $("#imgImagenEditar_SeccionNoticias").val("");
+    }
+</script>

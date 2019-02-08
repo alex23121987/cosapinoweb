@@ -1,0 +1,110 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.InterfaceWebAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<style>
+    #container_GridSeccionNoticias .rgHeader-jQuery-Filter {
+        display: none
+    }
+</style>
+
+@{
+    var grid = new CanvasGrid<InterfaceWeb>("GridSeccionNoticias", Model) { callBackMethod = "GridSeccionReload_SeccionNoticias", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Título", _filterKey: "S_Titulo", _format: item => item.Titulo);
+    grid.columnCollection.addColumn(_headerText: "SubTítulo", _filterKey: "S_SubTitulo", _format: item => item.SubTitulo);
+    grid.columnCollection.addColumn(_headerText: "Imagen", _isFilterable: false, _isSortable: false, _format:
+@<text>
+    <img src="~/Upload/Noticias/ListaNoticias/@item.Imagen" style="width:210px; height:85px;" />
+</text>);
+grid.columnCollection.addColumn(_headerText: "Destacado", _isFilterable: false, _isSortable: false, _format:
+@<text>
+    @if (item.Destacado == 1)
+    {
+        <span>Sí</span>
+    }
+    else { 
+        <span>No</span>
+    }
+</text>);
+    grid.columnCollection.addColumn(_headerText: "Fecha Publicación", _filterKey: "S_FechaPublicacion", _format: item => item.FechaPublicacion);
+    grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format: item => item.Estado);
+    grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+@<text>
+    <div class="acciones_grilla">
+        <a id="lnkEdit" onclick="ModalEditar_SeccionNoticias(this)" style="cursor:pointer" title="Editar" data-value="@item.IDInterfaceWeb">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a id="lnkDelete" onclick="ConfirmaEliminarNoticia(this)" style="cursor:pointer" title="Eliminar" data-value="@item.IDInterfaceWeb">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+</text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminarNoticia(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            EliminarNoticia(that);
+        });
+    }
+
+    function EliminarNoticia(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "Noticias")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage_SeccionNoticias();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ModalEditar_SeccionNoticias(that) {
+        var id = $(that).attr("data-value");
+        var titulo = that.parentElement.parentElement.parentElement.cells[0].innerText;
+        var subtitulo = that.parentElement.parentElement.parentElement.cells[1].innerHTML;
+        var descatado = that.parentElement.parentElement.parentElement.cells[3].innerText;
+        var fechapublicacion = that.parentElement.parentElement.parentElement.cells[4].innerText;
+        var estado = that.parentElement.parentElement.parentElement.cells[5].innerText;
+        var b_estado = false;
+        if (estado == "Activo") {b_estado = true;}
+        $('#txtIDInterfaceWeb_SeccionNoticias').val(id);
+        $('#txtTituloEditar_SeccionNoticias').val(titulo);
+        $('#txtFechaPublicacionEditar_SeccionNoticias').val(fechapublicacion);
+        tinyMCE.get('txtSubTituloEditar_SeccionNoticias').setContent(subtitulo);
+        $('#chkEstadoEditar_SeccionNoticias').prop('checked', b_estado);
+        if (descatado == "Sí") {
+            $("#chkDestacadoEditar_SeccionNoticia").prop("checked", true);
+        } else {
+            $("#chkDestacadoEditar_SeccionNoticia").prop("checked", false);
+        }
+
+        $('#modalEditarSeccionNoticias').show();
+    };
+</script>

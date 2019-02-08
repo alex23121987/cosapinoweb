@@ -1,0 +1,30 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.NotificacionAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+@{
+    var grid = new CanvasGrid<Notificacion>("GridUsuario", Model) { callBackMethod = "GridUsuarioReload", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Fecha", _filterKey: "S_Fecha", _format: item => item.Fecha);
+    grid.columnCollection.addColumn(_headerText: "Título", _filterKey: "S_Titulo", _format: item => item.Titulo);
+    grid.columnCollection.addColumn(_headerText: "Mensaje", _filterKey: "S_Subtitulo", _format: item => item.Subtitulo);    
+grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format:
+@<text>
+    @if (@item.Estado.Equals("Activo"))
+    {
+        <span style="background-color:#4CAF50; color:#FFFFFF;padding: 5px 10px;">@item.Estado</span>
+    }
+    else
+    {
+        <span style="background-color:#03A9F4; color:#FFFFFF;padding: 5px 10px;">@item.Estado</span>
+    }
+</text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+
+
+
+

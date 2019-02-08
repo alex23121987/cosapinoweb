@@ -1,0 +1,129 @@
+﻿<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<script>
+    $(function () {        
+        $('#txtColorNuevo').colorpicker({ horizontal: true});
+    });
+</script>
+
+<div class="modal fade" id="modalNuevoAcceso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbRolNuevo">Rol</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="cmbRolNuevo" name="cmbRolNuevo">
+                                <option value="0">.: Seleccione :.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtCodigoNuevo">Código</label>
+                        <div class="col-sm-9">
+                            <input id="txtCodigoNuevo" type="text" class="form-control">
+                            <input id="txtIDAdministradorNuevo" type="text" style="display:none">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtContrasenaNuevo">Contraseña</label>
+                        <div class="col-sm-9">
+                            <input id="txtContrasenaNuevo" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        Lista_Rol_Nuevo();
+    });
+
+     function Lista_Rol_Nuevo() {
+         $('#cmbRolNuevo option').remove();
+        $.getJSON("@Url.Action("List_Rol", "Acceso")", function (data) {
+            $('<option>', { value: 0, text: ".: Seleccione :." }).html(".: Seleccione :.").appendTo("#cmbRolNuevo");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.N_IDRol, text: data.S_Descripcion }).html(data.S_Descripcion).appendTo("#cmbRolNuevo");
+            });
+        })
+    }
+
+    function GrabarNuevo(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var Codigo = $('#txtCodigoNuevo').val();
+            var Clave = $('#txtContrasenaNuevo').val();
+            var IDRol = $('#cmbRolNuevo').val();           
+            var viewModel = { Administrador: { Codigo: Codigo, Clave: Clave, IDRol: IDRol } };
+        
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Insert", "Acceso")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalNuevoAcceso').modal('hide');
+                            reiniciarControles();
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel() {
+        var Codigo = $('#txtCodigoNuevo').val();
+        var Clave = $('#txtContrasenaNuevo').val();     
+
+        if (isNullOrEmpty(Codigo)) {
+            alertify.error('Código requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(Clave)) {
+            alertify.error('Clave requerida.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles() {
+        $("#txtCodigoNuevo").val('');
+        $("#txtContrasenaNuevo").val('');
+        $('#cmbRolNuevo').val(0);
+    }
+</script>

@@ -1,0 +1,348 @@
+﻿<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<div class="modal fade" id="modalNuevoUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo registro</h4>
+            </div>
+            <div class="modal-body">
+                <div id="DivBuscarAD" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtUserNameNuevo">Buscar</label>
+                        <div class="col-sm-8">
+                            <input id="txtBuscarAD" type="text" class="form-control">
+                        </div>
+                        <div class="col-lg-2" style="padding-right: 0px !important;padding-left: 0px !important;">
+                            <div>
+                                <label></label>
+                                <a onclick="BuscarUserAD()" style="cursor:pointer; padding:0px 12px" title="Buscar Usuarios en el AD" class="btn"><span class="fa fa-search" style="font-size:30px"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12" style="padding-left: 0px !important;padding-right: 0px !important;">
+                            <div id="container_UserAD" style="margin-top:15px;" class="table-responsive central col-lg-12 GrillaSistemaSingle"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="DivDetalle" class="form-horizontal oculto">
+                    <div class="form-group">
+                        <div class="col-sm-12" style="text-align: right;">
+                            <a onclick="RegresarBuscarUserAD()" style="cursor:pointer; padding:0px 12px" title="Regresar a la búsqueda" class="btn"><span class="fa fa-reply" style="font-size:30px"></span></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtUserNameNuevo">UserName</label>
+                        <div class="col-sm-9">
+                            <input id="txtUserNameNuevo" type="text" class="form-control" maxlength="5" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtApellidosNuevo">Apellidos</label>
+                        <div class="col-sm-9">
+                            <input id="txtApellidosNuevo" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtNombresNuevo">Nombres</label>
+                        <div class="col-sm-9">
+                            <input id="txtNombresNuevo" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtEmailNuevo">Email</label>
+                        <div class="col-sm-9">
+                            <input id="txtEmailNuevo" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbPerfil">Perfil</label>
+                        <div class="col-sm-9">
+                            <select data-placeholder=".: SELECCIONE :." class="form-control chosen-select-single" tabindex="2" id="cmbPerfil" name="cmbPerfil"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbEspecialidad">Especialidad</label>
+                        <div class="col-sm-9">
+                            <select data-placeholder=".: SELECCIONE :." class="form-control chosen-select-single" tabindex="2" id="cmbEspecialidad" name="cmbEspecialidad"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbCargo">Cargo</label>
+                        <div class="col-sm-9">
+                            <select data-placeholder=".: SELECCIONE :." class="form-control chosen-select-single" tabindex="2" id="cmbCargo" name="cmbCargo"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbCargo">Fecha Ingreso</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date date-picker" id="txtFechaIngresoNuevoDatePicker">
+                                <input id="txtFechaIngresoNuevo" type="text" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="chkFavoritoNuevo">Favorito</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="material-switch" style="padding-top: 8px;">
+                                <input id="chkFavoritoNuevo" type="checkbox" />
+                                <label for="chkFavoritoNuevo" class="label-info"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function BuscarUserAD() {
+        $('#loading').show();
+        var Filtro = $('#txtBuscarAD').val();
+        $.ajax({
+            type: 'GET',
+            url: './Usuario/BuscarUsuariosAD?Filtro=' + Filtro,
+            dataType: 'json',
+            cache: false,
+        })
+        .success(function (data) {
+            if (data != null) {
+               
+                var tabla = "";
+                tabla += "<table class='Grid GridDet'>";
+                tabla += "  <thead>";
+                tabla += "      <th>Apellidos</th>"; 
+                tabla += "      <th>Nombres</th>";
+                tabla += "      <th>UserName</th>";
+                tabla += "      <th style='display:none'>Email</th>"; 
+                tabla += "      <th>Acción</th>";
+                tabla += "  </thead>";
+                for (var i = 0; i < data.length; i++) {                  
+                    tabla += "  <tr>";
+                    tabla += "      <td style='height:20px !important'>" + data[i].S_Apellidos + "</td>";
+                    tabla += "      <td style='height:20px !important'>" + data[i].S_Nombres + "</td>";
+                    tabla += "      <td style='height:20px !important'>" + data[i].S_UserName + "</td>";
+                    tabla += "      <td style='display:none;height:20px !important'>" + data[i].S_Email + "</td>";
+                    tabla += "      <td style='text-align:center;height:20px !important'><a onclick='SeleccionarUsuarioAD(this)' style='cursor: pointer' title='Seleccionar usuario' data-value='" + data[i].S_UserName + "'><span class='fa fa-check' style='color:#56BA55'></span ></a ></td>";
+                    tabla += "  </tr>";                  
+                }
+                tabla += "</table>";
+                $('#container_UserAD').html(tabla);  
+
+                $('.GridDet').DataTable({
+                    "orderable": false,
+                    "pageLength": 10,
+                    "columnDefs": [{
+                        "targets": 'no-sort',
+                        "orderable": false,
+                    }],
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": { "sFirst": "Primero", "sLast": "Último", "sNext": "Siguiente", "sPrevious": "Anterior" },
+                        "oAria": { "sSortAscending": ": Activar para ordenar la columna de manera ascendente", "sSortDescending": ": Activar para ordenar la columna de manera descendente" }
+                    }
+                });
+            } else {
+                //$('#lblMensaje').html("No hay datos");
+            }
+            $('#loading').hide();
+        })
+        .error(function (xhr, ajaxOptions, throwError) {
+            // $('#lblMensaje').html('Error');
+        });
+    }
+
+    function SeleccionarUsuarioAD(that) {
+        $("#DivBuscarAD").hide();
+        $("#DivDetalle").show();
+        var username = $(that).attr("data-value");
+        var apellidos = that.parentElement.parentElement.cells[0].innerText;
+        var nombres = that.parentElement.parentElement.cells[1].innerText;
+        var email = that.parentElement.parentElement.cells[3].innerText;
+        $("#txtUserNameNuevo").val(username);
+        $("#txtApellidosNuevo").val(apellidos);
+        $("#txtNombresNuevo").val(nombres);
+        $("#txtEmailNuevo").val(email);
+    }
+
+    function RegresarBuscarUserAD() {
+        $("#DivBuscarAD").show();
+        $("#DivDetalle").hide();
+        $('#txtBuscarAD').val("");
+        $('#container_UserAD').html("");  
+    }
+
+    function GrabarNuevo(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var UserName = $('#txtUserNameNuevo').val();
+            var Apellidos = $('#txtApellidosNuevo').val();
+            var Nombres = $('#txtNombresNuevo').val();
+            var Email = $('#txtEmailNuevo').val();
+            var perfil = $('#cmbPerfil').val();
+            var especialidad = $('#cmbEspecialidad').val();
+            var cargo = $('#cmbCargo').val();
+            var favorito = $('#chkFavoritoNuevo').is(':checked');
+            var fechaingreso = $('#txtFechaIngresoNuevoDatePicker').find("input").val();
+
+            bloquearBotonesProceso(true);
+            var viewModel = { Usuario: { N_IDPerfil: perfil, N_IDEspecialidad: especialidad, N_IDCargo: cargo, S_UserName: UserName, S_Apellidos: Apellidos, S_Nombres: Nombres, S_Email: Email, S_FechaIngreso: fechaingreso, N_Favorito: favorito } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Insert", "Usuario")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalNuevoUsuario').modal('hide');
+                            reiniciarControles();
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }        
+    }
+
+    function validarViewModel() {
+        var UserName = $('#txtUserNameNuevo').val();
+        var Apellidos = $('#txtApellidosNuevo').val();
+        var Nombres = $('#txtNombresNuevo').val();
+        var Email = $('#txtEmailNuevo').val();
+        var especialidad = $('#cmbEspecialidad').val();
+        var perfil = $('#cmbPerfil').val();
+        var cargo = $('#cmbCargo').val();
+
+        if (isNullOrEmpty(UserName)) {
+            alertify.error('UserName requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(Apellidos)) {
+            alertify.error('Apellidos requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(Nombres)) {
+            alertify.error('Nombres requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(Email)) {
+            alertify.error('Email requerida.');
+            return false;
+        }
+
+        if (isNullOrEmpty(especialidad)) {
+            alertify.error('Especialidad requerida.');
+            return false;
+        }
+
+        if (isNullOrEmpty(perfil)) {
+            alertify.error('Perfil requerida.');
+            return false;
+        }
+
+        if (isNullOrEmpty(cargo)) {
+            alertify.error('Cargo requerida.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles() {
+        $('#txtUserNameNuevo').val('');
+        $("#txtApellidosNuevo").val('');
+        $("#txtNombresNuevo").val('');
+        $("#txtEmailNuevo").val('');
+    }
+
+    function ListarPerfil() {
+        $('#cmbPerfil option').remove();
+        $('#cmbPerfilEditar option').remove();
+        $.getJSON("./Usuario/ListarPerfil", function (data) {
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.S_ID, text: data.S_Descripcion }).html(data.Descripcion).appendTo("#cmbPerfil");
+                $('<option>', { value: data.S_ID, text: data.S_Descripcion }).html(data.Descripcion).appendTo("#cmbPerfilEditar");
+            });
+            $("#cmbPerfil").chosen();
+            $('#cmbPerfil').val("").trigger('chosen:updated');
+
+            $("#cmbPerfilEditar").chosen();
+            $('#cmbPerfilEditar').val("").trigger('chosen:updated');
+        })
+    }
+
+    function ListarEspecialidad() {
+        $('#cmbEspecialidad option').remove();
+        $('#cmbEspecialidadEditar option').remove();
+        $.getJSON("./Usuario/ListarEspecialidad", function (data) {
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.S_ID, text: data.S_Descripcion }).html(data.Descripcion).appendTo("#cmbEspecialidad");
+                $('<option>', { value: data.S_ID, text: data.S_Descripcion }).html(data.Descripcion).appendTo("#cmbEspecialidadEditar");
+            });
+            $("#cmbEspecialidad").chosen();
+            $('#cmbEspecialidad').val("").trigger('chosen:updated');
+
+            $("#cmbEspecialidadEditar").chosen();
+            $('#cmbEspecialidadEditar').val("").trigger('chosen:updated');
+        })
+    }
+
+    function ListarCargo() {
+        $('#cmbCargo option').remove();
+        $('#cmbCargoEditar option').remove();
+        $.getJSON("./Usuario/ListarCargo", function (data) {
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.S_ID, text: data.S_Descripcion }).html(data.Descripcion).appendTo("#cmbCargo");
+                $('<option>', { value: data.S_ID, text: data.S_Descripcion }).html(data.Descripcion).appendTo("#cmbCargoEditar");
+            });
+            $("#cmbCargo").chosen();
+            $('#cmbCargo').val("").trigger('chosen:updated');
+
+            $("#cmbCargoEditar").chosen();
+            $('#cmbCargoEditar').val("").trigger('chosen:updated');
+        })
+    }
+</script>

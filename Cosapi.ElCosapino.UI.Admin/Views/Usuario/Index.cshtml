@@ -1,0 +1,126 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@model VMUsuario
+@using Cosapi.ElCosapino.UI.Admin.Models.ViewModels
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript">  
+    function SelectRowsPerPage() {
+        var rowsPerPage = document.getElementById("SelRowsPerPage").value;
+        GridUsuarioReload(Number(rowsPerPage));
+    }
+
+    function GridUsuarioReload(rowsPerPage) {
+        var data = $("#GridUsuario").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridUsuario").load("@(Url.Action("IndexPaginate", "Usuario"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Administración<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Usuario</small></h1>
+
+        <table id="tblCreateUsuario">
+            <tr>
+                <td>
+                    <div class="form-inline form-group pull-right" style="padding-bottom:10px;">
+                        <a onclick="Exportar();" style="cursor:pointer;" title="Exportar Resultados" class="btn btn-azul btn-buscador-encrustado form-group"><i class="fa fa-check-square-o" aria-hidden="true"></i> Exportar</a>
+                        <a onclick="EnviarCorreoPendiente();" style="cursor:pointer;" title="Exportar Resultados" class="btn btn-success btn-buscador-encrustado form-group"><i class="fa fa-check-square-o" aria-hidden="true"></i> Enviar Correo de Confirmación Pendiente</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <label style="width:55px;text-align: left !important;padding-left: 0px !important;" class="col-xs-1">Mostrar </label>
+                        <select class=" dropdown form-control col-xs-2" id="SelRowsPerPage" name="SelRowsPerPage" onchange="SelectRowsPerPage()"
+                                style="position:relative;top:-8px;width:60px;padding-left: 7px !important;padding-right: 7px !important;">
+                            <option value=" 5">5</option>
+                            <option selected="selected" value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <label class="col-xs-2" style="padding-left: 10px !important;">Filas </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom:20px;">
+                    <div id="container_GridUsuario" class="GrillaSistema">
+                        @Html.Action("IndexPaginate", "Usuario", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                                OrderBy = "S_NombreCompleto",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div id="seccion-modal-Ver-Usuario">
+    @Html.Partial("_ModalVerUsuario")
+</div>
+
+<script>
+    function Exportar() {
+        ShowLoadingShared();
+        var url = '@Url.Action("GenerarPlantillaReporte", "Usuario")';
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: url,
+            contentType: 'application/json',
+            processData: false,
+        }).done(function (response) {
+            window.location = '@Url.Action("DescargarReporte", "Usuario")' + '?fileGuid=' + response.FileGuid + '&filename=' + response.FileName;
+            HideLoadingShared();
+            }).fail(function (xhr, textStatus, errorThrown) {
+                HideLoadingShared();
+                mostrarError('Ha ocurrido un error inesperado.: ' + errorThrown);
+        });
+    }
+
+    function EnviarCorreoPendiente() {
+        ShowLoadingShared();
+        var url = '@Url.Action("EnviarCorreoPendiente", "Usuario")';
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: url,
+            contentType: 'application/json',
+            processData: false,
+        }).done(function (response) {
+            HideLoadingShared();
+            if (response.Codigo == 0) {
+                alertify.error('¡Opss!. Algo salió mal.');
+            } else if (response.Codigo == 1) {
+                alertify.success('¡Bien!. Email enviado.');
+            } else if (response.Codigo == 2) {
+                alertify.success('¡Bien!. No existen usuarios pendientes por enviar confirmación.');
+            }
+            }).fail(function (xhr, textStatus, errorThrown) {
+                HideLoadingShared();
+                mostrarError('Ha ocurrido un error inesperado.: ' + errorThrown);
+        });
+    }
+</script>

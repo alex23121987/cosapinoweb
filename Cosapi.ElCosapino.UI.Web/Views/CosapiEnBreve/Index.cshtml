@@ -1,0 +1,85 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="choose-area pt-60" style="background-color:#5FB6DB">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>COSAPI EN BREVE</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                @Html.Raw(Model.CosapiBreve_SeccionSuperior)
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px;margin-bottom: 10px;">
+            <div class="col-md-12 col-sm-12">
+                <div class="cosapibreve-item">
+                    <ul>
+                        @foreach (var item in Model.CosapiBreve_SeccionLogo)
+                        {
+                            <li>
+                                <img class="choose-icon-cblogos-img" src="@ViewBag.UrlAdmin/Upload/CosapiEnBreve/Logos/@item.Imagen" style="width:210px; height:85px;">
+                            </li>
+                        }                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="padding-top: 30px;padding-bottom: 10px;">
+                <span style="color:#009ED3; font-weight:bold;">
+                    TE INVITAMOS A QUE CONOZCAS MÁS SOBRE NOSOTROS Y AQUELLOS ASPECTOS DE INTERÉS PARA TÍ Y TU FAMILIA
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 response-area">
+                <ul class="media-list">
+                    @{int aux = 0;}
+                    @foreach (var item in Model.CosapiBreve_SeccionInferior)
+                    {
+                        if (aux % 2 == 0)
+                        {
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object-cb" src="@ViewBag.UrlAdmin/Upload/CosapiEnBreve/Conocer/@item.Imagen" alt="" style="width:240px; height:125px;">
+                                </a>
+                                <div class="media-body">
+                                    <p style="border-left:2px solid #009ED3; padding-left:15px;">@item.Titulo</p>
+                                    <p style="padding-left:16px;color:#009ED3">@item.SubTitulo</p>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="mini-flow">
+                                <div class="media-body" style="padding-right:280px;">
+                                    <p style="border-right:2px solid #009ED3">@item.Titulo</p>
+                                    <p style="color:#009ED3">@item.SubTitulo</p>
+                                </div>
+                                <a class="pull-left" href="#">
+                                    <img class="media-object-cb flow-image" src="@ViewBag.UrlAdmin/Upload/CosapiEnBreve/Conocer/@item.Imagen" alt="" style="width:240px; height:125px;">
+                                </a>
+
+                            </li>
+                        }
+                        aux = aux + 1;
+                     }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

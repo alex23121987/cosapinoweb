@@ -1,0 +1,115 @@
+﻿
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<div class="modal fade" id="modalNuevoRequisito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtTituloNuevo_RI_Programa">Título</label>
+                        <div class="col-sm-10">
+                            <input id="txtTituloNuevo_RI_Requisitos" name="txtTituloNuevo_RI_Requisitos" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtIDYoutubeNuevo_RI_Requisitos">ID Youtube</label>
+                        <div class="col-sm-10">
+                            <input id="txtIDYoutubeNuevo_RI_Requisitos" name="txtIDYoutubeNuevo_RI_Requisitos" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtSubTituloNuevo_RI_Requisitos">SubTítulo</label>
+                        <div class="col-sm-10">
+                            <textarea id="txtSubTituloNuevo_RI_Requisitos" type="text" class="form-control editorHtml" rows="8"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo_RI_Requisito(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GrabarNuevo_RI_Requisito(that) {
+        var esValido = true;// validarViewModel_RI_Requisitos();
+
+        if (esValido === true) {
+            var TituloNuevo_RI_Requisitos = $('#txtTituloNuevo_RI_Requisitos').val();            
+            var SubTituloNuevo_RI_Requisitos = tinyMCE.get('txtSubTituloNuevo_RI_Requisitos').getContent();
+            var txtIDYoutubeNuevo_RI_Requisitos = $('#txtIDYoutubeNuevo_RI_Requisitos').val(); 
+            var Subtitulo = "";
+            var Orden = 0;
+            if (isNullOrEmpty(txtIDYoutubeNuevo_RI_Requisitos)) {
+                Subtitulo = SubTituloNuevo_RI_Requisitos;
+            } else {
+                Subtitulo = txtIDYoutubeNuevo_RI_Requisitos;
+                Orden = 1;
+            }
+
+            var viewModel = { InterfaceWeb: { Titulo: TituloNuevo_RI_Requisitos, SubTitulo: Subtitulo, Orden: Orden } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertSeccionRequisitos", "RequisitosIngreso")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalNuevoRequisito').modal('hide');
+                            reiniciarControles_RI_Requisitos();
+                            SelectRowsPerPage_SeccionRequisitos();
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel_RI_Requisitos () {
+        var TituloNuevo_RI_Requisitos = $('#txtTituloNuevo_RI_Requisitos').val();        
+        var SubTituloNuevo_RI_Requisitos = $('#txtSubTituloNuevo_RI_Requisitos').val();        
+
+        if (isNullOrEmpty(TituloNuevo_RI_Requisitos)) {
+            alertify.error('Título requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(SubTituloNuevo_RI_Requisitos)) {
+            alertify.error('SubTítulo requerido.');
+            return false;
+        }
+  
+        return true;
+    }
+
+    function reiniciarControles_RI_Requisitos() {
+        $("#txtTituloNuevo_RI_Requisitos").val('');        
+        $("#txtSubTituloNuevo_RI_Requisitos").val('');        
+    }
+</script>

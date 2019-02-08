@@ -1,0 +1,332 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@using Cosapi.ElCosapino.UI.Admin.Util
+
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        mode: "specific_textareas",
+        editor_selector: "editorHtml",
+        menubar: false,
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image'
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalNuevoSeccionImagenes').click(function () {
+            $('#modalNuevoSeccionImagenes').show();
+        });
+
+        $('#btnModalNuevoPrograma').click(function () {
+            $('#modalNuevoSeccionPrograma').modal('show');
+        });
+
+        $('#btnModalNuevoGaleria').click(function () {
+            $('#modalNuevoGaleria').modal('show');
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+    function SelectRowsPerPage_SeccionImagenes() {
+        var rowsPerPage = 2;
+        GridSeccionReload_SeccionImagenes(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionImagenes(rowsPerPage) {
+        var data = $("#GridSeccionImagenes").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionImagenes").load("@(Url.Action("IndexPaginateSeccionImagenes", "CentroCapacitacion"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+
+    function SelectRowsPerPage_SeccionPrograma() {
+        var rowsPerPage = 10;
+        GridSeccionReload_SeccionPrograma(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionPrograma(rowsPerPage) {
+        var data = $("#GridSeccionPrograma").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionPrograma").load("@(Url.Action("IndexPaginateSeccionPrograma", "CentroCapacitacion"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+
+    function SelectRowsPerPage_SeccionGaleria() {
+        var rowsPerPage = 10;
+        GridSeccionReload_SeccionGaleria(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionGaleria(rowsPerPage) {
+        var data = $("#GridSeccionGaleria").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionGaleria").load("@(Url.Action("IndexPaginateSeccionGaleria", "CentroCapacitacion"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+     }
+
+     function SelectRowsPerPage_SeccionGaleriaFoto(id) {
+        var rowsPerPage = 3;
+        GridSeccionReload_SeccionGaleriaFoto(Number(rowsPerPage), id);
+    }
+
+     function GridSeccionReload_SeccionGaleriaFoto(rowsPerPage, id) {
+         if (id == undefined) {
+             id = $('#txtIDGaleria').val();
+         }
+         var data = $("#GridSeccionGaleriaFoto").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionGaleriaFoto").load("@(Url.Action("IndexPaginateSeccionGaleriaFoto", "CentroCapacitacion"))?arg=" + encodeURI(JSON.stringify(data)) + "&IDInterface=" + id);
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div id="DivRolNuevo" class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Registro<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Centro de Capacitación</small></h1>
+
+        <table id="tblCreateRol">
+            <tr>
+                <td>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN IMÁGENES SUPERIORES</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 1349px de ancho y 270px de alto. Peso máximo 1MB.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionImagenes" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionImagenes", "CentroCapacitacion", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = 3,
+                                OrderBy = "",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoSeccionImagenes" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN TEXTO SUPERIOR</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <textarea id="txtCCSS_Descripcion" type="text" class="form-control editorHtml" rows="8">@Html.Raw(Model.CentroCapacitacion_SeccionSuperior)</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <a onclick="GrabarDescripcion(3,300,'txtCCSS_Descripcion')" style="cursor:pointer" class="btn btn-azul" title="Grabar"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN PROGRAMAS</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionPrograma" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionPrograma", "CentroCapacitacion", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                                OrderBy = "",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoPrograma" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN GALERÍA DE FOTOS</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 280px de ancho y 280px de alto. Peso máximo 1MB.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionGaleria" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionGaleria", "CentroCapacitacion", new
+            {
+                arg = JsonConvert.SerializeObject(new
+                {
+                    CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                    RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                    OrderBy = "",
+                    DirectionOrder = "Ascending"
+                })
+            })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoGaleria" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<!--INICIO DE VENTANAS DE MODALES-->
+<div id="seccion-modal-nuevo-SeccionImagenes">
+    @Html.Partial("_ModalNuevoSeccionImagenes")
+</div>
+
+<div id="seccion-modal-nuevo-Galeria">
+    @Html.Partial("_ModalNuevoGaleria")
+</div>
+
+<div id="seccion-modal-nuevo-GaleriaFoto">
+    @Html.Partial("_ModalNuevoGaleriaFoto")
+</div>
+
+<div id="seccion-modal-nuevo-Programa">
+    @Html.Partial("_ModalNuevoPrograma")
+</div>
+
+<div id="seccion-modal-editar-EditarSeccionPrograma">
+    @Html.Partial("_ModalEditarSeccionPrograma")
+</div>
+
+<div id="seccion-modal-editar-EditarSeccionGaleria">
+    @Html.Partial("_ModalEditarSeccionGaleria")
+</div>
+
+<div id="seccion-modal-editar-EditarSeccionGaleriaFoto">
+    @Html.Partial("_ModalEditarSeccionGaleriaFoto")
+</div>
+<!--FIN DE MODAL-->
+
+<script>
+    function GrabarDescripcion(IDModulo,IDSeccion,Control) {
+        var esValido = true; // validarViewModel();
+
+        if (esValido === true) {
+            var IDModulo = IDModulo;
+            var IDSeccion = IDSeccion;
+            var Titulo = tinyMCE.get(Control).getContent();
+            var viewModel = { InterfaceWeb: { IDModulo: IDModulo, IDSeccion: IDSeccion, Titulo: Titulo } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertUnique", "CosapiEnbreve")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Codigo > 0) {
+                        alertify.success('¡Bien!. Registro enviado.');
+                    } else {
+                        alertify.error('¡Opss!. Algo salió mal.');
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel() {
+        var Descripcion = $('#txtDescripcionNuevo').val();
+        var SeleccionRol = $("#hddIdStatusTree").val();
+
+        if (isNullOrEmpty(Descripcion)) {
+            alertify.error('Descripción requerida.');
+            return false;
+        }
+
+        if (SeleccionRol == 0) {
+            alertify.error('Opción del Sistema requerida.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles() {
+        $('#txtCodigoEditar').val('');
+        $("#txtDescripcionNuevo").val('');
+    }
+</script>

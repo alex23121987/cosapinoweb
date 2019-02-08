@@ -1,0 +1,102 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.InterfaceWebAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<style>
+    #container_GridSeccionLineaTiempo .rgHeader-jQuery-Filter {
+        display: none
+    }
+</style>
+
+@{
+    var grid = new CanvasGrid<InterfaceWeb>("GridSeccionLineaTiempo", Model) { callBackMethod = "GridSeccionReload_SeccionLineaTiempo", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Año", _filterKey: "S_Titulo", _format: item => item.Titulo);
+    grid.columnCollection.addColumn(_headerText: "Nro Proyectos", _filterKey: "S_Titulo", _format: item => item.SubTitulo);
+    grid.columnCollection.addColumn(_headerText: "Imagen", _isFilterable: false, _isSortable: false, _format:
+@<text>
+    <img src="~/Upload/ProyectosEmblematicos/LineaTiempo/@item.Imagen" style="width:210px; height:85px;" />
+</text>);
+grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format: item => item.Estado);
+grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+@<text>
+    <div class="acciones_grilla">
+        <a id="lnkEdit" onclick="ModalEditar_SeccionLineaTiempo(this)" style="cursor:pointer" title="Editar" data-value="@item.IDInterfaceWeb">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a id="lnkNuevoProyecto" onclick="ModalNuevoLineaTiempo(this)" style="cursor:pointer" title="Editar" data-value="@item.IDInterfaceWeb">
+            <span class="glyphicon glyphicon-tasks"></span>
+        </a>
+        <a id="lnkDelete" onclick="ConfirmaEliminar_SeccionLineaTiempo(this)" style="cursor:pointer" title="Eliminar" data-value="@item.IDInterfaceWeb">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+</text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminar_SeccionLineaTiempo(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            Eliminar_SeccionLineaTiempo(that);
+        });
+    }
+
+    function Eliminar_SeccionLineaTiempo(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "ProyectosEmblematicos")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage_SeccionLineaTiempo();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ModalEditar_SeccionLineaTiempo(that) {
+        var id = $(that).attr("data-value");
+        var titulo = that.parentElement.parentElement.parentElement.cells[0].innerText;
+        var estado = that.parentElement.parentElement.parentElement.cells[3].innerText;
+        var b_estado = false;
+        if (estado == "Activo") {b_estado = true;}
+        $('#txtIDInterfaceWeb_SeccionLineaTiempo').val(id);
+        $('#txtTituloEditar_SeccionLineaTiempo').val(titulo);
+        $('#chkEstadoEditar_SeccionLineaTiempo').prop('checked', b_estado);
+        $('#modalEditarSeccionLineaTiempo').show();
+    }
+
+    function ModalNuevoLineaTiempo(that) {
+        var id = $(that).attr("data-value");
+        $('#txtIDLineaTiempo').val(id);
+        SelectRowsPerPage_SeccionLineaTiempoProyecto(id);
+        $('#modalNuevoLineaTiempoProyecto').modal('show');
+    }
+
+</script>
+
+
+

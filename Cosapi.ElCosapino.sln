@@ -1,0 +1,121 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Dominio", "01-Dominio", "{D5FF3945-FBAE-43A0-AF6B-60A2E9A6372E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Infraestructura", "04-Infraestructura", "{4F9EC243-707F-42D9-8B32-5A92E7F048CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-UI", "02-UI", "{D090CDEF-396B-44B3-A1E1-5AEBB377E9B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAdmin", "WebAdmin", "{5395EE08-473E-45C3-9357-4078E331AC44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosapi.ElCosapino.CrossCutting", "Cosapi.ElCosapino.CrossCutting\Cosapi.ElCosapino.CrossCutting.csproj", "{55801CDA-E1FC-42D8-8FC4-287EBE1E3409}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosapi.ElCosapino.Dominio", "Cosapi.ElCosapino.Dominio\Cosapi.ElCosapino.Dominio.csproj", "{B8618EC0-3BB7-4928-B55A-B0388ADD3BB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Aplicacion", "03-Aplicacion", "{F4637CC4-853E-48BF-8FE9-13F8471E5CB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosapi.ElCosapino.Aplicacion", "Cosapi.ElCosapino.Aplicacion\Cosapi.ElCosapino.Aplicacion.csproj", "{F032ABDF-4BC0-4F69-A424-5AE3BF303352}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosapi.ElCosapino.Repositorio", "Cosapi.ElCosapino.Repositorio\Cosapi.ElCosapino.Repositorio.csproj", "{FEF43E35-F387-4104-94F5-E8666D67416C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{DA325EC7-993D-4D25-876B-D55632C07CB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosapi.ElCosapino.UI.Web", "Cosapi.ElCosapino.UI.Web\Cosapi.ElCosapino.UI.Web.csproj", "{52C94788-4615-40E2-A0DD-D828EA32CF48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosapi.ElCosapino.UI.Admin", "Cosapi.ElCosapino.UI.Admin\Cosapi.ElCosapino.UI.Admin.csproj", "{31EBD534-9F12-4717-89E8-4D2584327745}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{7A9C7E7E-B235-4F7E-9FA8-31E20FAC823D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosapi.ElCosapino.Servicio", "Cosapi.ElCosapino.Servicio\Cosapi.ElCosapino.Servicio.csproj", "{E7993FAA-BE1E-4C19-99AE-CFC3D4C9446F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55801CDA-E1FC-42D8-8FC4-287EBE1E3409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55801CDA-E1FC-42D8-8FC4-287EBE1E3409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55801CDA-E1FC-42D8-8FC4-287EBE1E3409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55801CDA-E1FC-42D8-8FC4-287EBE1E3409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8618EC0-3BB7-4928-B55A-B0388ADD3BB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8618EC0-3BB7-4928-B55A-B0388ADD3BB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8618EC0-3BB7-4928-B55A-B0388ADD3BB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8618EC0-3BB7-4928-B55A-B0388ADD3BB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F032ABDF-4BC0-4F69-A424-5AE3BF303352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F032ABDF-4BC0-4F69-A424-5AE3BF303352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F032ABDF-4BC0-4F69-A424-5AE3BF303352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F032ABDF-4BC0-4F69-A424-5AE3BF303352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEF43E35-F387-4104-94F5-E8666D67416C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEF43E35-F387-4104-94F5-E8666D67416C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEF43E35-F387-4104-94F5-E8666D67416C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEF43E35-F387-4104-94F5-E8666D67416C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52C94788-4615-40E2-A0DD-D828EA32CF48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C94788-4615-40E2-A0DD-D828EA32CF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C94788-4615-40E2-A0DD-D828EA32CF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C94788-4615-40E2-A0DD-D828EA32CF48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31EBD534-9F12-4717-89E8-4D2584327745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31EBD534-9F12-4717-89E8-4D2584327745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31EBD534-9F12-4717-89E8-4D2584327745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31EBD534-9F12-4717-89E8-4D2584327745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7993FAA-BE1E-4C19-99AE-CFC3D4C9446F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7993FAA-BE1E-4C19-99AE-CFC3D4C9446F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7993FAA-BE1E-4C19-99AE-CFC3D4C9446F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7993FAA-BE1E-4C19-99AE-CFC3D4C9446F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5395EE08-473E-45C3-9357-4078E331AC44} = {D090CDEF-396B-44B3-A1E1-5AEBB377E9B1}
+		{55801CDA-E1FC-42D8-8FC4-287EBE1E3409} = {4F9EC243-707F-42D9-8B32-5A92E7F048CB}
+		{B8618EC0-3BB7-4928-B55A-B0388ADD3BB5} = {D5FF3945-FBAE-43A0-AF6B-60A2E9A6372E}
+		{F032ABDF-4BC0-4F69-A424-5AE3BF303352} = {F4637CC4-853E-48BF-8FE9-13F8471E5CB5}
+		{FEF43E35-F387-4104-94F5-E8666D67416C} = {4F9EC243-707F-42D9-8B32-5A92E7F048CB}
+		{DA325EC7-993D-4D25-876B-D55632C07CB4} = {D090CDEF-396B-44B3-A1E1-5AEBB377E9B1}
+		{52C94788-4615-40E2-A0DD-D828EA32CF48} = {DA325EC7-993D-4D25-876B-D55632C07CB4}
+		{31EBD534-9F12-4717-89E8-4D2584327745} = {5395EE08-473E-45C3-9357-4078E331AC44}
+		{7A9C7E7E-B235-4F7E-9FA8-31E20FAC823D} = {D090CDEF-396B-44B3-A1E1-5AEBB377E9B1}
+		{E7993FAA-BE1E-4C19-99AE-CFC3D4C9446F} = {7A9C7E7E-B235-4F7E-9FA8-31E20FAC823D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {81200AFD-579D-495C-8C99-08DC457BA895}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://alex23121987.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Cosapi.ElCosapino.Aplicacion\\Cosapi.ElCosapino.Aplicacion.csproj
+		SccProjectTopLevelParentUniqueName1 = Cosapi.ElCosapino.sln
+		SccProjectName1 = Cosapi.ElCosapino.Aplicacion
+		SccLocalPath1 = Cosapi.ElCosapino.Aplicacion
+		SccProjectUniqueName2 = Cosapi.ElCosapino.CrossCutting\\Cosapi.ElCosapino.CrossCutting.csproj
+		SccProjectTopLevelParentUniqueName2 = Cosapi.ElCosapino.sln
+		SccProjectName2 = Cosapi.ElCosapino.CrossCutting
+		SccLocalPath2 = Cosapi.ElCosapino.CrossCutting
+		SccProjectUniqueName3 = Cosapi.ElCosapino.Dominio\\Cosapi.ElCosapino.Dominio.csproj
+		SccProjectTopLevelParentUniqueName3 = Cosapi.ElCosapino.sln
+		SccProjectName3 = Cosapi.ElCosapino.Dominio
+		SccLocalPath3 = Cosapi.ElCosapino.Dominio
+		SccProjectUniqueName4 = Cosapi.ElCosapino.Repositorio\\Cosapi.ElCosapino.Repositorio.csproj
+		SccProjectTopLevelParentUniqueName4 = Cosapi.ElCosapino.sln
+		SccProjectName4 = Cosapi.ElCosapino.Repositorio
+		SccLocalPath4 = Cosapi.ElCosapino.Repositorio
+		SccProjectUniqueName5 = Cosapi.ElCosapino.UI.Web\\Cosapi.ElCosapino.UI.Web.csproj
+		SccProjectTopLevelParentUniqueName5 = Cosapi.ElCosapino.sln
+		SccLocalPath5 = .
+		SccProjectFilePathRelativizedFromConnection5 = Cosapi.ElCosapino.UI.Web\\
+		SccProjectUniqueName6 = Cosapi.ElCosapino.UI.Admin\\Cosapi.ElCosapino.UI.Admin.csproj
+		SccProjectTopLevelParentUniqueName6 = Cosapi.ElCosapino.sln
+		SccProjectName6 = Cosapi.ElCosapino.UI.Admin
+		SccLocalPath6 = Cosapi.ElCosapino.UI.Admin
+		SccProjectUniqueName7 = Cosapi.ElCosapino.Servicio\\Cosapi.ElCosapino.Servicio.csproj
+		SccProjectTopLevelParentUniqueName7 = Cosapi.ElCosapino.sln
+		SccProjectName7 = Cosapi.ElCosapino.Servicio
+		SccLocalPath7 = Cosapi.ElCosapino.Servicio
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,74 @@
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Repositorio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Repositorio.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.CrossCutting.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Dominio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Infrastructure.Data.Base.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\log4net.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.ServiceLocation.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.Unity.Interception.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Excel.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\System.Web.Mvc.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.Unity.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Newtonsoft.Json.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.CrossCutting.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Dominio.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\System.Web.Mvc.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Web.Infrastructure.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csprojResolveAssemblyReference.cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csproj.CoreCompileInputs.cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Repositorio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Repositorio.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Infrastructure.Data.Base.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\log4net.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.ServiceLocation.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.Unity.Interception.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Excel.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\System.Web.Mvc.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.Unity.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Newtonsoft.Json.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\System.Web.Mvc.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Web.Infrastructure.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csprojAssemblyReference.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csproj.CoreCompileInputs.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csproj.CopyComplete
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Repositorio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Repositorio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Infrastructure.Data.Base.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\log4net.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.ServiceLocation.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.Unity.Interception.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Excel.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\System.Web.Mvc.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Practices.Unity.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Newtonsoft.Json.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\System.Web.Mvc.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\bin\Release\Microsoft.Web.Infrastructure.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csprojAssemblyReference.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csproj.CoreCompileInputs.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.csproj.CopyComplete
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.Repositorio\obj\Release\Cosapi.ElCosapino.Repositorio.pdb

@@ -1,0 +1,58 @@
+﻿@model Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg.Login
+@using Cosapi.ElCosapino.UI.Admin.Models.ViewModels
+  
+<div id="login">
+    <h1><a href="./" class="myLinkTxt" title="Bienvenido al Sistema de Administración de El Cosapino" tabindex="-1"></a></h1>
+
+    <form name="loginform" id="loginform" action="~/Login/LoginUsuarioActiveDirectory" method="post">        
+        <p>
+            <input type="text" name="S_Usuario" id="S_Usuario" class="input" value="" size="20">
+            <label for="S_Usuario">Nombre de usuario</label>
+        </p>
+        <p>
+            <input type="password" name="S_Password" id="S_Password" class="input" value="" size="20">
+            <label for="S_Password">Contraseña</label>
+        </p>
+        <p class="forgetmenot">                 
+
+        </p>
+        <div class="contMat">
+            <div class="btnMat">
+                <span>
+                    <input type="submit" name="wp-submit" id="wp-submit" class="btnMaterial btnCallToAction waves-effect" value="Acceder">
+                </span>
+            </div>
+        </div>               
+    </form>
+
+    <script type="text/javascript">
+        function wp_attempt_focus(){
+            setTimeout( function(){ try{
+                d = document.getElementById('S_Usuario');
+            d.focus();
+            d.select();
+            } catch(e){}
+            }, 200);
+        }
+
+        wp_attempt_focus();
+        if(typeof wpOnload=='function')wpOnload();
+    </script>
+
+<!--<p id="backtoblog"><a href=http/www.cosapi.com.pe/ class="myLinkTxt" title="¿Te has perdido?">« Ir a Cosapi.com.pe</a></p>-->
+</div>
+<div class="clear"></div>
+<script type="text/javascript" src="~/Scripts/login/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){		 	
+	$('input').blur(function() {
+		var $this = $(this);
+		if ($this.val())
+			$this.addClass('used');
+		else
+			$this.removeClass('used');
+	});
+	});
+</script>
+       
+    

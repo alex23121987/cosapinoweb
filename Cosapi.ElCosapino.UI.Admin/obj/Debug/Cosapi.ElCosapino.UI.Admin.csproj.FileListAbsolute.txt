@@ -1,0 +1,215 @@
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csprojResolveAssemblyReference.cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.Views.Shared.Resources.resources
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.GenerateResource.Cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.CoreCompileInputs.cache
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\ApplicationInsights.config
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.dll.config
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Antlr3.Runtime.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Canvas.CustomHtmlHelpers.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Aplicacion.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.CrossCutting.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Dominio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\EPPlus.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\log4net.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.DependencyCollector.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Web.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.WindowsServer.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.ApplicationInsights.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Web.Infrastructure.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Newtonsoft.Json.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Helpers.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Mvc.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Optimization.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Razor.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Deployment.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Razor.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\WebGrease.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Repositorio.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Excel.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Infrastructure.Data.Base.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.Unity.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.Unity.Interception.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Aplicacion.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.CrossCutting.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Dominio.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Helpers.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Mvc.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Optimization.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Razor.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Deployment.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Razor.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Antlr3.Runtime.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Newtonsoft.Json.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.ApplicationInsights.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.DependencyCollector.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.WindowsServer.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Web.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Repositorio.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.pdb
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Net.Http.Formatting.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.WebHost.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Net.Http.Formatting.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.WebHost.xml
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGrid.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGrid.SmtpApi.dll
+C:\Datos\_Canvas&Cloud\Proyectos\Cosapi\El Cosapino\Codigo Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGridMail.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\ApplicationInsights.config
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.dll.config
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Antlr3.Runtime.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Canvas.CustomHtmlHelpers.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Aplicacion.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\EPPlus.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\log4net.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.DependencyCollector.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Web.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.WindowsServer.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.ApplicationInsights.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Web.Infrastructure.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Newtonsoft.Json.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGrid.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGrid.SmtpApi.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGridMail.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Net.Http.Formatting.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Helpers.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.WebHost.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Mvc.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Optimization.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Razor.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Deployment.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Razor.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\WebGrease.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Repositorio.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Excel.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Infrastructure.Data.Base.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.ServiceLocation.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.Unity.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.Unity.Interception.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Aplicacion.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Net.Http.Formatting.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.WebHost.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Helpers.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Mvc.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Optimization.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Razor.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Deployment.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Razor.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Antlr3.Runtime.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Newtonsoft.Json.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.ApplicationInsights.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.DependencyCollector.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.WindowsServer.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Web.xml
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Repositorio.pdb
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csprojAssemblyReference.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.Views.Shared.Resources.resources
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.GenerateResource.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.CoreCompileInputs.cache
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.CopyComplete
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.dll
+D:\Proyectos\83 Cosapino - Web y Mobile\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\ApplicationInsights.config
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.dll.config
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.UI.Admin.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Antlr3.Runtime.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Canvas.CustomHtmlHelpers.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Aplicacion.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.CrossCutting.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Dominio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\EPPlus.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\log4net.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.DependencyCollector.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Web.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.WindowsServer.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.ApplicationInsights.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Web.Infrastructure.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Newtonsoft.Json.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGrid.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGrid.SmtpApi.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\SendGridMail.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Net.Http.Formatting.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Helpers.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.WebHost.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Mvc.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Optimization.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Razor.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Deployment.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Razor.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\WebGrease.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Repositorio.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Excel.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Infrastructure.Data.Base.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.ServiceLocation.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.Unity.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.Practices.Unity.Interception.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Aplicacion.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.CrossCutting.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Dominio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Net.Http.Formatting.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Http.WebHost.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Helpers.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Mvc.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Optimization.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.Razor.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Deployment.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\System.Web.WebPages.Razor.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Antlr3.Runtime.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Newtonsoft.Json.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.ApplicationInsights.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.DependencyCollector.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.WindowsServer.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Microsoft.AI.Web.xml
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\bin\Cosapi.ElCosapino.Repositorio.pdb
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csprojAssemblyReference.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.Views.Shared.Resources.resources
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.GenerateResource.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.CoreCompileInputs.cache
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.csproj.CopyComplete
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.dll
+D:\Proyectos\App - Web El Cosapino\02.Fuente\Cosapi.ElCosapino\Cosapi.ElCosapino.UI.Admin\obj\Debug\Cosapi.ElCosapino.UI.Admin.pdb

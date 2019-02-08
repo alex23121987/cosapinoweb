@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .video-responsive {
+        height: 0;
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        padding-top: 30px;
+        position: relative;
+    }
+
+        .video-responsive iframe, .video-responsive object, .video-responsive embed {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+</style>
+
+<div class="choose-area pt-60" style="background-color:#A12626">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>REQUISITOS DE INGRESO</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="faq-gallery">
+                    <div class="panel-group" id="accordion">
+                        @foreach (var item in Model.RequisitosDeIngreso_SeccionRequisitos)
+    {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#@item.IDInterfaceWeb" aria-expanded="false" class="collapsed">@item.Titulo</a>
+                            </h4>
+                        </div>
+                        <div id="@item.IDInterfaceWeb" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                @if (item.Orden == 0)
+    {
+                            <p> @Html.Raw(item.SubTitulo)</p>
+}
+else
+{
+                            <div class="video-responsive">
+                                <iframe src="https://www.youtube.com/embed/@item.SubTitulo" frameborder="0" allowfullscreen></iframe>
+                            </div>
+}
+                            </div>
+                        </div>
+                    </div>
+}                       
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="choose-left">                                    
+                    <div class="choose-item">
+                        <ul>
+                            @foreach (var item in Model.RequisitosDeIngreso_SeccionImagen)
+    {
+                        <li>
+                            <div class="choose-icon-max">
+                                <img src="@ViewBag.UrlAdmin/Upload/RequisitosIngreso/ImagenesLaterales/@item.Imagen">
+                            </div>
+                        </li>
+}
+                        </ul>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

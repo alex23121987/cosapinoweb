@@ -1,0 +1,111 @@
+﻿
+<div class="modal fade" id="modalEditarCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtDescripcionEditar">Descripción</label>
+                        <div class="col-sm-9">
+                            <input id="txtDescripcionEditar" type="text" class="form-control">
+                            <input id="txtIDCategoriaEditar" type="text" style="display:none">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtColorEditar">Color</label>
+                        <div class="col-sm-9">
+                            <input id="txtColorEditar" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtOrdenEditar">Orden</label>
+                        <div class="col-sm-9">
+                            <input id="txtOrdenEditar" type="text" class="form-control" onkeypress="return SoloNumeros(event);">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="chkEstadoEditar">Estado</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="material-switch" style="padding-top: 8px;">
+                                <input id="chkEstadoEditar" type="checkbox" />
+                                <label for="chkEstadoEditar" class="label-info"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="EditarGrabar(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function EditarGrabar(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var IDCategoria = $('#txtIDCategoriaEditar').val();
+            var Descripcion = $('#txtDescripcionEditar').val();
+            var Orden = $('#txtOrdenEditar').val();
+            var Color = $('#txtColorEditar').val();
+            var Estado = $('#chkEstadoEditar').is(':checked');
+            bloquearBotonesProceso(true);
+            var viewModel = { Categoria: { IDCategoria: IDCategoria, Descripcion: Descripcion, Estado: Estado, Orden: Orden, Color: Color } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update", "Categoria")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalEditarCategoria').modal('hide');
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro actualizado.');
+                            break;
+                        case 0:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+
+        function validarViewModel() {
+            var IDCategoria = $('#txtIDCategoriaEditar').val();
+            var Descripcion = $('#txtDescripcionEditar').val();
+
+            if (isNullOrEmpty(IDCategoria)) {
+                alertify.error('Seleccione un registro.');
+                return false;
+            }
+
+            if (isNullOrEmpty(Descripcion)) {
+                alertify.error('Descripción requerida.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function reiniciarControles() {
+            $("#txtDescripcionEditar").val('');
+        }
+    }
+</script>

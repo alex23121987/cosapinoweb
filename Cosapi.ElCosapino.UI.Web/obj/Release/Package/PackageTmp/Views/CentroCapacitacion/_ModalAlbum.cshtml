@@ -1,0 +1,78 @@
+﻿<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<style>   
+
+    #AlbumGaleria {width: 720px;height: 350px;overflow: hidden;margin: 15px auto;position: relative;        }
+
+    #dates {width: 720px;height: 60px;overflow: hidden;display: none;}
+
+    #dates li {
+        list-style: none;float: left;width: 100px;height: 50px;font-size: 24px;
+        text-align: center;background: url('../images/biggerdot.png') center bottom no-repeat;
+    }
+
+    #dates a {line-height: 38px;padding-bottom: 10px;color: #2560A2;text-decoration: none;}
+
+    #dates .selected {font-size: 38px;}
+
+    #issues {width: 800px;height: 350px;overflow: hidden;}
+
+    #issues li {width: 720px;height: 350px;list-style: none;float: left;}
+
+    #issues li.selected img {-webkit-transform: scale(1.1,1.1);transform: scale(1.1,1.1);}
+
+    #issues li img {
+        float: left;margin: 10px 30px 10px 50px;background: transparent;
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE 8 */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF); /* IE 6 & 7 */
+        border-radius: 10px;
+    }
+
+    #issues li h1 {
+        color: #FFFFFF;font-size: 17px;margin-top: 0px;background-color: #FF8F45;margin-left: 344px;
+        padding-top: 15px;padding-bottom: 15px;padding-left: 7px;border-radius: 10px;
+    }
+
+    #issues li p {font-size: 14px;margin-right: 70px;font-weight: normal;line-height: 22px;}
+
+    #grad_left, #grad_right {width: 100px;height: 350px;position: absolute;top: 0;}
+
+    #grad_left {left: 0;}
+
+    #grad_right {right: 0;}
+
+    #next, #prev {
+        position: absolute;top: 0;font-size: 70px;top: 140px;width: 22px;height: 38px;background-position: 0 0;
+        background-repeat: no-repeat;text-indent: -9999px;overflow: hidden;
+    }
+
+    #next:hover, #prev:hover {background-position: 0 -76px;}
+
+    #next {right: 0;background-image: url('../images/next.png');}
+
+    #prev {left: 0;background-image: url('../images/prev.png');}
+
+    #next.disabled, #prev.disabled {opacity: 0.2;}
+</style>
+
+<div class="modal fade" id="modalAlbumPrograma" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:transparent !important; color:#FFFFFF; border:none !important; box-shadow:none !important;">
+            <div class="modal-header" style="border: none;padding-top: 11px;padding-bottom: 0px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+            </div>
+            <div class="modal-body" style="height: 315px;padding-top: 0px !important;">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div id="container_FotosPrograma"></div>
+                        
+                    </div>                   
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.InterfaceWebAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<style>
+    #container_GridSeccionLineaTiempoProyecto .rgHeader-jQuery-Filter {
+        display: none
+    }
+</style>
+
+@{
+    var grid = new CanvasGrid<InterfaceWeb>("GridSeccionLineaTiempoProyecto", Model) { callBackMethod = "GridSeccionReload_SeccionLineaTiempoProyecto", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Nombre de Proyecto", _filterKey: "S_Titulo", _format: item => item.Titulo);        
+    grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+    @<text>       
+<div class="acciones_grilla">  
+    <a id="lnkDelete" onclick="ConfirmaEliminarLineaTiempoProyecto(this)" style="cursor:pointer" title="Eliminar" data-value="@item.IDInterfaceWeb">
+        <span class="glyphicon glyphicon-trash"></span>
+    </a>
+</div>        
+    </text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminarLineaTiempoProyecto(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            EliminarLineaTiempoProyecto(that);
+        });
+    }
+
+    function EliminarLineaTiempoProyecto(that) {
+        var codParameter = $(that).attr("data-value");
+        var ID_PE_LineaTiempoProyecto = $('#txtIDLineaTiempo').val();
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "ProyectosEmblematicos")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage_SeccionLineaTiempo();
+                        SelectRowsPerPage_SeccionLineaTiempoProyecto(ID_PE_LineaTiempoProyecto);
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ModalEditar(that) {
+        var id = $(that).attr("data-value");
+        var descripcion = that.parentElement.parentElement.parentElement.cells[0].innerText;
+        var estado = that.parentElement.parentElement.parentElement.cells[1].innerText;
+        var b_estado = false;
+        if (estado == "Activo") {b_estado = true;}
+        $('#txtIDInterfaceWebEditar').val(id);
+        $('#txtDescripcionEditar').val(descripcion);
+        $('#chkEstadoEditar').prop('checked', b_estado);
+        $('#modalEditarInterfaceWeb').modal('show');
+    };
+</script>
+
+
+

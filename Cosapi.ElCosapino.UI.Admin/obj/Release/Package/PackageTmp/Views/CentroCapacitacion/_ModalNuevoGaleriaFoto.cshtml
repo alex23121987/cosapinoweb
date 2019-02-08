@@ -1,0 +1,175 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+
+<style>
+    .form-horizontal .control-label {text-align: left;}
+
+    #modalNuevoGaleriaFoto {display: none;opacity: 1;background-color: rgba(0,0,0,0.8);position: fixed;top: 0;left: 0;right: 0;bottom: 0;margin: 0;z-index: 99;transition: all 1s;}
+
+    .popup-contenedor-GaleriaFoto {position: relative;margin: 6% auto;background-color: #FFFFFF;color: #333;border-radius: 3px;width: 800px;}
+
+    a.popup-cerrar {position: absolute;top: 3px;right: 3px;padding: 7px 10px;font-size: 13px;text-decoration: none;font-size: 21px;font-weight: bold;line-height: 1;color: #ddd;}
+</style>
+
+<div class="modal-wrapper" id="modalNuevoGaleriaFoto">
+    <div class="popup-contenedor-GaleriaFoto">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
+        </div>
+        <div class="modal-body" style="padding: 0 15px 15px 15px !important;">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">                     
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#DivGaleriaFoto" data-toggle="tab" aria-expanded="true" style="width: 90px;text-align: center;">Fotos</a>
+                            </li>
+                            <li class="">
+                                <a href="#DivGaleriFotoNuevo" data-toggle="tab" aria-expanded="false" style="width: 90px;text-align: center;">Nuevo</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                                <div class="tab-pane fade active in" id="DivGaleriaFoto">                                   
+                                    <div id="container_GridSeccionGaleriaFoto" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionGaleriaFoto", "CentroCapacitacion", new
+                                        {
+                                            arg = JsonConvert.SerializeObject(new
+                                            {
+                                                CurrentPageIndex = 1,
+                                                RowsPerPage = 3,
+                                                OrderBy = "",
+                                                DirectionOrder = "Ascending"
+                                            }),
+                                            IDInterface = 999999
+                                        })
+                                    </div>                                   
+                                </div>
+                                <div class="tab-pane fade" id="DivGaleriFotoNuevo">
+                                    <div class="row form-horizontal">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="txtTituloNuevo_GaleriaFoto">Título</label>
+                                                <div class="col-sm-10">
+                                                    <input id="txtTituloNuevo_GaleriaFoto" type="text" class="form-control" />
+                                                    <input id="txtIDGaleria" type="text" style="display:none" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="txtSubTituloNuevo_GaleriaFoto">Subtítulo</label>
+                                                <div class="col-sm-10">
+                                                    <input id="txtSubTituloNuevo_GaleriaFoto" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="txtMECHSC_HoraEvento_NuevoDatePicker">Foto</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" id="imgGaleriaFoto" />
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-12" style="text-align:right">
+                                                    <a onclick="CargarGaleriaFoto()" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                      
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">            
+            <a class="btn btn-danger" style="cursor:pointer"  onclick="MostrarOcultarDiv('modalNuevoGaleriaFoto')"><span class="fa fa-sign-out fa-fw"></span> Salir</a>
+        </div>
+        <a class="popup-cerrar" onclick="MostrarOcultarDiv('modalNuevoGaleriaFoto')">x</a>
+    </div>
+</div>
+
+<script>
+    function CargarGaleriaFoto() {
+        var esValido = validarViewModel_SeccionGaleriaFoto();
+
+        if (esValido === true) {
+            if (window.FormData !== undefined) {
+                var fileUpload = $("#imgGaleriaFoto").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                var IDGaleria = $('#txtIDGaleria').val();
+                var TituloNuevo_GaleriaFoto = $('#txtTituloNuevo_GaleriaFoto').val();
+                var SubTituloNuevo_GaleriaFoto = $('#txtSubTituloNuevo_GaleriaFoto').val();
+
+                fileData.append('IDGaleria', IDGaleria);
+                fileData.append('Titulo', TituloNuevo_GaleriaFoto);
+                fileData.append('SubTitulo', SubTituloNuevo_GaleriaFoto);
+
+                $.ajax({
+                    url: '@Url.Action("Ins_SeccionGaleriaFoto", "CentroCapacitacion")',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (response) {
+                        switch (response.Codigo) {
+                            case 1:
+                                SelectRowsPerPage_SeccionGaleriaFoto(IDGaleria);
+                                reiniciarControles_SeccionGaleriaFoto();
+                                alertify.success('¡Bien!. Registro insertado.');
+                                break;
+                            case 0:
+                                alertify.error('¡Opss!. Algo salió mal.');
+                                break;
+                            case -1:
+                                alertify.error('¡Opss!. Tipo de archivo no permitido.');
+                                break;
+                            case -2:
+                                alertify.error('Imagen requerida.');
+                                break;
+                            case -3:
+                                alertify.error('¡Opss!. Peso máximo 1 MB.');
+                                break;
+                            default:
+                                alertify.error('¡Opss!. Algo salió mal.');
+                                break;
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        }
+    }
+
+    function validarViewModel_SeccionGaleriaFoto() {
+        var TituloNuevo_GaleriaFoto = $("#txtTituloNuevo_GaleriaFoto").val();
+        var SubTituloNuevo_GaleriaFoto = $("#txtSubTituloNuevo_GaleriaFoto").val();
+
+        if (isNullOrEmpty(TituloNuevo_GaleriaFoto)) {
+            alertify.error('Título requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(SubTituloNuevo_GaleriaFoto)) {
+            alertify.error('Subtítulo requerido.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles_SeccionGaleriaFoto() {
+        $("#txtTituloNuevo_GaleriaFoto").val('');
+        $("#txtSubTituloNuevo_GaleriaFoto").val('');
+        $("#imgGaleriaFoto").val("");
+    }
+</script>

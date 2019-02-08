@@ -1,0 +1,73 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.InterfaceWebAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<style>
+    #container_GridSeccionLogo .rgHeader-jQuery-Filter {
+        display: none
+    }
+</style>
+
+@{
+    var grid = new CanvasGrid<InterfaceWeb>("GridSeccionLogo", Model) { callBackMethod = "GridSeccionReload_SeccionLogo", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Imagen", _isFilterable: false, _isSortable: false, _format:
+    @<text> 
+        <img src="~/Upload/CosapiEnBreve/Logos/@item.Imagen" style="width:210px; height:85px;" />    
+    </text>);    
+    grid.columnCollection.addColumn(_headerText: "Acciones", _filterKey: "S_Estado", _format:
+    @<text>       
+        <div class="acciones_grilla">         
+            <a id="lnkDelete" onclick="ConfirmaEliminarLogo(this)" style="cursor:pointer" title="Eliminar" data-value="@item.IDInterfaceWeb">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </div>     
+    </text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminarLogo(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            EliminarLogo(that);
+        });
+    }
+
+    function EliminarLogo(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "CosapiEnbreve")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage_SeccionLogo();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+</script>
+
+
+

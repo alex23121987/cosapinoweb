@@ -1,0 +1,121 @@
+﻿@using Newtonsoft.Json
+@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalNuevoEspecialidad').click(function () {
+            reiniciarControles();
+            $('#modalNuevoEspecialidad').modal('show');
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+    function SelectRowsPerPage() {
+        var rowsPerPage = document.getElementById("SelRowsPerPage").value;
+        GridEspecialidadReload(Number(rowsPerPage));
+    }
+
+    function GridEspecialidadReload(rowsPerPage) {
+        var data = $("#GridEspecialidad").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridEspecialidad").load("@(Url.Action("IndexPaginate", "Especialidad"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Laboral<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Especialidad</small></h1>
+
+        <table id="tblCreateEspecialidad">
+            <tr>
+                <td>
+                    <div class="form-inline form-group pull-right" style="padding-bottom:10px;">
+                        <a onclick="Exportar();" style="cursor:pointer;" title="Exportar Resultados" class="btn btn-azul btn-buscador-encrustado form-group"><i class="fa fa-check-square-o" aria-hidden="true"></i> Exportar</a>
+                        <button id="btnModalNuevoEspecialidad" class="btn btn-azul btn-buscador-encrustado form-group" type="button" style="position:relative;">
+                            Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <label style="width:55px;text-align: left !important;padding-left: 0px !important;" class="col-xs-1">Mostrar </label>
+                        <select class=" dropdown form-control col-xs-2" id="SelRowsPerPage" name="SelRowsPerPage" onchange="SelectRowsPerPage()"
+                                style="position:relative;top:-8px;width:60px;padding-left: 7px !important;padding-right: 7px !important;">
+                            <option value=" 5">5</option>
+                            <option selected="selected" value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <label class="col-xs-2" style="padding-left: 10px !important;">Filas </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom:20px;">
+
+                    <div id="container_GridEspecialidad" class="GrillaSistema">
+                        @Html.Action("IndexPaginate", "Especialidad", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                                OrderBy = "S_Descripcion",
+                                DirectionOrder = "Ascending"
+                            })
+                        })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+
+<!--INICIO DE VENTANAS DE MODALES-->
+<div id="seccion-modal-nuevo-Especialidad">
+    @Html.Partial("_ModalNuevoEspecialidad")
+</div>
+
+<div id="seccion-modal-editar-Especialidad">
+    @Html.Partial("_ModalEditarEspecialidad")
+</div>
+
+<script>
+    function Exportar() {
+        ShowLoadingShared();
+        var url = '@Url.Action("GenerarPlantillaReporte", "Especialidad")';
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: url,
+            contentType: 'application/json',
+            processData: false,
+        }).done(function (response) {
+            window.location = '@Url.Action("DescargarReporte", "Especialidad")' + '?fileGuid=' + response.FileGuid + '&filename=' + response.FileName;
+            HideLoadingShared();
+            }).fail(function (xhr, textStatus, errorThrown) {
+                HideLoadingShared();
+                mostrarError('Ha ocurrido un error inesperado.: ' + errorThrown);
+        });
+    }
+</script>

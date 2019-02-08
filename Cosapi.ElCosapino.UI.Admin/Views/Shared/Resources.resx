@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EnglishLabel" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="EtiquetaActividadCombinada" xml:space="preserve">
+    <value>Actividad Combinada</value>
+  </data>
+  <data name="EtiquetaActividadCritica" xml:space="preserve">
+    <value>Actividad Crítica</value>
+  </data>
+  <data name="EtiquetaActividadesCombinadas" xml:space="preserve">
+    <value>Actividades Combinadas</value>
+  </data>
+  <data name="EtiquetaActividadesCriticas" xml:space="preserve">
+    <value>Actividades Críticas</value>
+  </data>
+  <data name="EtiquetaActividadesCriticasPorEmpresa" xml:space="preserve">
+    <value>Actividades Criticas por Empresa</value>
+  </data>
+  <data name="EtiquetaApruebaActividadesCombinadas" xml:space="preserve">
+    <value>Actividades Combinadas por Aprobar</value>
+  </data>
+  <data name="EtiquetaApruebaActividadesCriticas" xml:space="preserve">
+    <value>Actividades Críticas por Aprobar</value>
+  </data>
+  <data name="EtiquetaApruebaActividadesMaestras" xml:space="preserve">
+    <value>Actividades Maestras por Aprobar</value>
+  </data>
+  <data name="etiquetaCantidadTransacciones" xml:space="preserve">
+    <value>Cantidad Transacciones</value>
+  </data>
+  <data name="EtiquetaCerrar" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="EtiquetaCierreContable" xml:space="preserve">
+    <value>Cierre Contable</value>
+  </data>
+  <data name="etiquetaClasificacion" xml:space="preserve">
+    <value>Clasificación</value>
+  </data>
+  <data name="EtiquetaClave" xml:space="preserve">
+    <value>Clave</value>
+  </data>
+  <data name="EtiquetaCodigoActivCritica" xml:space="preserve">
+    <value>Código Actividad Crítica</value>
+  </data>
+  <data name="EtiquetaCodigoActividad" xml:space="preserve">
+    <value>Código Actividad</value>
+  </data>
+  <data name="EtiquetaCodigoExportado" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="EtiquetaCodigoParametro" xml:space="preserve">
+    <value>Código de Parámetro</value>
+  </data>
+  <data name="EtiquetaCodigoTabla" xml:space="preserve">
+    <value>Código de Tabla</value>
+  </data>
+  <data name="EtiquetaCompensatoryControlRequestEditTitle" xml:space="preserve">
+    <value>Edición del Control Compensatorio por Solicitud</value>
+  </data>
+  <data name="EtiquetaCompensatoryControlRequestTitle" xml:space="preserve">
+    <value>Listado de Control Compensatorio por Solicitud</value>
+  </data>
+  <data name="EtiquetaConsultaConflictos" xml:space="preserve">
+    <value>Consulta de Conflictos</value>
+  </data>
+  <data name="EtiquetaConsultaTransacciones" xml:space="preserve">
+    <value>Consulta de Transacciones</value>
+  </data>
+  <data name="EtiquetaControl" xml:space="preserve">
+    <value>Control</value>
+  </data>
+  <data name="EtiquetaControlCodigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="EtiquetaControlCompensatorioSolicitud" xml:space="preserve">
+    <value>Control Compensatorio por Solicitud</value>
+  </data>
+  <data name="EtiquetaControlDescripcion" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="EtiquetaControlNew" xml:space="preserve">
+    <value>Agregar Nuevo Control</value>
+  </data>
+  <data name="EtiquetaControlNombre" xml:space="preserve">
+    <value>Nombre Control</value>
+  </data>
+  <data name="EtiquetaControlSistema" xml:space="preserve">
+    <value>Control</value>
+  </data>
+  <data name="EtiquetaControlTitle" xml:space="preserve">
+    <value>Listado de Control</value>
+  </data>
+  <data name="EtiquetaDescripcion" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="etiquetaDocIdentidad" xml:space="preserve">
+    <value>N° DOC. IDENTIDAD</value>
+  </data>
+  <data name="EtiquetaEditarParamSistema" xml:space="preserve">
+    <value>Editar Parámetros del Sistema</value>
+  </data>
+  <data name="EtiquetaEditarProceso" xml:space="preserve">
+    <value>Editar Proceso</value>
+  </data>
+  <data name="EtiquetaEditarProcesoPosition" xml:space="preserve">
+    <value>Editar Proceso por Puesto</value>
+  </data>
+  <data name="EtiquetaEditarSubProceso" xml:space="preserve">
+    <value>Editar SubProceso</value>
+  </data>
+  <data name="EtiquetaEmpresa" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="EtiquetaEmpresaSiglas" xml:space="preserve">
+    <value>Siglas</value>
+  </data>
+  <data name="EtiquetaEstaSeguroEliminarParametro" xml:space="preserve">
+    <value>¿Esta seguro de eliminar Parametro del Sistema</value>
+  </data>
+  <data name="EtiquetaExpotaExcel" xml:space="preserve">
+    <value>Exportar Excel</value>
+  </data>
+  <data name="EtiquetaFechaCreacion" xml:space="preserve">
+    <value>Fecha Creación</value>
+  </data>
+  <data name="EtiquetaFuncion" xml:space="preserve">
+    <value>Función</value>
+  </data>
+  <data name="EtiquetaIDAutomatico" xml:space="preserve">
+    <value>ID          :    Auto</value>
+  </data>
+  <data name="EtiquetaLimpiar" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="EtiquetaListaParamSistema" xml:space="preserve">
+    <value>Listado de Parámetros del Sistema</value>
+  </data>
+  <data name="EtiquetaMasterCriticalActvity" xml:space="preserve">
+    <value>Actividades Maestras</value>
+  </data>
+  <data name="EtiquetaMenuSOD" xml:space="preserve">
+    <value>SOD - Proceso Detectivo</value>
+  </data>
+  <data name="EtiquetaModulo" xml:space="preserve">
+    <value>Módulo</value>
+  </data>
+  <data name="EtiquetaMostrar" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="EtiquetaNaturaleza" xml:space="preserve">
+    <value>Naturaleza</value>
+  </data>
+  <data name="EtiquetaNombreActividad" xml:space="preserve">
+    <value>Nombre Actividad</value>
+  </data>
+  <data name="EtiquetaNuevoElemento" xml:space="preserve">
+    <value>Nuevo elemento +</value>
+  </data>
+  <data name="EtiquetaNuevoParamSistema" xml:space="preserve">
+    <value>Agregar Nuevo Parámetro del Sistema</value>
+  </data>
+  <data name="EtiquetaOrden" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="EtiquetaParametroActualizado" xml:space="preserve">
+    <value>Parámetro actualizado correctamente.</value>
+  </data>
+  <data name="EtiquetaParametroEliminadoError" xml:space="preserve">
+    <value>Parámetro del Sistema no se pudo eliminar</value>
+  </data>
+  <data name="EtiquetaParametroEliminadoOk" xml:space="preserve">
+    <value>Parámetro del Sistema eliminada correctamente</value>
+  </data>
+  <data name="EtiquetaParametroGuardado" xml:space="preserve">
+    <value>Parámetro guardado correctamente.</value>
+  </data>
+  <data name="EtiquetaParametrosSistema" xml:space="preserve">
+    <value>Parámetros del Sistema</value>
+  </data>
+  <data name="EtiquetaParametroYaExiste" xml:space="preserve">
+    <value>Parámetro del Sistema ya existe</value>
+  </data>
+  <data name="EtiquetaPeriodAudited" xml:space="preserve">
+    <value>Planificación de periodo</value>
+  </data>
+  <data name="EtiquetaPeriodAuditedDetail" xml:space="preserve">
+    <value>Planificación de periodo por compañía</value>
+  </data>
+  <data name="etiquetaPeriodo" xml:space="preserve">
+    <value>Periodo</value>
+  </data>
+  <data name="EtiquetaPeriodoDeCierre" xml:space="preserve">
+    <value>Periodo de Cierre</value>
+  </data>
+  <data name="EtiquetaPeriodoDesde" xml:space="preserve">
+    <value>Periodo - Desde</value>
+  </data>
+  <data name="EtiquetaPeriodoHasta" xml:space="preserve">
+    <value>Periodo - Hasta</value>
+  </data>
+  <data name="EtiquetaProceso" xml:space="preserve">
+    <value>Proceso</value>
+  </data>
+  <data name="EtiquetaProcesoPositionTitle" xml:space="preserve">
+    <value>Listado de Puestos por Procesos</value>
+  </data>
+  <data name="EtiquetaProcesoPuesto" xml:space="preserve">
+    <value>Puesto por proceso</value>
+  </data>
+  <data name="EtiquetaProcessCodigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="EtiquetaProcessDescripcion" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="EtiquetaProcessNew" xml:space="preserve">
+    <value>Agregar Nuevo Proceso</value>
+  </data>
+  <data name="EtiquetaProcessNombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="EtiquetaProcessPositionDescripcion" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="EtiquetaProcessPositionGuardado" xml:space="preserve">
+    <value>Registro guardado correctamente</value>
+  </data>
+  <data name="EtiquetaProcessPositionNew" xml:space="preserve">
+    <value>Agregar Nuevo Proceso por Puesto</value>
+  </data>
+  <data name="EtiquetaProcessPositionPuesto" xml:space="preserve">
+    <value>Puesto</value>
+  </data>
+  <data name="EtiquetaProcessPositionTitle" xml:space="preserve">
+    <value>Listado de Procesos y Puestos</value>
+  </data>
+  <data name="EtiquetaProcessSistema" xml:space="preserve">
+    <value>Proceso</value>
+  </data>
+  <data name="EtiquetaProcessTitle" xml:space="preserve">
+    <value>Listado de Procesos</value>
+  </data>
+  <data name="EtiquetaReportesExportados" xml:space="preserve">
+    <value>Reportes Generados</value>
+  </data>
+  <data name="EtiquetaRespoActvManual" xml:space="preserve">
+    <value>Responsable Actividad Manual</value>
+  </data>
+  <data name="EtiquetaResultadoBusqueda" xml:space="preserve">
+    <value>Resultado de Búsqueda</value>
+  </data>
+  <data name="EtiquetaSelActivCombinada" xml:space="preserve">
+    <value>Seleccionar Actividad Combinada</value>
+  </data>
+  <data name="EtiquetaSeleccionarCombo" xml:space="preserve">
+    <value>(Seleccionar)</value>
+  </data>
+  <data name="EtiquetaSistema" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="EtiquetaSubProceso" xml:space="preserve">
+    <value>Sub Proceso</value>
+  </data>
+  <data name="EtiquetaSubProcessDescripcion" xml:space="preserve">
+    <value>Descripción SubProceso</value>
+  </data>
+  <data name="EtiquetaSubProcessNombre" xml:space="preserve">
+    <value>Nombre SubProceso</value>
+  </data>
+  <data name="EtiquetaSubProcessNombreProcess" xml:space="preserve">
+    <value>Nombre Proceso</value>
+  </data>
+  <data name="EtiquetaSub_ProcessNew" xml:space="preserve">
+    <value>Agregar Nuevo SubProceso</value>
+  </data>
+  <data name="EtiquetaSub_ProcessSistema" xml:space="preserve">
+    <value>SubProceso</value>
+  </data>
+  <data name="EtiquetaSub_ProcessTitle" xml:space="preserve">
+    <value>Listado de Sub Procesos</value>
+  </data>
+  <data name="EtiquetaTipoActividad" xml:space="preserve">
+    <value>Tipo Actividad</value>
+  </data>
+  <data name="EtiquetaTipoActividadCombinada" xml:space="preserve">
+    <value>Tipo Actividad Combinada</value>
+  </data>
+  <data name="EtiquetaTituloSistema" xml:space="preserve">
+    <value>SICA - Sistema de Control de Actividades</value>
+  </data>
+  <data name="EtiquetaTransacciones" xml:space="preserve">
+    <value>Transacciones</value>
+  </data>
+  <data name="etiquetaTrimestre" xml:space="preserve">
+    <value>Trimestre</value>
+  </data>
+  <data name="EtiquetaUsuarioCreacion" xml:space="preserve">
+    <value>Creado por</value>
+  </data>
+  <data name="EtiquetaValidaPosition" xml:space="preserve">
+    <value>Ya existe un proceso asociado al puesto seleccionado</value>
+  </data>
+  <data name="EtiquetaValorCadena" xml:space="preserve">
+    <value>Valor Cadena</value>
+  </data>
+  <data name="EtiquetaValorNumerico" xml:space="preserve">
+    <value>Valor Número</value>
+  </data>
+  <data name="FooterLabel" xml:space="preserve">
+    <value>My ASP.NET MVC Application</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LogoLabel" xml:space="preserve">
+    <value>your logo here</value>
+  </data>
+  <data name="msjClosingValidation" xml:space="preserve">
+    <value>Existe un periodo asociado al modulo seleccionado!</value>
+  </data>
+  <data name="msjFechaIncorrecta" xml:space="preserve">
+    <value>* Ingrese una fecha correcta</value>
+  </data>
+  <data name="msjMesIcorrecto" xml:space="preserve">
+    <value>* Ingrese un mes valido</value>
+  </data>
+  <data name="msjUsuarioSolicitante" xml:space="preserve">
+    <value>El puesto Usuario solicitante / Jefe inmediato superior, debe de ser el único responsable asignado a una Actividad Crítica</value>
+  </data>
+  <data name="msjValidacionUsuario_Puesto" xml:space="preserve">
+    <value>No puede seleccionar Usuarios y Puesto en la misma actividad Crítica</value>
+  </data>
+  <data name="PortugueseLabel" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="SpanishLabel" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Actividad Combinada</value>
+  </data>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>My ASP.NET MVC Application</value>
+  </data>
+  <data name="VariableWalter" xml:space="preserve">
+    <value>1</value>
+  </data>
+</root>

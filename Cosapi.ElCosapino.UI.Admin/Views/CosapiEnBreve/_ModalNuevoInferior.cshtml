@@ -1,0 +1,145 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+
+<style>
+    .form-horizontal .control-label {text-align: left;}
+    #modalNuevoSeccionInferior {opacity: 1;background-color: rgba(0,0,0,0.8);position: fixed;top: 0;left: 0;right: 0;bottom: 0;margin: 0;z-index: 99;transition: all 1s;}
+    .popup-contenedor-NuevoSeccionInferior {
+        position: relative;
+        margin: 6% auto;
+        background-color: #FFFFFF;
+        color: #333;
+        border-radius: 3px;
+        width: 800px;
+    }
+    a.popup-cerrar {position: absolute;top: 3px;right: 3px;padding: 7px 10px;font-size: 13px;text-decoration: none;font-size: 21px;font-weight: bold;line-height: 1;color: #ddd;}
+</style>
+
+<div class="modal-wrapper" id="modalNuevoSeccionInferior" style="display:none">
+    <div class="popup-contenedor-NuevoSeccionInferior">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="row form-horizontal">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtTituloNuevo_SeccionInferior">Título</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtTituloNuevo_SeccionInferior" type="text" class="form-control" rows="3"></textarea>
+                                        <input id="txtIDInterfaceWeb_SeccionInferior" type="text" style="display:none" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtSubTituloNuevo_SeccionInferior">SubTítulo</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtSubTituloNuevo_SeccionInferior" type="text" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="imgImagenNuevo_SeccionInferior">Imagen</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="imgImagenNuevo_SeccionInferior" />
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a onclick="Nuevo_SeccionInferior()" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+            <a class="btn btn-danger" style="cursor:pointer" onclick="MostrarOcultarDiv('modalNuevoSeccionInferior')"><span class="fa fa-sign-out fa-fw"></span> Salir</a>
+        </div>
+        <a class="popup-cerrar" onclick="MostrarOcultarDiv('modalNuevoSeccionInferior')">x</a>
+    </div>
+</div>
+
+<script>
+    function Nuevo_SeccionInferior() {
+        var esValido = validarViewModel_SeccionInferior();
+
+        if (esValido === true) {
+            if (window.FormData !== undefined) {
+                var fileUpload = $("#imgImagenNuevo_SeccionInferior").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                var TituloNuevo = $('#txtTituloNuevo_SeccionInferior').val();
+                var SubTituloNuevo = $('#txtSubTituloNuevo_SeccionInferior').val();
+
+                fileData.append('Titulo', TituloNuevo);
+                fileData.append('SubTitulo', SubTituloNuevo);
+
+                $.ajax({
+                    url: '@Url.Action("Insert_SeccionInferior", "CosapiEnBreve")',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (response) {
+                        switch (response.Codigo) {
+                            case 1:
+                                $('#modalNuevoSeccionInferior').hide();
+                                SelectRowsPerPage_SeccionInferior();
+                                reiniciarControles_NuevoSeccionInferior();
+                                alertify.success('¡Bien!. Registro insertado.');
+                                break;
+                            case 0:
+                                alertify.error('¡Opss!. Algo salió mal.');
+                                break;
+                            case -1:
+                                alertify.error('¡Opss!. Tipo de archivo no permitido.');
+                                break;
+                            case -2:
+                                alertify.error('Imagen requerida.');
+                                break;
+                            case -3:
+                                alertify.error('¡Opss!. Peso máximo 1 MB.');
+                                break;
+                            default:
+                                alertify.error('¡Opss!. Algo salió mal.');
+                                break;
+                        }
+                    },
+                    error: function (err) {
+                        alertify.error(err.statusText);
+                    }
+                });
+            } else {
+                alertify.error("El navegador no está soportando subir imágenes.");
+            }
+        }
+    }
+
+    function validarViewModel_SeccionInferior() {
+        var TituloNuevo_SeccionInferior = $("#txtTituloNuevo_SeccionInferior").val();
+        var SubTituloNuevo_SeccionInferior = $('#txtSubTituloNuevo_SeccionInferior').val();
+
+        if (isNullOrEmpty(TituloNuevo_SeccionInferior)) {
+            alertify.error('Titulo requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(SubTituloNuevo_SeccionInferior)) {
+            alertify.error('Subtítulo requerido.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles_NuevoSeccionInferior() {
+        $("#txtTituloNuevo_SeccionInferior").val('');
+        $("#txtSubTituloNuevo_SeccionInferior").val('');
+        $("#imgImagenNuevo_SeccionInferior").val("");
+    }
+</script>

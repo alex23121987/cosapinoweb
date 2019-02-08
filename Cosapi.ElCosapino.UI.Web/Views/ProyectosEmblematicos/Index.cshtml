@@ -1,0 +1,177 @@
+﻿@model Cosapi.ElCosapino.UI.Web.Models.PageViewModel
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .proyemb ul {list-style: none;line-height: 2em;}
+
+    .proyemb ul, ol {margin-left: 2em;}
+
+    .proyemb ul, ol {margin: 1em 0 1em 1em;padding: 0;}
+
+    .proyemb ul li:before {content: "";line-height: 2em;width: .5em;height: .5em;background-color: #3FB9E0;float: left;margin: .75em .25em 0;border-radius: 50%;}
+
+    #timeline {
+        width: 800px;height: 350px;overflow: hidden;margin: 50px auto;position: relative;
+        background: url('../images/dot.gif') left 45px repeat-x;
+    }
+
+    #dates {width: 800px;height: 60px;overflow: hidden;}
+
+    #dates li {
+        list-style: none;float: left;width: 100px;height: 50px;font-size: 24px;text-align: center;
+        background: url('../images/biggerdot.png') center bottom no-repeat;
+    }
+
+    #dates a {line-height: 38px;padding-bottom: 10px;color: #2560A2;text-decoration: none;}
+
+    #dates .selected {font-size: 38px;}
+
+    #issues {width: 800px;height: 350px;overflow: hidden;}
+
+    #issues li {width: 800px;height: 350px;list-style: none;float: left;}
+
+    #issues li.selected img {-webkit-transform: scale(1.1,1.1);transform: scale(1.1,1.1);}
+
+    #issues li img {
+        float: left;
+        margin: 10px 30px 10px 50px;
+        background: transparent;
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE 8 */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF); /* IE 6 & 7 */
+    }
+
+    #issues li h1 {
+        color: #FFFFFF;font-size: 28px;margin-top: 0px;background-color: #1A9CDC;margin-left: 366px;border-left: solid 15px #2560A2 !important;
+        padding-top: 5px;padding-bottom: 5px;padding-left: 7px;
+    }
+
+    #issues li p {font-size: 14px;margin-right: 70px;font-weight: normal;line-height: 22px;}
+
+    #grad_left, #grad_right {width: 100px;height: 350px;position: absolute;top: 0;}
+
+    #grad_left {left: 0;}
+
+    #grad_right {right: 0;}
+
+    #next, #prev {
+        position: absolute;top: 0;font-size: 70px;top: 170px;width: 22px;height: 38px;
+        background-position: 0 0;background-repeat: no-repeat;text-indent: -9999px;overflow: hidden;
+    }
+
+    #next:hover, #prev:hover {background-position: 0 -76px;}
+
+    #next {right: 0;background-image: url('../images/next.png');}
+
+    #prev {left: 0;background-image: url('../images/prev.png');}
+
+    #next.disabled, #prev.disabled {opacity: 0.2;}
+</style>
+<link href="~/Content/bxslider/jquery.bxslider.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/bxslider/jquery.bxslider.js"></script>
+<script src="~/Scripts/jquery.timelinr-0.9.7.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.bxslider').bxSlider({
+            controls: false,
+            auto: true,
+            pause: 10000,
+            speed: 500
+        });
+    });
+
+    $(function () {
+        $().timelinr({
+            orientation: 'horizontal', containerDiv: '#timeline', datesDiv: '#dates', datesSelectedClass: 'selected', datesSpeed: 'normal', issuesDiv: '#issues',
+            issuesSelectedClass: 'selected', issuesSpeed: 'fast', issuesTransparency: 0.2, issuesTransparencySpeed: 500, prevButton: '#prev', nextButton: '#next', arrowKeys: 'false', startAt: 1, autoPlay: 'false', autoPlayDirection: 'forward', autoPlayPause: 2000
+        })
+    });
+</script>
+<div class="choose-area pt-60" style="background-color:#2560A2">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>PROYECTOS EMBLEMÁTICOS</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="bxslider">
+            @foreach (var item in Model.ProyectosEmblematicos_SeccionImagenesSuperiores)
+            {
+                <li>
+                    <img src="@ViewBag.UrlAdmin/Upload/ProyectosEmblematicos/ImagenesSuperiores/@item.Imagen" style="height:450px;">
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                <span style="color:#009ED3; font-weight:bold;">
+                    Nuestros proyectos más emblemáticos son:
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 proyemb" style="padding-bottom: 10px;">
+                <ul style="padding-left:5%">
+                    @foreach (var item in Model.ProyectosEmblematicos_SeccionProyectosEmblematicos)
+                    {
+                        <li style="float:left;width:45%;margin-right:5%">@item.Titulo</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                @Html.Raw(Model.ProyectosEmblematicos_SeccionMedio)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="padding-top: 30px;padding-bottom: 10px;">
+                <span style="color:#009ED3; font-weight:bold;">
+                    Estamos preparados para enfrentar los retos del futuro, de cada uno de nosotros dependerá el éxito de nuestra empresa.
+                </span>
+            </div>
+            <div class="col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                <div id="timeline">
+                    <ul id="dates">
+                        @foreach (var item in Model.ProyectosEmblematicos_SeccionLineaTiempo)
+                        {
+                            <li><a href="#@item.Titulo">@item.Titulo</a></li>
+                        }
+                    </ul>
+                    <ul id="issues">
+                        @foreach (var item in Model.ProyectosEmblematicos_SeccionLineaTiempo)
+                        {
+                            <li id="@item.Titulo">
+                                <img src="@ViewBag.UrlAdmin/Upload/ProyectosEmblematicos/LineaTiempo/@item.Imagen" width="280" height="280">
+                                <h1>DÉCADA DEL @item.Titulo</h1>
+                                <div style="padding-left: 370px;">
+                                    @foreach (var task in Model.ProyectosEmblematicos_SeccionLineaTiempoProyecto.Where(t => Convert.ToInt32(t.SubTitulo) == item.IDInterfaceWeb))
+                                    {
+                                        <div><span class="fa fa-caret-right"></span> @task.Titulo</div>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <div id="grad_left"></div>
+                    <div id="grad_right"></div>
+                    <a href="#" id="next">+</a>
+                    <a href="#" id="prev">-</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

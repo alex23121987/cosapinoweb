@@ -1,0 +1,100 @@
+﻿
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<div class="modal fade" id="modalNuevoSeccionPrograma" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtTituloNuevo_CC_Programa">Título</label>
+                        <div class="col-sm-10">
+                            <input id="txtTituloNuevo_CC_Programa" type="text" maxlength="40" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtSubTituloNuevo_CC_Programa">Subtítulo</label>
+                        <div class="col-sm-10">
+                            <input id="txtSubTituloNuevo_CC_Programa" type="text" maxlength="100" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo_CC_Programa(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GrabarNuevo_CC_Programa(that) {
+        var esValido = validarViewModel_CC_Programa();
+
+        if (esValido === true) {
+            var TituloNuevo_CC_Programa = $('#txtTituloNuevo_CC_Programa').val();
+            var SubTituloNuevo_CC_Programa = $('#txtSubTituloNuevo_CC_Programa').val();
+            
+            var viewModel = { InterfaceWeb: { Titulo: TituloNuevo_CC_Programa, SubTitulo: SubTituloNuevo_CC_Programa } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertSeccionPrograma", "CentroCapacitacion")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalNuevoSeccionPrograma').modal('hide');
+                            reiniciarControles_CC_Programa();
+                            SelectRowsPerPage_SeccionPrograma();
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel_CC_Programa () {
+        var TituloNuevo_CC_Programa = $('#txtTituloNuevo_CC_Programa').val();        
+        var SubTituloNuevo_CC_Programa = $('#txtSubTituloNuevo_CC_Programa').val();        
+
+        if (isNullOrEmpty(TituloNuevo_CC_Programa)) {
+            alertify.error('Título requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(SubTituloNuevo_CC_Programa)) {
+            alertify.error('SubTítulo requerido.');
+            return false;
+        }
+  
+        return true;
+    }
+
+    function reiniciarControles_CC_Programa() {
+        $("#txtTituloNuevo_CC_Programa").val('');        
+        $("#txtSubTituloNuevo_CC_Programa").val('');        
+    }
+</script>

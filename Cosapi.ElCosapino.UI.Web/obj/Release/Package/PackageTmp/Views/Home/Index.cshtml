@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bxslider/jquery.bxslider.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/bxslider/jquery.bxslider.js"></script>
+
+<style>
+    .divCorto {height: 43px;overflow: hidden;text-overflow: ellipsis;}
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.bxslider').bxSlider({
+            controls: false,
+            auto: true,
+            pause: 10000,
+            speed: 500
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="bxslider">
+            @foreach (var item in Model.Portada_SeccionImagenesSuperiores)
+    {
+        <li>
+            <img src="@ViewBag.UrlAdmin/Upload/Portada/ImagenesSuperiores/@item.Imagen" style="height:450px;" alt="">
+        </li>
+    }          
+        </ul>
+    </div>
+</div>
+
+<div class="choose-area pt-60" style="background-color:#5FB6DB">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>NOTICIAS</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-7 col-sm-7">
+                <div class="choose-left">
+                    
+                    <div class="col-md-12 col-sm-12 response-area">
+                        <ul class="media-list">
+                            @foreach (var item in Model.Noticias_SeccionNoticiasDestacado)
+    {
+                            <li class="media" style="background-color:transparent">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object-cb" src="@ViewBag.UrlAdmin/Upload/Noticias/ListaNoticias/@item.Imagen" alt="" style="width: 183px;height:125px;">
+                                </a>
+                                <div class="media-body">
+                                    <p style="color: #00a4e4;font-weight: bold;font-size: 18px;">@item.Titulo</p>
+                                    <p style="padding-left:16px;color:#009ED3">
+                                        <div class="divCorto">
+
+                                            @Html.Raw(item.SubTitulo)
+
+                                        </div>
+                                        <div>
+                                            <span class="pull-right" style="color:#FFFFFF;padding-left: 60px;overflow-y: hidden;"><a href="~/NoticiasDetalle?IDNoticia=@item.IDInterfaceWeb" class="btn btn-primary">Ver más</a></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </p>
+                                </div>
+                            </li>                      
+}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-5" style="border-left: 1px solid #CCCCCC;">
+                <div class="choose-left">                    
+                    <div class="col-md-12 col-sm-12 response-area">
+                        <ul class="media-list">
+                            @foreach (var item in Model.Noticias_SeccionNoticiasUltimos)
+                            {
+                        <li class="media" style="background-color:transparent">
+                            <div class="pull-left">
+                                <img class="media-object-cb" src="@ViewBag.UrlAdmin/Upload/Noticias/ListaNoticias/@item.Imagen" style="width:84px; height:70px;">
+                            </div>
+                            <div class="media-body">
+                                <h4 style="color: #00a4e4;font-weight: bold;font-size: 15px;">@item.Titulo</h4>
+                                <p style="padding-left:16px;color:#009ED3">
+                                    <div class="divCorto">
+
+                                        @Html.Raw(item.SubTitulo)
+
+                                    </div>
+                                    <div>
+                                        <span class="pull-right" style="color:#FFFFFF;padding-left: 60px;overflow-y: hidden;"><a href="~/NoticiasDetalle?IDNoticia=@item.IDInterfaceWeb" class="btn btn-primary">Ver más</a></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </p>
+                            </div>
+                        </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

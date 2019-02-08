@@ -1,0 +1,166 @@
+﻿@using Cosapi.ElCosapino.UI.Web.Models.ViewModels;
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        var IDUsuario="@VMDatosUsuarioExterno.GetUUserId()";
+        if (IDUsuario == "-1") {
+            ModalLogueo();
+        }
+
+    });
+
+    function ModalLogueo(){
+        $('#modalLogin').show();
+    }
+</script>
+
+<div class="choose-area pt-60" style="background-color:#FFBF0B">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>VACANTES DISPONIBLES</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="padding-top:5px;padding-bottom: 10px;">
+                <span style="color:#009ED3; font-weight:bold;">
+                    ¿Porqué trabajar en Cosapi?
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                Cosapi no sólo te ofrece una oportunidad laboral, aquí te integrarás a una empresa sólida con profundos y arraigados valores institucionales, donde propiciamos y apoyamos tu realización y desarrollo personal así como tu carrera laboral.
+            </div>
+        </div>
+        @if (VMDatosUsuarioExterno.GetUUserId() == "-1")
+        {
+        <div class="row" style="padding: 20px;background-color: #FFD5D5;border: solid 1px red;margin-top: 20px;margin-bottom: 20px;">
+            <div class="col-md-12 col-sm-12">
+                Para visualizar las ofertas laborales requerimos que estés logueado al Cosapino. Puedes hacerlo haciendo clic <a onclick="ModalLogueo()" style="cursor:pointer" class="btn btn-primary">AQUÍ</a>
+            </div>
+        </div>
+}
+        @if (VMDatosUsuarioExterno.GetUUserId() != "-1" && VMDatosUsuarioExterno.GetUserEstado() != "ACT")
+        {
+        <div class="row" style="padding: 20px;background-color: #FFD5D5;border: solid 1px red;margin-top: 20px;margin-bottom: 20px;">
+            <div class="col-md-12 col-sm-12">
+                El usuario no se encuentra activo. Revise su correo electrónico por favor.
+            </div>
+        </div>
+}
+        @if (VMDatosUsuarioExterno.GetUUserId() != "-1" && VMDatosUsuarioExterno.GetUserDNI() == "")
+        {
+        <div class="row" style="padding: 20px;background-color: #FFFF99;border: solid 1px #FFCC00;margin-top: 20px;margin-bottom: 20px;">
+            <div class="col-md-12 col-sm-12">
+                Para visualizar las ofertas laborales requerimos que completes tu información personal. Puedes hacerlo haciendo clic <a href="@Url.Action("Actualizar", "Perfil")" style="cursor:pointer" class="btn btn-primary">AQUÍ</a>
+            </div>
+        </div>
+}
+
+        @if (ViewBag.Message != null)
+        {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert('@ViewBag.Message');
+            }
+        </script>
+}
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="faq-gallery">
+                    <div class="panel-group" id="accordion">
+                        @{ int aux = 0;}
+                        @foreach (var item in Model.TrabajaConNosotros_SeccionVacante)
+    {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#vac_@item.IDVacante" aria-expanded="false" class="collapsed" style="color: gray;">@item.Categoria @item.Especialidad</a>
+                            </h4>
+                        </div>
+                        <div id="vac_@item.IDVacante" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <p style="color:#009ED3; font-weight:bold">NIVEL ACADÉMICO</p>
+                                <p>@item.NivelAcademico</p>
+                                <p style="color:#009ED3; font-weight:bold">REQUISITOS</p>
+                                <p>@Html.Raw(item.Requisitos.Replace(Environment.NewLine, "<br />").Replace("\r", "<br />").Replace("\n", "<br />"))</p>
+                                <p style="color:#009ED3; font-weight:bold">POSTULA EN</p>
+                                <p>@item.PostulaEn</p>
+                                <p>
+                                    <div class="col-sm-3" style="padding-left: 0px;">
+                                        <a onclick="PostularVacante(@item.IDVacante)" style="cursor:pointer; width:100%" class="btn btn-warning">POSTULAR</a>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    aux = aux + 1;
+}
+                        @{ if (aux == 0 && VMDatosUsuarioExterno.GetUUserId() != "-1" && VMDatosUsuarioExterno.GetUserDNI() != "" && VMDatosUsuarioExterno.GetUserEstado() == "ACT")
+                            {
+                    <div class="row" style="padding: 20px;background-color: #DDDDDD;border: solid 1px gray;margin-top: 20px;margin-bottom: 20px;">
+                        <div class="col-md-12 col-sm-12">
+                            Por el momento no contamos con ofertas laborales.
+                        </div>
+                    </div>
+}
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="seccion-modal-ModalLogin">
+    @Html.Partial("_ModalLogin")
+</div>
+
+<script>
+    function PostularVacante(perfilId) {
+        var viewModel = {
+            PostulacionBE: {
+                PerfilId: perfilId
+            }
+        };
+
+        var jsonData = JSON.stringify(viewModel);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Postular", "TrabajaConNosotros")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        alertify.success('¡Bien!. Postulación correcta.');
+                        setTimeout(function () { window.location.href =  '@Url.Action("Index", "TrabajaConNosotros")'; }, 2000);
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+</script>

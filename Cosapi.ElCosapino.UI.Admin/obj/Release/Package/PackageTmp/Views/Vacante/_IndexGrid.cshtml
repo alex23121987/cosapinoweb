@@ -1,0 +1,108 @@
+﻿@using Newtonsoft.Json
+@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.VacanteAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+@{
+    var grid = new CanvasGrid<Vacante>("GridVacante", Model) { callBackMethod = "GridVacanteReload", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Categoría", _filterKey: "S_Categoria", _format: item => item.Categoria);
+    grid.columnCollection.addColumn(_headerText: "Especialidad", _filterKey: "S_Especialidad", _format: item => item.Especialidad);
+    grid.columnCollection.addColumn(_headerText: "Requisitos", _filterKey: "S_Requisitos", _format:
+@<text>    
+    @Html.Raw(item.Requisitos.Replace(Environment.NewLine, "<br />").Replace("\r", "<br />").Replace("\n", "<br />"))
+</text>);
+    grid.columnCollection.addColumn(_headerText: "Fecha Registro", _filterKey: "S_FechaRegistro", _format: item => item.FechaRegistro);
+    grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format: item => item.Estado);
+    grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+@<text>
+<div class="acciones_grilla">
+    <span style="display:none">@item.IDCategoria</span>
+    <span style="display:none">@item.IDEspecialidad</span>
+    <span style="display:none">@Html.Raw(item.NivelAcademico.Replace(Environment.NewLine, "<br />").Replace("\r", "<br />").Replace("\n", "<br />"))</span>
+    <span style="display:none">@Html.Raw(item.PostulaEn.Replace(Environment.NewLine, "<br />").Replace("\r", "<br />").Replace("\n", "<br />"))</span>
+    <a id="lnkEdit" onclick="ModalEditar(this)" style="cursor:pointer" title="Editar" data-value="@item.IDVacante">
+        <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+    <a id="lnkDelete" onclick="ConfirmaEliminar(this)" style="cursor:pointer" title="Eliminar" data-value="@item.IDVacante">
+        <span class="glyphicon glyphicon-trash"></span>
+    </a>
+</div>
+</text>, _htmlAttributes: new
+{
+    @width = "100px"
+});
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminar(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            Eliminar(that);
+        });
+    }
+
+    function Eliminar(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "Vacante")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ModalEditar(that) {
+        var id = $(that).attr("data-value");
+        //
+        var idcategoria = that.parentElement.childNodes[1].textContent;
+        var idEspecialidad = that.parentElement.childNodes[3].textContent;
+        var nivelacademico = that.parentElement.childNodes[5].textContent;
+        var postulaen = that.parentElement.childNodes[7].textContent;
+        var requisitos = that.parentElement.parentElement.parentElement.cells[2].innerText;
+        var estado = that.parentElement.parentElement.parentElement.cells[3].innerText;
+        var b_estado = false;
+        if (estado == "Activo") { b_estado = true; }
+
+        $('#txtIDVacanteEditar').val(id);
+       // 
+        Lista_Categoria_Editar(idcategoria);        
+        Lista_Especialidad_Editar(idcategoria, idEspecialidad);
+        $('#txtRequisitosEditar').val(requisitos);
+        $('#txtNivelAcademicoEditar').val(nivelacademico);
+        $('#txtPostulaEnEditar').val(postulaen);
+
+        $('#chkEstadoEditar').prop('checked', b_estado);
+        $('#modalEditarVacante').modal('show');
+
+
+    };
+
+</script>
+
+
+

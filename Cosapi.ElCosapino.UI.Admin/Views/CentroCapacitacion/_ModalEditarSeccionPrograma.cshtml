@@ -1,0 +1,121 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+
+<style>
+    .form-horizontal .control-label {text-align: left;}
+    #modalEditarSeccionPrograma {opacity: 1;background-color: rgba(0,0,0,0.8);position: fixed;top: 0;left: 0;right: 0;bottom: 0;margin: 0;z-index: 99;transition: all 1s;}
+    .popup-contenedor-EditarSeccionPrograma {
+        position: relative;
+        margin: 6% auto;
+        background-color: #FFFFFF;
+        color: #333;
+        border-radius: 3px;
+        width: 800px;
+    }
+    a.popup-cerrar {position: absolute;top: 3px;right: 3px;padding: 7px 10px;font-size: 13px;text-decoration: none;font-size: 21px;font-weight: bold;line-height: 1;color: #ddd;}
+</style>
+
+<div class="modal-wrapper" id="modalEditarSeccionPrograma" style="display:none">
+    <div class="popup-contenedor-EditarSeccionPrograma">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Editar Registro</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">                                       
+                        <div class="row form-horizontal">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtTituloEditar_SeccionPrograma">Título</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtTituloEditar_SeccionPrograma" type="text" class="form-control" />
+                                        <input id="txtIDInterfaceWeb_SeccionPrograma" type="text" style="display:none" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtSubTituloEditar_SeccionPrograma">Subtítulo</label>
+                                    <div class="col-sm-10">
+                                        <input id="txtSubTituloEditar_SeccionPrograma" type="text" class="form-control" />                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="chkEstadoEditar_SeccionPrograma">Estado</label>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="material-switch" style="padding-top: 8px;">
+                                            <input id="chkEstadoEditar_SeccionPrograma" type="checkbox" />
+                                            <label for="chkEstadoEditar_SeccionPrograma" class="label-info"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                           
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a onclick="Editar_SeccionPrograma()" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+            <a class="btn btn-danger" style="cursor:pointer" onclick="MostrarOcultarDiv('modalEditarSeccionPrograma')"><span class="fa fa-sign-out fa-fw"></span> Salir</a>
+        </div>
+        <a class="popup-cerrar" onclick="MostrarOcultarDiv('modalEditarSeccionPrograma')">x</a>
+    </div>
+</div>
+
+<script>
+    function Editar_SeccionPrograma() {
+        if (window.FormData !== undefined) {           
+            var fileData = new FormData();
+          
+            var IDInterface = $('#txtIDInterfaceWeb_SeccionPrograma').val();
+            var TituloEditar = $('#txtTituloEditar_SeccionPrograma').val();
+            var SubTituloEditar = $('#txtSubTituloEditar_SeccionPrograma').val();
+            var Estado = $('#chkEstadoEditar_SeccionPrograma').is(':checked');
+
+            fileData.append('IDInterface', IDInterface);
+            fileData.append('Titulo', TituloEditar);
+            fileData.append('SubTitulo', SubTituloEditar);
+            fileData.append('Estado', Estado);
+
+            $.ajax({
+                url: '@Url.Action("Upd_SeccionPrograma", "CentroCapacitacion")',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalEditarSeccionPrograma').hide();
+                            SelectRowsPerPage_SeccionPrograma();
+                            reiniciarControles_EditarSeccionPrograma();
+                            alertify.success('¡Bien!. Registro actualizado.');
+                            break;
+                        case 0:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Tipo de archivo no permitido.');
+                            break;
+                        case -3:
+                            alertify.error('¡Opss!. Peso máximo 1 MB.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function (err) {
+                    alertify.error(err.statusText);
+                }
+            });
+        } else {
+            alertify.error("El navegador no está soportando subir imágenes.");
+        }
+    }
+
+    function reiniciarControles_EditarSeccionPrograma() {
+        $("#txtTituloEditar_SeccionPrograma").val('');
+        $("#txtSubTituloEditar_SeccionPrograma").val('');        
+    }
+</script>

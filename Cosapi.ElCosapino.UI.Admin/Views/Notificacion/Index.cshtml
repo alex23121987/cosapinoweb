@@ -1,0 +1,185 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+@model VMUsuario
+@using Cosapi.ElCosapino.UI.Admin.Models.ViewModels
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript">  
+    function SelectRowsPerPage() {
+        var rowsPerPage = document.getElementById("SelRowsPerPage").value;
+        GridUsuarioReload(Number(rowsPerPage));
+    }
+
+    function GridUsuarioReload(rowsPerPage) {
+        var Categoria = $('#cmbCategoria').val();
+        var Especialidad = $('#cmbEspecialidad').val();
+        var Filtro = $('#txtFiltro').val();
+
+        if (Categoria == null) { Categoria = 0 }
+        if (Especialidad == null) { Especialidad = 0 }
+
+        var data = $("#GridUsuario").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridUsuario").load("@(Url.Action("IndexPaginate", "Notificacion"))?arg=" + encodeURI(JSON.stringify(data)) + "&CategoriaId=" + Categoria + "&EspecialidadId=" + Especialidad + "&filtro=" + Filtro, function(){
+            HideLoadingShared();
+        });        
+    }
+</script>
+
+<div class="content">
+    <div class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Administración<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Notificación</small></h1>
+
+        <table id="tblCreateUsuario">
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" style="padding-top:4px; padding-bottom:4px;">
+                                    <div class="row" style="margin-left:0px; margin-right:0px;">
+                                        <div class="pull-left">
+                                            Filtros
+                                        </div>
+                                        <div class="pull-right">
+                                            <a onclick="NavegacionFiltro();"><i id="idivfiltro" class="fa fa-angle-double-up" aria-hidden="true" style="color:#FFFFFF; cursor:pointer; font-size:18px;"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="DivFiltroPanel" class="panel-body body-celeste">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="cmbCategoria">Categoría</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" id="cmbCategoria" name="cmbCategoria">
+                                                    <option value="0">.: SELECCIONE :.</option>
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="cmbEspecialidad">Especialidad</label>
+                                            <div class="col-sm-4">
+                                                <select data-placeholder=".: SELECCIONE :." class="form-control chosen-select-single" id="cmbEspecialidad" name="cmbEspecialidad">
+                                                    <option value="0">.: SELECCIONE :.</option>
+                                                </select>
+                                            </div>
+                                        </div>                                   
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="txtFiltro">Filtro</label>
+                                            <div class="col-sm-10">                                               
+                                                <input id="txtFiltro" type="text" class="form-control" />                                                   
+                                            </div>                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group pull-right" style="padding-bottom:10px;">
+                        <a onclick="SelectRowsPerPage();" style="cursor:pointer;" title="Exportar Resultados" class="btn btn-azul btn-buscador-encrustado form-group"><i class="fa fa-check-square-o" aria-hidden="true"></i> Buscar</a>
+                        <a onclick="EnviarNotificacion();" style="cursor:pointer;" title="Exportar Resultados" class="btn btn-success btn-buscador-encrustado form-group"><i class="fa fa-check-square-o" aria-hidden="true"></i> Enviar Notificación</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <label style="width:55px;text-align: left !important;padding-left: 0px !important;" class="col-xs-1">Mostrar </label>
+                        <select class=" dropdown form-control col-xs-2" id="SelRowsPerPage" name="SelRowsPerPage" onchange="SelectRowsPerPage()"
+                                style="position:relative;top:-8px;width:60px;padding-left: 7px !important;padding-right: 7px !important;">
+                            <option value=" 5">5</option>
+                            <option selected="selected" value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <label class="col-xs-2" style="padding-left: 10px !important;">Filas </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom:20px;">
+                    <div id="container_GridUsuario" class="GrillaSistema">
+                        @Html.Action("IndexPaginate", "Notificacion", new
+                {
+                    arg = JsonConvert.SerializeObject(new
+                    {
+                        CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                        RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                        OrderBy = "",
+                        DirectionOrder = "Ascending"
+                    }),
+                    CategoriaId = 0,
+                    EspecialidadId = 0,
+                    Filtro = ""
+                })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div id="seccion-modal-Ver-Usuario">
+    @Html.Partial("_ModalNuevoNotificacion")
+</div>
+
+<script>
+    $(document).ready(function () {
+        Lista_Categoria_();
+        $('#cmbCategoria').change(function () {
+            Lista_Especialidad_($(this).val());
+        });
+    });
+
+    function Lista_Categoria_() {
+        $('#cmbCategoria option').remove();
+        $.getJSON("./Vacante/List_Categoria", function (data) {
+            $('<option>', { value: 0, text: ".: SELECCIONE :." }).html(".: SELECCIONE :.").appendTo("#cmbCategoria");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.IDCategoria, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbCategoria");
+            });
+        })
+    }
+
+    function Lista_Especialidad_(IDCategoria) {
+        $('#cmbEspecialidad option').remove();
+        $.getJSON("./Vacante/List_Especialidad_Por_Categoria?IDCategoria=" + IDCategoria, function (data) {
+            $('<option>', { value: 0, text: ".: SELECCIONE :." }).html(".: SELECCIONE :.").appendTo("#cmbEspecialidad");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.IDEspecialidad, text: data.Descripcion }).html(data.Descripcion).appendTo("#cmbEspecialidad");
+            });
+            $("#cmbEspecialidad").chosen();
+            $('#cmbEspecialidad').val("").trigger('chosen:updated');
+        })
+    }
+
+    function NavegacionFiltro() {
+        displaying = $('#DivFiltroPanel').css("display");
+        if (displaying == "block") {
+            $('#DivFiltroPanel').hide();
+            $('#idivfiltro').removeClass("fa-angle-double-up");
+            $('#idivfiltro').addClass("fa-angle-double-down");
+        } else {
+            $('#DivFiltroPanel').show();
+            $('#idivfiltro').removeClass("fa-angle-double-down");
+            $('#idivfiltro').addClass("fa-angle-double-up");
+        }
+    }
+
+    function EnviarNotificacion() {
+        $('#modalNuevoNotificacion').modal('show');
+    }
+</script>

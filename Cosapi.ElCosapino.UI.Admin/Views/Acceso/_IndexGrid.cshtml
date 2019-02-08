@@ -1,0 +1,91 @@
+﻿@using Newtonsoft.Json
+@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.UsuarioAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+@{
+    var grid = new CanvasGrid<Administrador>("GridAcceso", Model) { callBackMethod = "GridAccesoReload", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Código", _filterKey: "S_Codigo", _format: item => item.Codigo);
+    grid.columnCollection.addColumn(_headerText: "Clave", _filterKey: "S_Clave", _format: item => item.Clave);
+    grid.columnCollection.addColumn(_headerText: "Rol", _filterKey: "S_Rol", _format: item => item.Rol);
+    grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format: item => item.Estado);
+    grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+@<text>
+    <div class="acciones_grilla">   
+        <span style="display:none">@item.IDRol</span>
+        <a id="lnkEdit" onclick="ModalEditar(this)" style="cursor:pointer" title="Editar" data-value="@item.AdministradorId">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a id="lnkDelete" onclick="ConfirmaEliminar(this)" style="cursor:pointer" title="Eliminar" data-value="@item.AdministradorId">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
+</text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminar(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            Eliminar(that);
+        });
+    }
+
+    function Eliminar(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "Acceso")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+ 
+    function ModalEditar(that) {
+        var id = $(that).attr("data-value");
+        var codigo = that.parentElement.parentElement.parentElement.cells[0].innerText;
+        var contrasena = that.parentElement.parentElement.parentElement.cells[1].innerText;
+        var idrol = that.parentElement.childNodes[1].textContent;        
+        var estado = that.parentElement.parentElement.parentElement.cells[3].innerText;
+        var b_estado = false;
+        if (estado == "Activo") { b_estado = true; }        
+
+        $('#txtIDAdministradorEditar').val(id);
+        $('#txtCodigoEditar').val(codigo);
+        $('#txtContrasenaEditar').val(contrasena);
+        $('#cmbRolEditar').val(idrol);       
+        $('#chkEstadoEditar').prop('checked', b_estado);
+        $('#modalEditarAcceso').modal('show');
+
+        
+    };
+
+</script>
+
+
+

@@ -1,0 +1,81 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Sistema de Control de Actividades</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+
+    <link href="@Url.Content("~/Content/css/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/Style_Sod.css")" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/jquery/jquery-ui.css" rel="stylesheet" />
+    @Styles.Render("~/Content/bootstrap-datetimepicker")
+    @Styles.Render("~/Content/alertify")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jsCanvasWebGrid")
+    @Styles.Render("~/Content/CanvasGrid")
+    @Scripts.Render("~/bundles/alertify")
+    @Scripts.Render("~/bundles/ventana-unica")
+
+    <script src="~/Scripts/jquery-ui-1.8.20.js"></script>
+
+
+
+    <script src="~/Scripts/jquery.form.min.js"></script>
+    <script src="~/Content/js/scriptSod.js"></script>
+    <script>
+        alertify.defaults.transition = "slide";
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        alertify.defaults.theme.input = "form-control";
+
+        function ShowLoadingShared() {
+            $('body').addClass('loading');
+        }
+
+        function HideLoadingShared() {
+            $('body').removeClass('loading');
+        }
+
+        $(document).ready(function () {
+            var pageHeight = $(window).height();
+            var mar = $("<div class='mar_menu'/>");
+            $('.viewbg').css({ height: pageHeight });
+            $('.panel-box-right').css({ height: pageHeight });
+            $('.viewbg').append(mar);
+        });
+
+    </script>
+    <style>
+        .scrollable-menu {
+            height: auto;
+            max-height: 100%;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+            width: 0px; /* remove scrollbar space */
+            background: transparent; /* optional: just make scrollbar invisible */
+        }
+    </style>
+</head>
+<body>
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+    <div class="container body-content" style="padding-left:20px;padding-right:20px;width:97%">
+        @RenderBody()
+    </div>
+
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/bootstrap-dialog.js"></script>
+    <script src="~/Scripts/app/customAlert.js"></script>
+    <script src="~/Scripts/Master.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.UsuarioAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+@{
+    var grid = new CanvasGrid<Usuario>("GridUsuario", Model) { callBackMethod = "GridUsuarioReload", tableHtmlAttributes = new { @class = "Grid" } };
+    grid.columnCollection.addColumn(_headerText: "Nombres", _filterKey: "S_Nombres", _format: item => item.Nombres);
+    grid.columnCollection.addColumn(_headerText: "Apellidos", _filterKey: "S_Apellidos", _format: item => item.ApellidoPaterno + " " + item.ApellidoMaterno);
+
+    grid.columnCollection.addColumn(_headerText: "DNI", _filterKey: "S_DNI", _format: item => item.DNI);
+    grid.columnCollection.addColumn(_headerText: "Email", _filterKey: "S_Email", _format: item => item.CorreoElectronico);
+    grid.columnCollection.addColumn(_headerText: "Celulares", _filterKey: "S_Celulares", _format: item => item.NumeroContacto1 + "/" + item.NumeroContacto2);
+    grid.columnCollection.addColumn(_headerText: "Categoría", _filterKey: "S_Categoria", _format: item => item.CategoriaNombre);
+    grid.columnCollection.addColumn(_headerText: "Especialidad", _filterKey: "S_Especialidad", _format: item => item.EspecialidadNombre);
+    grid.columnCollection.addColumn(_headerText: "Origen", _filterKey: "S_Origen", _format:
+@<text>
+    @if (@item.Origen.Equals("EMAIL"))
+    {
+        <span style="padding: 5px 10px;color:#FFCC00"><span class="fa fa-envelope"></span></span>
+    }
+    else if (@item.Origen.Equals("FB"))
+    {
+        <span style="padding: 5px 10px;color:#3A5897"><span class="fa fa-facebook-square"></span></span>
+    }
+    else
+    {
+        <span style="padding: 5px 10px;color:#DC4B38"><span class="fa fa-google-plus-square"></span></span>
+    }
+</text>, _htmlAttributes: new { @width = "50px" });
+grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format:
+@<text>
+    @if (@item.Estado.Equals("Activo"))
+    {
+        <span style="background-color:#4CAF50; color:#FFFFFF;padding: 5px 10px;">@item.Estado</span>
+    }
+    else
+    {
+        <span style="background-color:#03A9F4; color:#FFFFFF;padding: 5px 10px;">@item.Estado</span>
+    }
+</text>, _htmlAttributes: new { @width = "100px" });
+grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+@<text>
+    <div class="acciones_grilla">
+        <span style="display:none">@item.strFechaNacimiento</span>
+        <span style="display:none">@item.NumeroContacto1</span>
+        <span style="display:none">@item.NumeroContacto2</span>
+        <span style="display:none">@item.DepartamentoNombre</span>
+        <a id="lnkEdit" onclick="ModalEditar(this)" style="cursor:pointer" title="Visualizar" data-value="@item.UsuarioId">
+            <span class="fa fa-eye"></span>
+        </a>
+        <a id="lnkDelete" onclick="ConfirmaEliminar(this)" style="cursor:pointer" title="Eliminar Usuario" data-value="@item.UsuarioId">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+    </div>
+</text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaEliminar(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            Eliminar(that);
+        });
+    }
+
+    function Eliminar(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "Usuario")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ModalEditar(that) {
+        var id = $(that).attr("data-value");
+        var apellidos = that.parentElement.parentElement.parentElement.cells[1].innerText;
+        var nombres = that.parentElement.parentElement.parentElement.cells[0].innerText;
+        var numerodocumento = that.parentElement.parentElement.parentElement.cells[2].innerText;
+        var email = that.parentElement.parentElement.parentElement.cells[3].innerText;
+        var categoria = that.parentElement.parentElement.parentElement.cells[5].innerText;
+        var especialidad = that.parentElement.parentElement.parentElement.cells[6].innerText;
+        var fechanacimiento = that.parentElement.childNodes[1].textContent;
+        var numerocontacto1 = that.parentElement.childNodes[3].textContent;
+        var numerocontacto2 = that.parentElement.childNodes[5].textContent;
+        var departamento = that.parentElement.childNodes[7].textContent;
+
+        $('#txtNroDocumentoVer').val(numerodocumento);
+        $('#txtNombresVer').val(nombres+' '+apellidos);
+        $('#txtFechaNacimientoVer').val(fechanacimiento);
+        $('#txtEmailVer').val(email);
+        $('#txtTelefonoContacto1Ver').val(numerocontacto1);
+        $('#txtTelefonoContacto2Ver').val(numerocontacto2);
+        $('#txtCategoriaVer').val(categoria);
+        $('#txtDepartamentoVer').val(departamento);
+        $('#txtEspecialidadVer').val(especialidad);
+        $('#modalVerUsuario').modal('show');
+    };
+</script>
+
+
+

@@ -1,0 +1,189 @@
+﻿@using Newtonsoft.Json
+@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {     
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+    function SelectRowsPerPage() {
+        var rowsPerPage = document.getElementById("SelRowsPerPage").value;
+        GridPostulacionReload(Number(rowsPerPage));
+    }
+
+    function GridPostulacionReload(rowsPerPage) {
+        var data = $("#GridPostulacion").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridPostulacion").load("@(Url.Action("IndexPaginate", "Postulacion"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Laboral<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Postulación</small></h1>
+
+        <table id="tblCreatePostulacion">
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" style="padding-top:4px; padding-bottom:4px;">
+                                    <div class="row" style="margin-left:0px; margin-right:0px;">
+                                        <div class="pull-left">
+                                            Filtros
+                                        </div>
+                                        <div class="pull-right">
+                                            <a onclick="NavegacionFiltro();"><i id="idivfiltro" class="fa fa-angle-double-up" aria-hidden="true" style="color:#FFFFFF; cursor:pointer; font-size:18px;"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="DivFiltroPanel" class="panel-body body-celeste">
+                                    <div class="col-lg-12">
+                                        <div class="form-horizontal">
+                                            <label class="col-sm-2 control-label" for="cmbUsuario">Desde</label>
+                                            <div class="col-sm-3">
+                                                <div class="input-group date date-picker" id="txtFechaDesde">
+                                                    <input id="txtFechaDesde" type="text" class="form-control" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="cmbEspecialidad">Hasta</label>
+                                            <div class="col-sm-3">
+                                                <div class="input-group date date-picker" id="txtFechaHasta">
+                                                    <input id="txtFechaHasta" type="text" class="form-control" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group pull-right" style="padding-bottom:10px;">
+                        <a onclick="Exportar();" style="cursor:pointer;" title="Exportar Resultados" class="btn btn-azul btn-buscador-encrustado form-group"><i class="fa fa-check-square-o" aria-hidden="true"></i> Exportar</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline form-group">
+                        <label style="width:55px;text-align: left !important;padding-left: 0px !important;" class="col-xs-1">Mostrar </label>
+                        <select class=" dropdown form-control col-xs-2" id="SelRowsPerPage" name="SelRowsPerPage" onchange="SelectRowsPerPage()"
+                                style="position:relative;top:-8px;width:60px;padding-left: 7px !important;padding-right: 7px !important;">
+                            <option value=" 5">5</option>
+                            <option selected="selected" value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <label class="col-xs-2" style="padding-left: 10px !important;">Filas </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom:20px;">
+
+                    <div id="container_GridPostulacion" class="GrillaSistema">
+                        @Html.Action("IndexPaginate", "Postulacion", new
+                {
+                    arg = JsonConvert.SerializeObject(new
+                    {
+                        CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                        RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                        OrderBy = "S_FechaRegistro",
+                        DirectionOrder = "Descending"
+                    })
+                })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<script>
+    function Exportar() {         
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            ShowLoadingShared();
+            var desde = $('#txtFechaDesde').find("input").val();
+            var hasta = $('#txtFechaHasta').find("input").val();
+
+            var entidad = {
+                S_Desde: desde, S_Hasta: hasta
+            };
+
+            var url = '@Url.Action("GenerarPlantillaReporte", "Postulacion")';
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: url,
+                data: JSON.stringify(entidad),
+                contentType: 'application/json',
+                processData: false,
+            }).done(function (response) {
+                window.location = '@Url.Action("DescargarReporte", "Postulacion")' + '?fileGuid=' + response.FileGuid + '&filename=' + response.FileName;
+                HideLoadingShared();
+                }).fail(function (xhr, textStatus, errorThrown) {
+                    HideLoadingShared();
+                mostrarError('Ha ocurrido un error inesperado.: ' + errorThrown);
+            });
+        }
+    }
+
+    function validarViewModel() {
+        var desde = $('#txtFechaDesde').find("input").val();
+        var hasta = $('#txtFechaHasta').find("input").val();      
+
+        if (isNullOrEmpty(desde)) {
+            alertify.error('Fecha Desde requerida.');
+            return false;
+        }
+
+        if (isNullOrEmpty(hasta)) {
+            alertify.error('Fecha Hasta requerida.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function NavegacionFiltro() {
+        displaying = $('#DivFiltroPanel').css("display");
+        if (displaying == "block") {
+            $('#DivFiltroPanel').hide();
+            $('#idivfiltro').removeClass("fa-angle-double-up");
+            $('#idivfiltro').addClass("fa-angle-double-down");
+        } else {
+            $('#DivFiltroPanel').show();
+            $('#idivfiltro').removeClass("fa-angle-double-down");
+            $('#idivfiltro').addClass("fa-angle-double-up");
+        }
+    }
+</script>

@@ -1,0 +1,104 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Newtonsoft.Json
+
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<div class="modal fade" id="modalNuevoLineaTiempoProyecto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtTituloNuevo_PE_LineaTiempoProyecto">Proyecto</label>
+                        <div class="col-sm-10">
+                            <input id="txtTituloNuevo_PE_LineaTiempoProyecto" type="text" class="form-control" />
+                            <input id="txtIDLineaTiempo" type="text" style="display:none" />
+                        </div>
+                    </div>                    
+                    <div id="container_GridSeccionLineaTiempoProyecto" class="GrillaSistema">
+                        @Html.Action("IndexPaginateSeccionLineaTiempoProyecto", "ProyectosEmblematicos", new
+                        {
+                            arg = JsonConvert.SerializeObject(new
+                            {
+                                CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                                RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                                OrderBy = "",
+                                DirectionOrder = "Ascending"
+                            }),
+                            IDInterface = 999999
+                        })
+                    </div>                   
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo_PE_LineaTiempoProyecto()" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GrabarNuevo_PE_LineaTiempoProyecto() {
+        var esValido = validarViewModel_PE_LineaTiempoProyecto();
+
+        if (esValido === true) {
+            var TituloNuevo_PE_LineaTiempoProyecto = $('#txtTituloNuevo_PE_LineaTiempoProyecto').val();
+            var ID_PE_LineaTiempoProyecto = $('#txtIDLineaTiempo').val();
+
+            var viewModel = { InterfaceWeb: { Titulo: TituloNuevo_PE_LineaTiempoProyecto, SubTitulo: ID_PE_LineaTiempoProyecto } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertSeccionLineaTiempoProyecto", "ProyectosEmblematicos")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:                            
+                            reiniciarControles_PE_LineaTiempoProyecto();
+                            SelectRowsPerPage_SeccionLineaTiempo();
+                            SelectRowsPerPage_SeccionLineaTiempoProyecto(ID_PE_LineaTiempoProyecto);
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel_PE_LineaTiempoProyecto () {
+        var TituloNuevo_PE_LineaTiempoProyecto = $('#txtTituloNuevo_PE_LineaTiempoProyecto').val();
+
+        if (isNullOrEmpty(TituloNuevo_PE_LineaTiempoProyecto)) {
+            alertify.error('Título requerido.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles_PE_LineaTiempoProyecto() {
+        $("#txtTituloNuevo_PE_LineaTiempoProyecto").val('');
+    }
+</script>

@@ -1,0 +1,87 @@
+﻿
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<div class="modal fade" id="modalNuevoGaleria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="txtTituloNuevo_CC_Galeria">Título</label>
+                        <div class="col-sm-10">
+                            <input id="txtTituloNuevo_CC_Galeria" name="ParamTitulo" type="text" class="form-control"/>
+                        </div>
+                    </div>                              
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo_CC_Galeria(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GrabarNuevo_CC_Galeria(that) {
+        var esValido = validarViewModel_CC_Galeria();
+
+        if (esValido === true) {
+            var TituloNuevo_CC_Galeria = $('#txtTituloNuevo_CC_Galeria').val();
+            var SubTituloNuevo_CC_Galeria = "";
+            
+            var viewModel = { InterfaceWeb: { Titulo: TituloNuevo_CC_Galeria, SubTitulo: SubTituloNuevo_CC_Galeria } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertSeccionGaleria", "CentroCapacitacion")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalNuevoGaleria').modal('hide');
+                            reiniciarControles_CC_Galeria();
+                            SelectRowsPerPage_SeccionGaleria();
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel_CC_Galeria() {
+        var TituloNuevo_CC_Galeria = $('#txtTituloNuevo_CC_Galeria').val();        
+
+        if (isNullOrEmpty(TituloNuevo_CC_Galeria)) {
+            alertify.error('Título requerido.');
+            return false;
+        }
+  
+        return true;
+    }
+
+    function reiniciarControles_CC_Galeria() {
+        $("#txtTituloNuevo_CC_Galeria").val('');        
+    }
+</script>

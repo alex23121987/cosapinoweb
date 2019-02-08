@@ -1,0 +1,133 @@
+﻿
+<div class="modal fade" id="modalEditarAcceso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="cmbRolEditar">Rol</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="cmbRolEditar" name="cmbRolEditar">
+                                <option value="0">.: Seleccione :.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtCodigoEditar">Código</label>
+                        <div class="col-sm-9">
+                            <input id="txtCodigoEditar" type="text" class="form-control">
+                            <input id="txtIDAdministradorEditar" type="text" style="display:none">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtContrasenaEditar">Contraseña</label>
+                        <div class="col-sm-9">
+                            <input id="txtContrasenaEditar" type="text" class="form-control">                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="chkEstadoEditar">Estado</label>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="material-switch" style="padding-top: 8px;">
+                                <input id="chkEstadoEditar" type="checkbox" />
+                                <label for="chkEstadoEditar" class="label-info"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="EditarGrabar(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        Lista_Rol_Editar();
+    });
+
+    function Lista_Rol_Editar() {
+        $('#cmbRolEditar option').remove();
+        $.getJSON("@Url.Action("List_Rol", "Acceso")", function (data) {
+            $('<option>', { value: 0, text: ".: Seleccione :." }).html(".: Seleccione :.").appendTo("#cmbRolEditar");
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.N_IDRol, text: data.S_Descripcion }).html(data.S_Descripcion).appendTo("#cmbRolEditar");
+            });
+        })
+    }
+
+    function EditarGrabar(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var AdministradorId = $('#txtIDAdministradorEditar').val();
+            var Codigo = $('#txtCodigoEditar').val();
+            var Clave = $('#txtContrasenaEditar').val();
+            var IDRol = $('#cmbRolEditar').val();      
+            var Estado = $('#chkEstadoEditar').is(':checked');            
+            var viewModel = { Administrador: { AdministradorId: AdministradorId, Codigo: Codigo, Clave: Clave, Estado: Estado, IDRol: IDRol } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update", "Acceso")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalEditarAcceso').modal('hide');
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro actualizado.');
+                            break;
+                        case 0:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+
+        function validarViewModel() {
+            var IDAdministrador = $('#txtIDAdministradorEditar').val();
+            var Codigo = $('#txtCodigoEditar').val();
+            var Clave = $('#txtContrasenaEditar').val();
+
+            if (isNullOrEmpty(IDAdministrador)) {
+                alertify.error('Seleccione un registro.');
+                return false;
+            }
+
+            if (isNullOrEmpty(Codigo)) {
+                alertify.error('Código requerido.');
+                return false;
+            }
+
+            if (isNullOrEmpty(Clave)) {
+                alertify.error('Clave requerida.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function reiniciarControles() {
+            $("#txtCodigoEditar").val('');
+            $("#txtContrasenaEditar").val('');
+        }
+    }
+</script>

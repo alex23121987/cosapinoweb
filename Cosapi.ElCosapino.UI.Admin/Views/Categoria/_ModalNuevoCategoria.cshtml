@@ -1,0 +1,120 @@
+﻿<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<script>
+    $(function () {        
+        $('#txtColorNuevo').colorpicker({ horizontal: true});
+    });
+</script>
+
+<div class="modal fade" id="modalNuevoCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo registro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtDescripcionNuevo">Descripción</label>
+                        <div class="col-sm-9">
+                            <input id="txtDescripcionNuevo" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtColorNuevo">Color</label>
+                        <div class="col-sm-9">
+                            <input id="txtColorNuevo" type="text" class="form-control">                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="txtOrdenNuevo">Orden</label>
+                        <div class="col-sm-9">
+                            <input id="txtOrdenNuevo" type="text" class="form-control"  onkeypress="return SoloNumeros(event);" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a onclick="GrabarNuevo(this)" style="cursor:pointer" class="btn btn-azul"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-sign-out fa-fw"></span> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GrabarNuevo(that) {
+        var esValido = validarViewModel();
+
+        if (esValido === true) {
+            var Descripcion = $('#txtDescripcionNuevo').val();
+            var Orden = $('#txtOrdenNuevo').val();
+            var Color = $('#txtColorNuevo').val();
+
+            bloquearBotonesProceso(true);
+            var viewModel = { Categoria: { Descripcion: Descripcion, Orden: Orden, Color: Color } };
+
+            var jsonData = JSON.stringify(viewModel);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Insert", "Categoria")',
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Codigo) {
+                        case 1:
+                            $('#modalNuevoCategoria').modal('hide');
+                            reiniciarControles();
+                            SelectRowsPerPage();
+                            alertify.success('¡Bien!. Registro insertado.');
+                            break;
+                        case -1:
+                            alertify.error('¡Opss!. Los datos ya existen.');
+                            break;
+                        default:
+                            alertify.error('¡Opss!. Algo salió mal.');
+                            break;
+                    }
+                },
+                error: function () {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            });
+        }
+    }
+
+    function validarViewModel() {
+        var Descripcion = $('#txtDescripcionNuevo').val();
+        var Orden = $('#txtOrdenNuevo').val();
+        var Color = $('#txtColorNuevo').val();
+
+        if (isNullOrEmpty(Descripcion)) {
+            alertify.error('Descripción requerida.');
+            return false;
+        }
+
+        if (isNullOrEmpty(Color)) {
+            alertify.error('Color requerido.');
+            return false;
+        }
+
+        if (isNullOrEmpty(Orden)) {
+            alertify.error('Orden requerida.');
+            return false;
+        }        
+
+        return true;
+    }
+
+    function reiniciarControles() {
+        $("#txtDescripcionNuevo").val('');
+        $("#txtOrdenNuevo").val('');
+        $("#txtColorNuevo").val('');
+    }
+</script>

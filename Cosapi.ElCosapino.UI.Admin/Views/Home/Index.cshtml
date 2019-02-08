@@ -1,0 +1,204 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+<br />
+<style>
+    .content-wrapper {
+        background-image: url("./images/2862.png");        
+    }
+
+    section.box.marginBottom0,
+    .marginBottom0 {
+        margin-bottom: 0px;
+    }
+    section .content-body {
+        padding: 5px 30px 30px 30px;
+        background-color: #ffffff;
+        border: 1px solid #e8e8e8;
+        border-top: 0px;
+        -webkit-transition: 800ms;
+        -moz-transition: 800ms;
+        -o-transition: 800ms;
+        transition: 800ms;
+    }
+    .r4_counter {
+        min-height: 100px;
+        margin-bottom: 15px;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -webkit-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -moz-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -o-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -ms-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+    }
+        .r4_counter .fa {
+            margin-right: 0px;
+            width: 66px;
+            height: 66px;
+            text-align: center;
+        }
+
+    .icon-primary.icon-rounded, .icon-primary.icon-cornered, .icon-primary.icon-square {
+        background-color: #1a9cdc;
+        color: #ffffff;
+    }
+    .icon-md.icon-rounded, .icon-md.icon-cornered, .icon-md.icon-square, .icon-md.icon-bordered {
+        padding: 20px;
+    }
+
+    .r4_counter .stats {
+        padding-left: 85px;
+    }
+    .r4_counter h4 {
+        margin: 10px 0 5px 0;
+    }
+
+    .icon-rounded {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        padding: 15px;
+        background-color: #777777;
+        color: #ffffff;
+    }
+
+    .icon-md {
+        font-size: 28px;
+    }
+    .db_box {
+        padding: 15px;
+    }
+
+    .db_box {
+        background-color: #ffffff;
+        box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -webkit-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -moz-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -o-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+        -ms-box-shadow: 0 1px 3px rgba(33,33,33,.2);
+    }
+    .icon-warning.icon-rounded, .icon-warning.icon-cornered, .icon-warning.icon-square {
+        background-color: #FFC107;
+        color: #ffffff;
+    }
+    .icon-danger.icon-rounded, .icon-danger.icon-cornered, .icon-danger.icon-square {
+        background-color: #f44336;
+        color: #ffffff;
+    }
+    .icon-info.icon-rounded, .icon-info.icon-cornered, .icon-info.icon-square {
+        background-color: #03A9F4;
+        color: #ffffff;
+    }
+    .icon-success.icon-rounded, .icon-success.icon-cornered, .icon-success.icon-square {
+        background-color: #4CAF50;
+        color: #ffffff;
+    }
+</style>
+<div class="content">
+    <div class='col-xs-12 col-md-12'>     
+        <div class="content-wrapper">           
+            <div class="col-md-12" style="padding-left: 0px !important;padding-right: 0px !important;">
+                <section class="box">
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <br>
+                                @{ 
+                                    var Menu_Usuariox = Permisos.Find(c => c.S_IDPagina.Contains("4080"));
+                                    if (Menu_Usuariox != null)
+                                    {
+                                <div class="col-lg-3 col-sm-6 col-xs-12">
+                                    <div class="r4_counter db_box">
+                                        <i class="pull-left fa fa-users icon-md icon-rounded icon-primary"></i>
+                                        <div class="stats">
+                                            <h4><strong>@ViewBag.TotalUsuario</strong></h4>
+                                            <a href="~/Usuario"><span>Usuarios</span></a>
+                                        </div>
+                                    </div>
+                                </div>}
+
+                                    var Menu_Categoriax = Permisos.Find(c => c.S_IDPagina.Contains("4090"));
+                                    if (Menu_Categoriax != null)
+                                    {
+                                <div class="col-lg-3 col-sm-6 col-xs-12">
+                                    <div class="r4_counter db_box">
+                                        <i class="pull-left fa fa-tags icon-md icon-rounded icon-warning"></i>
+                                        <div class="stats">
+                                            <h4><strong>@ViewBag.TotalCategoria</strong></h4>
+                                            <a href="~/Categoria"><span>Categorías</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                    }
+
+                                    var Menu_Especialidadx = Permisos.Find(c => c.S_IDPagina.Contains("4050"));
+                                    if (Menu_Especialidadx != null)
+                                    {
+                                <div class="col-lg-3 col-sm-6 col-xs-12">
+                                    <div class="r4_counter db_box">
+                                        <i class="pull-left fa fa-cube icon-md icon-rounded icon-danger"></i>
+                                        <div class="stats">
+                                            <h4><strong>@ViewBag.TotalEspecialidad</strong></h4>
+                                            <a href="~/Especialidad"><span>Especialidades</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                    }
+
+                                    var Menu_Vacantesx = Permisos.Find(c => c.S_IDPagina.Contains("2010"));
+                                    if (Menu_Vacantesx != null)
+                                    {
+                                <div class="col-lg-3 col-sm-6 col-xs-12">
+                                    <div class="r4_counter db_box">
+                                        <i class="pull-left fa fa-user icon-md icon-rounded icon-info"></i>
+                                        <div class="stats">
+                                            <h4><strong>@ViewBag.TotalVacante</strong></h4>
+                                            <a href="~/Vacante"><span>Vacantes</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                    }
+
+                                    var Menu_Postulacionx = Permisos.Find(c => c.S_IDPagina.Contains("4060"));
+                                    if (Menu_Postulacionx != null)
+                                    {
+                                <div class="col-lg-3 col-sm-6 col-xs-12">
+                                    <div class="r4_counter db_box">
+                                        <i class="pull-left fa fa-list-alt icon-md icon-rounded icon-success"></i>
+                                        <div class="stats">
+                                            <h4><strong>@ViewBag.TotalPostulacion</strong></h4>
+                                            <a href="~/Postulacion"><span>Postulación</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                    }
+
+                                    var Menu_Noticiasx = Permisos.Find(c => c.S_IDPagina.Contains("5002"));
+                                    if (Menu_Noticiasx != null)
+                                    {
+                                <div class="col-lg-3 col-sm-6 col-xs-12">
+                                    <div class="r4_counter db_box">
+                                        <i class="pull-left fa fa-bullhorn icon-md icon-rounded icon-success"></i>
+                                        <div class="stats">
+                                            <h4><strong>@ViewBag.TotalNoticias</strong></h4>
+                                            <a href="~/Noticias"><span>Noticias</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                        }
+
+                                    }
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>        
+    </div>
+</div>

@@ -1,0 +1,173 @@
+﻿@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.RolAgg
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+@{
+    var grid = new CanvasGrid<Rol>("GridRol", Model) { callBackMethod = "GridRolReload", tableHtmlAttributes = new { @class = "Grid" } };    
+    grid.columnCollection.addColumn(_headerText: "Descripción", _filterKey: "S_Descripcion", _format: item => item.S_Descripcion);
+    grid.columnCollection.addColumn(_headerText: "Estado", _filterKey: "S_Estado", _format: item => item.S_Estado);
+    grid.columnCollection.addColumn(_headerText: "Acciones", _isFilterable: false, _isSortable: false, _format:
+        @<text>
+            @if (@item.S_Estado.Equals("Activo"))
+    {
+                <div class="acciones_grilla">
+                    <a onclick="ModalEditar(this)" style="cursor:pointer" title="Editar el Rol" data-value="@item.N_IDRol">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a onclick="ConfirmaDesactivar(this)" style="cursor:pointer" title="Desactivar el Rol" data-value="@item.N_IDRol">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                    <a onclick="ConfirmaEliminar(this)" style="cursor:pointer" title="Eliminar el Rol" data-value="@item.N_IDRol">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="acciones_grilla">
+                    <a id="lnkActivar" onclick="ConfirmarActivar(this)" style="cursor:pointer" title="Activar" data-value="@item.N_IDRol">
+                        <span class="glyphicon glyphicon-ok" style="color:#5DB65C"></span>
+                    </a>
+                </div>
+            }
+        </text>, _htmlAttributes: new { @width = "100px" });
+}
+@grid.GetHtml()
+<script>
+    function ConfirmaDesactivar(that) {
+        confirm("", "¿Está seguro de desactivar el registro?", function () {
+            Desactivar(that);
+        });
+    }
+
+    function Desactivar(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Desactivar", "Rol")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ConfirmaEliminar(that) {
+        confirm("", "¿Está seguro de eliminar el registro?", function () {
+            Eliminar(that);
+        });
+    }
+
+    function Eliminar(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Delete", "Rol")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage();
+                        alertify.success('¡Bien!. Registro eliminado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. El Rol tiene usuarios asignados.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ConfirmarActivar(that) {
+        confirm("", "¿Está seguro de activar el registro?", function () {
+            Activar(that);
+        });
+    }
+
+    function Activar(that) {
+        var codParameter = $(that).attr("data-value");
+        var CodStatus = "0";
+        var data = {
+            CodParameter: codParameter
+        };
+        var jsonData = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Activar", "Rol")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                switch (response.Codigo) {
+                    case 1:
+                        SelectRowsPerPage();
+                        alertify.success('¡Bien!. Registro activado.');
+                        break;
+                    case 0:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                    default:
+                        alertify.error('¡Opss!. Algo salió mal.');
+                        break;
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function ModalEditar(that) {
+        $('#DivRolLista').hide();
+        $('#DivRolNuevo').show();
+        $('#lblAccionRol').html("Editar");
+        var id = $(that).attr("data-value");        
+        var descripcion = that.parentElement.parentElement.parentElement.cells[0].innerText;
+
+        $('#txtCodigoEditar').val(id);        
+        $('#txtDescripcionNuevo').val(descripcion);
+
+        Buscar(id);
+    };
+
+</script>
+
+
+

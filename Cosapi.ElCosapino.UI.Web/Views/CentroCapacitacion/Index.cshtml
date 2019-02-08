@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .main-content .popular {background: #fff;}
+    .main-content .popular .item {float: left;width: 25%;text-align: center;position: relative;}
+    .main-content .popular .item:after {content: "";width: 2px;height: 100%;position: absolute;right: 0;top: 0;}
+    .main-content .popular .item p {text-align: left;padding-left: 20px;}
+    .main-content .popular .item p a {font-size: 16px;color: #414a56;}
+    .main-content .programa {background: #fff;}
+    .main-content .programa .item {float: left;width: 25%;text-align: center;position: relative;}
+    .main-content .programa .item:after {content: "";width: 2px;height: 100%;position: absolute;right: 0;top: 0;}
+    .main-content .programa .item p {text-align: left;padding-left: 20px;}
+    .main-content .programa .item p a {font-size: 16px;color: #414a56;}
+    .itemprograma_top {width: 220px;height: 80px;background-color: #FF8F45;text-align: center;vertical-align: middle;padding: 5px;color: #FFFFFF;font-weight: bold}
+    .itemprograma_down {width: 220px;height: 85px;background-color: #FF8F45;margin-top: 14px;text-align: center;vertical-align: middle;padding: 5px;color: #FFFFFF;font-weight: bold}
+</style>
+<link href="~/Content/bxslider/jquery.bxslider.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/bxslider/jquery.bxslider.js"></script>
+<script src="~/Scripts/lightbox.min.js"></script>
+<script src="~/Scripts/jquery.timelinr-0.9.7.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.bxslider').bxSlider({
+            controls: false,
+            auto: true,
+            pause: 10000,
+            speed: 500
+        });
+
+        $('.popular').bxSlider({
+            auto: false,
+            autoControls: false,
+            speed: 1000,
+            slideSelector: 'div.item',
+            minSlides: 4,
+            maxSlides: 4,
+            moveSlides: 4,
+            slideWidth: 200,
+            pager: false
+        });
+
+        $('.programa').bxSlider({
+            auto: false,
+            autoControls: false,
+            speed: 1000,
+            slideSelector: 'div.item',
+            minSlides: 4,
+            maxSlides: 4,
+            moveSlides: 4,
+            slideWidth: 200,
+            pager: false
+        });
+
+        $('.albumprograma').bxSlider({
+            minSlides: 1,
+            maxSlides: 1,
+            slideWidth: 268,
+            slideMargin: 20,
+            auto: true,
+            pager: false
+        });
+    });
+
+    $(function () {
+        $().timelinr({
+            orientation: 'horizontal', containerDiv: '#AlbumPrograma', datesDiv: '#dates', datesSelectedClass: 'selected', datesSpeed: 'normal', issuesDiv: '#issues',
+            issuesSelectedClass: 'selected', issuesSpeed: 'fast', issuesTransparency: 0.2, issuesTransparencySpeed: 500, prevButton: '#prev', nextButton: '#next', arrowKeys: 'false', startAt: 1, autoPlay: 'false', autoPlayDirection: 'forward', autoPlayPause: 2000
+        })     
+    });
+
+    function ModalAlbumPrograma(IDInterfaceWeb) {
+        $('#modalAlbumPrograma').modal('show');
+        MostrarGaleriaFotos(IDInterfaceWeb);
+    }
+
+    function MostrarGaleriaFotos(IDInterfaceWeb) {
+        $("#container_FotosPrograma").load("@(Url.Action("List_FotosPrograma", "CentroCapacitacion"))?IDPrograma=" + IDInterfaceWeb);     
+    }
+</script>
+<div class="choose-area pt-60" style="background-color:#FF8F45">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="headline">
+                    <h2>CENTRO DE CAPACITACIONES</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="bxslider">
+            @foreach (var item in Model.CentroCapacitacion_SeccionImagenesSuperiores)
+            {
+                <li>
+                    <img src="@ViewBag.UrlAdmin/Upload/CentroCapacitacion/ImagenesSuperiores/@item.Imagen" style="height:270px;">
+                </li>
+            }        
+        </ul>
+    </div>
+</div>
+<div class="choose-area pt-30">
+    <div class="container-cosapino">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                <span style="color:#009ED3; font-weight:bold;">
+                    TE INVITAMOS A QUE CONOZCAS MÁS SOBRE NOSOTROS Y AQUELLOS ASPECTOS DE INTERÉS PARA TÍ Y TU FAMILIA.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                @Html.Raw(Model.CentroCapacitacion_SeccionSuperior)                
+            </div>
+        </div>
+        <div class="row" style="padding-top:25px; padding-bottom:5px;">
+            <div class="col-md-12 col-sm-12">
+                <div class="main-content" style="padding-top:20px; padding-bottom:35px;">
+                    <div class="programa" >
+                        @foreach (var item in Model.CentroCapacitacion_SeccionPrograma)
+    {
+                    <div class="item">
+                        <div class="lightbox-item">
+                            <div class="recent-photo" style="height:150px !important;">
+                                <div class="lightbox-bgsimple">
+                                    <div style="background-color: #FF8F45;border-radius: 10px;height: 65px;display: flex;justify-content: center;align-items: center;"><span>@item.Titulo</span></div>
+                                    <div style="background-color: #CCCCCC;border-radius: 10px;">@item.SubTitulo</div>                                    
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+}
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                <span style="color:#009ED3; font-weight:bold;">
+                    CAPACITACIÓN EN PROYECTOS
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                Revisa aquí las capacitaciones desarrolladas en nuestros proyectos.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="main-content"  style="padding-top:20px; padding-bottom:35px;">
+                    <div class="popular">
+                        @foreach (var item in Model.CentroCapacitacion_SeccionGaleriaConFotos)
+                        {
+                            <div class="item">
+                                <div class="lightbox-item">
+                                    <div class="recent-photo" style="background-image: url(@ViewBag.UrlAdmin/Upload/CentroCapacitacion/Foto/@item.Imagen)">
+                                        <div class="lightbox-bg">@item.Titulo</div>
+                                        <div class="lightbox-text">
+                                            <div class="lightbox-table">
+                                                <div class="lightbox-icon">
+                                                    <a onclick="ModalAlbumPrograma(@item.IDInterfaceWeb)"><i class="fa fa-search-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        }
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="seccion-modal-ModalAlbum">
+    @Html.Partial("_ModalAlbum")
+</div>

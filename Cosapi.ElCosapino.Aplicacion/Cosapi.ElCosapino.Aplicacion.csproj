@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F032ABDF-4BC0-4F69-A424-5AE3BF303352}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cosapi.ElCosapino.Aplicacion</RootNamespace>
+    <AssemblyName>Cosapi.ElCosapino.Aplicacion</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AccesoService\AccesoAppService.cs" />
+    <Compile Include="Security\AccesoService\IAccesoAppService.cs" />
+    <Compile Include="Security\BaseService\BaseAppService.cs" />
+    <Compile Include="Security\BaseService\IBaseAppService.cs" />
+    <Compile Include="Security\CategoriaService\CategoriaAppService.cs" />
+    <Compile Include="Security\CategoriaService\ICategoriaAppService.cs" />
+    <Compile Include="Security\DepartamentoService\DepartamentoAppService.cs" />
+    <Compile Include="Security\DepartamentoService\IDepartamentoAppService.cs" />
+    <Compile Include="Security\DistritoService\DistritoAppService.cs" />
+    <Compile Include="Security\DistritoService\IDistritoAppService.cs" />
+    <Compile Include="Security\EspecialidadService\EspecialidadAppService.cs" />
+    <Compile Include="Security\EspecialidadService\IEspecialidadAppService.cs" />
+    <Compile Include="Security\InterfaceWebService\IInterfaceWebAppService.cs" />
+    <Compile Include="Security\InterfaceWebService\InterfaceWebAppService.cs" />
+    <Compile Include="Security\LoginService\ILoginAppService.cs" />
+    <Compile Include="Security\LoginService\LoginAppService.cs" />
+    <Compile Include="Security\LogService\ILogAppService.cs" />
+    <Compile Include="Security\LogService\LogAppService.cs" />
+    <Compile Include="Security\NotificacionService\INotificacionAppService.cs" />
+    <Compile Include="Security\NotificacionService\NotificacionAppService.cs" />
+    <Compile Include="Security\ParametroGeneralService\IParametroGeneralAppService.cs" />
+    <Compile Include="Security\ParametroGeneralService\ParametroGeneralAppService.cs" />
+    <Compile Include="Security\PerfilService\IPerfilAppService.cs" />
+    <Compile Include="Security\PerfilService\PerfilAppService.cs" />
+    <Compile Include="Security\PostulacionService\IPostulacionAppService.cs" />
+    <Compile Include="Security\PostulacionService\PostulacionAppService.cs" />
+    <Compile Include="Security\ProvinciaService\IProvinciaAppService.cs" />
+    <Compile Include="Security\ProvinciaService\ProvinciaAppService.cs" />
+    <Compile Include="Security\RolService\IRolAppService.cs" />
+    <Compile Include="Security\RolService\RolAppService.cs" />
+    <Compile Include="Security\UsuarioService\IUsuarioAppService.cs" />
+    <Compile Include="Security\UsuarioService\UsuarioAppService.cs" />
+    <Compile Include="Security\VacanteService\IVacanteAppService.cs" />
+    <Compile Include="Security\VacanteService\VacanteAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cosapi.ElCosapino.Dominio\Cosapi.ElCosapino.Dominio.csproj">
+      <Project>{b8618ec0-3bb7-4928-b55a-b0388add3bb5}</Project>
+      <Name>Cosapi.ElCosapino.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cosapi.ElCosapino.Repositorio\Cosapi.ElCosapino.Repositorio.csproj">
+      <Project>{fef43e35-f387-4104-94f5-e8666d67416c}</Project>
+      <Name>Cosapi.ElCosapino.Repositorio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

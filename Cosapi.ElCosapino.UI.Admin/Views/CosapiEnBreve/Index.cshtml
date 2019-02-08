@@ -1,0 +1,299 @@
+﻿@using Newtonsoft.Json
+@using Cosapi.ElCosapino.CrossCutting.Util
+@using Cosapi.ElCosapino.Dominio.Security.Aggregates.LoginAgg
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Permisos = (List<PermisoUsuario>)Session[Constantes.SessionKey.USERPERMISSIONS];
+    Permisos = (Permisos ?? new List<PermisoUsuario>());
+}
+
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        mode: "specific_textareas",
+        editor_selector: "editorHtml",
+        menubar: false,
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image'
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalNuevoSeccionLogo').click(function () {
+            $('#modalNuevoSeccionLogo').show();
+        });
+
+        $('#btnModalNuevoSeccionInferior').click(function () {
+            $('#modalNuevoSeccionInferior').show();
+        });
+
+        $('.date-picker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+    });
+
+    function SelectRowsPerPage_SeccionLogo() {
+        var rowsPerPage = 2;
+        GridSeccionReload_SeccionLogo(Number(rowsPerPage));
+    }
+
+     function GridSeccionReload_SeccionLogo(rowsPerPage) {
+        var data = $("#GridSeccionLogo").CanvasDeserialice();
+        if (rowsPerPage) {
+            data.RowsPerPage = rowsPerPage;
+            data.CurrentPageIndex = 1;
+        }
+        ShowLoadingShared();
+        $("#container_GridSeccionLogo").load("@(Url.Action("IndexPaginateSeccionLogo", "CosapiEnBreve"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+
+    function SelectRowsPerPage_SeccionInferior() {
+        var rowsPerPage = 10;
+        GridSeccionReload_SeccionInferior(Number(rowsPerPage));
+    }
+
+    function GridSeccionReload_SeccionInferior(rowsPerPage) {
+        var data = $("#GridSeccionInferior").CanvasDeserialice();
+        if (rowsPerPage) {data.RowsPerPage = rowsPerPage;data.CurrentPageIndex = 1;}
+        ShowLoadingShared();
+        $("#container_GridSeccionInferior").load("@(Url.Action("IndexPaginateSeccionInferior", "CosapiEnBreve"))?arg=" + encodeURI(JSON.stringify(data)));
+        HideLoadingShared();
+    }
+</script>
+
+<div class="content">
+    <div id="DivRolNuevo" class='col-xs-12 col-md-12'>
+        <h1 class="main-title">Registro<small><i class="ace-icon fa fa-angle-double-right"></i>&nbsp;Cosapi en Breve</small></h1>
+        
+
+        <table id="tblCreateRol">
+            <tr>
+                <td>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN SUPERIOR</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <textarea id="txtCBSS_Descripcion" type="text" class="form-control editorHtml" rows="8">@Html.Raw(Model.CosapiBreve_SeccionSuperior)</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <a onclick="GrabarTitulo(1,100,'txtCBSS_Descripcion')" style="cursor:pointer" class="btn btn-azul" title="Grabar"><span class="glyphicon glyphicon-ok"></span> Grabar</a>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN LOGO</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 210px de ancho y 85px de alto. Peso máximo 1MB.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionLogo" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionLogo", "CosapiEnBreve", new
+            {
+                arg = JsonConvert.SerializeObject(new
+                {
+                    CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                    RowsPerPage = 2,
+                    OrderBy = "",
+                    DirectionOrder = "Ascending"
+                })
+            })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoSeccionLogo" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">SECCIÓN INFERIOR</div>
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding-left: 0px !important;">
+                                <div class="color-box">
+                                    <div class="shadow">
+                                        <div title="Important Notes" class="info-tab note-icon">&nbsp;</div>
+                                        <div class="note-box">
+                                            <p>
+                                                <strong>
+                                                    <span id="MainContent_lbNota">Nota:</span>
+                                                </strong>
+                                                <span id="MainContent_lbDetalleNota">
+                                                    Se recomienda usar imágenes de 240px de ancho y 125px de alto. Peso máximo 1MB.<br />
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div id="container_GridSeccionInferior" class="GrillaSistema">
+                                        @Html.Action("IndexPaginateSeccionInferior", "CosapiEnBreve", new
+            {
+                arg = JsonConvert.SerializeObject(new
+                {
+                    CurrentPageIndex = Constantes.Paginacion.DefaultPage,
+                    RowsPerPage = Constantes.Paginacion.RowsByPage_Normal,
+                    OrderBy = "",
+                    DirectionOrder = "Ascending"
+                })
+            })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right">
+                            <button id="btnModalNuevoSeccionInferior" class="btn btn-azul btn-buscador-encrustado form-group pull-right" type="button" style="position:relative;">
+                                Nuevo <span class="glyphicon glyphicon-new-window"></span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<!--INICIO DE VENTANAS DE MODALES-->
+<div id="seccion-modal-nuevo-Inferior">
+    @Html.Partial("_ModalNuevoInferior")
+</div>
+
+<div id="seccion-modal-nuevo-Logo">
+    @Html.Partial("_ModalNuevoLogo")
+</div>
+
+<div id="seccion-modal-EditarSeccionInferior">
+    @Html.Partial("_ModalEditarSeccionInferior")
+</div>
+
+<script>
+    function GrabarTitulo(IDModulo,IDSeccion,Control) {
+        var IDModulo = IDModulo;
+        var IDSeccion = IDSeccion;
+        var Titulo = tinyMCE.get(Control).getContent();
+        var viewModel = { InterfaceWeb: { IDModulo: IDModulo, IDSeccion: IDSeccion, Titulo: Titulo } };
+
+        var jsonData = JSON.stringify(viewModel);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("InsertUnique", "CosapiEnbreve")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.Codigo > 0) {
+                    alertify.success('¡Bien!. Registro enviado.');
+                } else {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });
+    }
+
+    function validarViewModel() {
+        var Descripcion = $('#txtDescripcionNuevo').val();
+        var SeleccionRol = $("#hddIdStatusTree").val();
+
+        if (isNullOrEmpty(Descripcion)) {
+            alertify.error('Descripción requerida.');
+            return false;
+        }
+
+        if (SeleccionRol == 0) {
+            alertify.error('Opción del Sistema requerida.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function reiniciarControles() {
+        $('#txtCodigoEditar').val('');
+        $("#txtDescripcionNuevo").val('');
+    }
+
+    function GrabarImagenLogo() {
+       // var model = @Html.Raw(Json.Encode(Model));
+        var files = $("#imgLogo")[0].files;
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    data.append("file" + x, files[x]);
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UploadFile", "CosapiEnbreve")',
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        //$('#image').attr('src', '@Url.Content("~/Upload/CosapiEnBreve/Logos/")' + result.fileName);
+                        alertify.success('¡Bien!. Registro enviado.');
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        var err = "Error " + " " + status + " " + p3 + " " + p4;
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        console.log(err);
+                    }
+                });
+            } else {
+                alert("This browser doesn't support HTML5 file uploads!");
+            }
+        }
+
+        @*var IDModulo = IDModulo;
+        var IDSeccion = IDSeccion;
+        var Titulo = "";
+        var viewModel = { InterfaceWeb: { IDModulo: IDModulo, IDSeccion: IDSeccion, Imagen: Titulo } };
+
+        var jsonData = JSON.stringify(viewModel);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("InsertUnique", "CosapiEnbreve")',
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.Codigo > 0) {
+                    alertify.success('¡Bien!. Registro enviado.');
+                } else {
+                    alertify.error('¡Opss!. Algo salió mal.');
+                }
+            },
+            error: function () {
+                alertify.error('¡Opss!. Algo salió mal.');
+            }
+        });*@
+    }
+</script>
